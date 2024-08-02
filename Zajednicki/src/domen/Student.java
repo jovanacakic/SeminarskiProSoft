@@ -14,73 +14,26 @@ import java.util.List;
  *
  * @author jovana
  */
-public class Radnik extends AbstractDomainObject {
+public class Student extends AbstractDomainObject {
 
     private int id;
-    private String username;
-    private String password;
+    private String index;
     private String ime;
     private String prezime;
 
-    @Override
-    public String toString() {
-        return ime + " " + prezime;
+    public Student() {
     }
 
-    public Radnik() {
-    }
-
-    public Radnik(int id, String username, String password, String ime, String prezime) {
+    public Student(int id, String ime, String prezime, String index) {
         this.id = id;
-        this.username = username;
-        this.password = password;
+        this.index = index;
         this.ime = ime;
         this.prezime = prezime;
-    }
-
-    public String getPrezime() {
-        return prezime;
-    }
-
-    public void setPrezime(String prezime) {
-        this.prezime = prezime;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getIme() {
-        return ime;
-    }
-
-    public void setIme(String ime) {
-        this.ime = ime;
     }
 
     @Override
     public String getTableName() {
-        return "radnik";
+        return "student";
     }
 
     @Override
@@ -153,19 +106,14 @@ public class Radnik extends AbstractDomainObject {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
-//    @Override
-//    public String getNazivTabele() {
-//        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-//    }
-
     @Override
     public String getParametre() {
-        return String.format("%d, '%s', '%s', '%s', '%s'", id, username, password, ime, prezime);
+        return String.format("%d, '%s', '%s', '%s'", id, ime, prezime, index);
     }
 
     @Override
     public String getNaziveParametara() {
-        return "id, username, password, ime, prezime";
+        return "id, ime, prezime, `index`";
     }
 
     @Override
@@ -185,21 +133,20 @@ public class Radnik extends AbstractDomainObject {
 
     @Override
     public List<AbstractDomainObject> konvertujRSUListu(ResultSet rs) {
-        ArrayList<AbstractDomainObject> radnici = new ArrayList<>();
+        ArrayList<AbstractDomainObject> studenti = new ArrayList<>();
         try {
             while (rs.next()) {
                 int rsId = rs.getInt("id");
-                String rsKorisnickoIme = rs.getString("username");
-                String rsLozinka = rs.getString("password");
+                String rsIndex = rs.getString("index");
                 String rsIme = rs.getString("ime");
-                String rePrezime = rs.getString("prezime");
+                String rsPrezime = rs.getString("prezime");
 
-                radnici.add(new Radnik(rsId, rsKorisnickoIme, rsLozinka, rsIme, rePrezime));
+                studenti.add(new Student(rsId, rsIndex, rsIme, rsPrezime));
             }
         } catch (SQLException e) {
-            System.out.println("Greska u Radnik::konvertujRSUListu\n" + e.getMessage());
+            System.out.println("Greska u Student::konvertujRSUListu\n" + e.getMessage());
         }
-        return radnici;
+        return studenti;
     }
 
     @Override
@@ -209,28 +156,59 @@ public class Radnik extends AbstractDomainObject {
 
     @Override
     public String getSelectUpitPoParametru() {
-        return "SELECT * FROM " + getTableName() + " WHERE id = " + getVrednostPrimarnogKljuca();
+        return "SELECT * FROM " + getTableName() + " WHERE id = " + getId() + " OR jmbg = '" + getIndex() + "'";
     }
 
     @Override
     public String getInsertUpit() {
-        return null;
+        return "INSERT INTO " + getTableName() + "(" + getNaziveParametara() + ")" + " VALUES (" + getParametre() + ")";
     }
 
     @Override
     public String getUpdateUpit() {
-        return String.format("id = %d, korisnickoIme = '%s', lozinka = '%s', ime = '%s', prezime = '%s'",
-                id, username, password, ime, prezime);
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
     public String getUpdateParametre() {
-        return null;
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
     public String getDeleteUpit() {
-        return null;
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    public String getIndex() {
+        return index;
+    }
+
+    public void setIndex(String index) {
+        this.index = index;
+    }
+
+    public String getIme() {
+        return ime;
+    }
+
+    public void setIme(String ime) {
+        this.ime = ime;
+    }
+
+    public String getPrezime() {
+        return prezime;
+    }
+
+    public void setPrezime(String prezime) {
+        this.prezime = prezime;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
 }
