@@ -56,6 +56,7 @@ public class KlijentskaNit extends Thread {
             boolean uspeh;
 
             AbstractDomainObject radnik;
+            AbstractDomainObject student;
             List<AbstractDomainObject> lista;
 
             switch (kz.getOperacija()) {
@@ -84,6 +85,22 @@ public class KlijentskaNit extends Thread {
                         so.setPoruka("Sistem ne moze da kreira studenta");
                         so.setUspeh(Operacije.NEUSPEH);
                     }
+                    break;
+                case Operacije.PRETRAZI_STUDENTE:
+                    lista = StudentKontroler.getInstance().pretraziStudente((String) kz.getParametar());
+                    so.setOdgovor(lista);
+
+                    if (lista.isEmpty()) {
+                        so.setPoruka("Sistem ne moze da nadje spasioca po zadatoj vrednosti");
+                    }
+                    break;
+                case Operacije.UCITAJ_LISTU_STUDENATA:
+                    lista = StudentKontroler.getInstance().ucitajListuSpasioca();
+                    so.setOdgovor(lista);
+                    break;
+                case Operacije.UCITAJ_STUDENTA:
+                    student = StudentKontroler.getInstance().ucitajSpasioca((Student) kz.getParametar());
+                    so.setOdgovor(student);
                     break;
                 default:
                     throw new AssertionError();

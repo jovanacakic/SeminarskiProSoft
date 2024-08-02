@@ -55,9 +55,10 @@ public class StudentKontroler {
 //        return so.isUspeh();
 //    }
 //
-//    public List<AbstractDomainObject> pretraziSpasioce(String kriterijum) {
-//        SONadjiStudente so = new SONadjiStudente(kriterijum);
-//        so.izvrsiSistemskuOperaciju();
-//        return so.getRezultat();
-//    }
+    public List<AbstractDomainObject> pretraziStudente(String kriterijum) {
+        SONadjiStudente so = new SONadjiStudente(kriterijum);
+        so.izvrsiSistemskuOperaciju();
+        return so.getRezultat();
+    }
+
 }
