@@ -5,10 +5,12 @@
 package kontroler;
 
 import domen.Student;
+import java.util.List;
 import konstante.Operacije;
 import transfer.KlijentskiZahtev;
 import transfer.ServerskiOdgovor;
 //klijent
+
 /**
  *
  * @author jovana
@@ -33,5 +35,30 @@ public class StudentKontroler {
 
         return so.getUspeh() == Operacije.USPEH;
 
+    }
+
+    public List<Student> pretraziStudente(String kriterijum) {
+        ServerKontroler.getInstanca().posaljiZahtev(new KlijentskiZahtev(kriterijum, Operacije.PRETRAZI_STUDENTE));
+        ServerskiOdgovor o = ServerKontroler.getInstanca().primiOdgovor();
+
+        return (List<Student>) o.getOdgovor();
+    }
+
+    public List<Student> ucitajListuStudenata(List<Student> studenti) {
+        ServerKontroler.getInstanca().posaljiZahtev(new KlijentskiZahtev(studenti, Operacije.UCITAJ_LISTU_STUDENATA));
+        ServerskiOdgovor o = ServerKontroler.getInstanca().primiOdgovor();
+
+        return (List<Student>) o.getOdgovor();
+    }
+
+    public Student ucitajSpasioca(Student student) {
+        ServerKontroler.getInstanca().posaljiZahtev(new KlijentskiZahtev(student, Operacije.UCITAJ_STUDENTA));
+        ServerskiOdgovor o = ServerKontroler.getInstanca().primiOdgovor();
+
+        return (Student) o.getOdgovor();
+    }
+
+    public boolean azurirajStudenta(Student student) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }

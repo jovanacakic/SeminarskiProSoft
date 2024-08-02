@@ -5,6 +5,7 @@
 package gui.frame;
 
 import gui.student.AddStudent;
+import gui.student.SearchStudent;
 import niti.KlijentskaNit;
 
 /**
@@ -36,6 +37,7 @@ public class KlijentFrame extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jmiDodajStudenta = new javax.swing.JMenuItem();
+        jmiPretraga = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenu3 = new javax.swing.JMenu();
 
@@ -52,6 +54,14 @@ public class KlijentFrame extends javax.swing.JFrame {
             }
         });
         jMenu1.add(jmiDodajStudenta);
+
+        jmiPretraga.setText("Pretraga studenata");
+        jmiPretraga.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiPretragaActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jmiPretraga);
 
         jMenuBar1.add(jMenu1);
 
@@ -80,6 +90,10 @@ public class KlijentFrame extends javax.swing.JFrame {
     private void jmiDodajStudentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiDodajStudentaActionPerformed
         new AddStudent().setVisible(true);
     }//GEN-LAST:event_jmiDodajStudentaActionPerformed
+
+    private void jmiPretragaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiPretragaActionPerformed
+        new SearchStudent().setVisible(true);
+    }//GEN-LAST:event_jmiPretragaActionPerformed
 
 //    /**
 //     * @param args the command line arguments
@@ -123,5 +137,6 @@ public class KlijentFrame extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jmiDodajStudenta;
+    private javax.swing.JMenuItem jmiPretraga;
     // End of variables declaration//GEN-END:variables
 }
