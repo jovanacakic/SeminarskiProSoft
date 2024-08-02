@@ -4,6 +4,7 @@
  */
 package gui.frame;
 
+import gui.student.AddStudent;
 import niti.KlijentskaNit;
 
 /**
@@ -31,7 +32,36 @@ public class KlijentFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu1 = new javax.swing.JMenu();
+        jmiDodajStudenta = new javax.swing.JMenuItem();
+        jMenu2 = new javax.swing.JMenu();
+        jMenu3 = new javax.swing.JMenu();
+
+        jMenuItem1.setText("jMenuItem1");
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jMenu1.setText("Studenti");
+
+        jmiDodajStudenta.setText("Dodaj studenta");
+        jmiDodajStudenta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiDodajStudentaActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jmiDodajStudenta);
+
+        jMenuBar1.add(jMenu1);
+
+        jMenu2.setText("Razmene");
+        jMenuBar1.add(jMenu2);
+
+        jMenu3.setText("Izveštaj");
+        jMenuBar1.add(jMenu3);
+
+        setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -41,11 +71,15 @@ public class KlijentFrame extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGap(0, 277, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jmiDodajStudentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiDodajStudentaActionPerformed
+        new AddStudent().setVisible(true);
+    }//GEN-LAST:event_jmiDodajStudentaActionPerformed
 
 //    /**
 //     * @param args the command line arguments
@@ -83,5 +117,11 @@ public class KlijentFrame extends javax.swing.JFrame {
 //    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenu jMenu3;
+    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jmiDodajStudenta;
     // End of variables declaration//GEN-END:variables
 }
