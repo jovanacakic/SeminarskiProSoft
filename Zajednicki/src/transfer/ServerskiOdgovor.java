@@ -10,16 +10,16 @@ import java.io.Serializable;
  *
  * @author jovana
  */
-public class Odgovor implements Serializable{
+public class ServerskiOdgovor implements Serializable{
 
     private Object odgovor;
     private int uspeh;
     private String poruka;
 
-    public Odgovor() {
+    public ServerskiOdgovor() {
     }
 
-    public Odgovor(Object odgovor, int uspeh, String poruka) {
+    public ServerskiOdgovor(Object odgovor, int uspeh, String poruka) {
         this.odgovor = odgovor;
         this.uspeh = uspeh;
         this.poruka = poruka;

@@ -10,15 +10,15 @@ import java.io.Serializable;
  *
  * @author jovana
  */
-public class Zahtev implements Serializable{
+public class KlijentskiZahtev implements Serializable{
 
     private Object parametar;
     private int operacija;
 
-    public Zahtev() {
+    public KlijentskiZahtev() {
     }
 
-    public Zahtev(Object parametar, int operacija) {
+    public KlijentskiZahtev(Object parametar, int operacija) {
         this.parametar = parametar;
         this.operacija = operacija;
     }

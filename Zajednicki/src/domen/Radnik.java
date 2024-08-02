@@ -5,18 +5,28 @@
 package domen;
 
 import java.io.Serializable;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
  * @author jovana
  */
-public class Radnik implements Serializable {
+public class Radnik extends AbstractDomainObject {
 
     private int id;
     private String username;
     private String password;
     private String ime;
     private String prezime;
+
+    @Override
+    public String toString() {
+        return ime + " " + prezime;
+    }
 
     public Radnik() {
     }
@@ -67,6 +77,161 @@ public class Radnik implements Serializable {
 
     public void setIme(String ime) {
         this.ime = ime;
+    }
+
+    @Override
+    public String getTableName() {
+        return "radnik";
+    }
+
+    @Override
+    public String getColumnsForInsert() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public String getParamsForInsert() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public void setParamsForInsert(PreparedStatement statement, AbstractDomainObject domainObject) throws SQLException {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public String getColumnsForUpdate() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public String getParamsForUpdate() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public void setParamsForUpdate(PreparedStatement statement, AbstractDomainObject domainObject) throws SQLException {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public Long getPrimaryKeyValue() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public String alias() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public String join() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public List<AbstractDomainObject> getList(ResultSet rs) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public String getPrimaryKey() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public void setAutoIncrementPrimaryKey(long generatedKey) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public String conditon() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public Long setCondition() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+//    @Override
+//    public String getNazivTabele() {
+//        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+//    }
+
+    @Override
+    public String getParametre() {
+        return String.format("%d, '%s', '%s', '%s', '%s'", id, username, password, ime, prezime);
+    }
+
+    @Override
+    public String getNaziveParametara() {
+        return "id, username, password, ime, prezime";
+    }
+
+    @Override
+    public String getNazivPrimarnogKljuca() {
+        return "id";
+    }
+
+    @Override
+    public Integer getVrednostPrimarnogKljuca() {
+        return id;
+    }
+
+    @Override
+    public String getSlozeniPrimarniKljuc() {
+        return null;
+    }
+
+    @Override
+    public List<AbstractDomainObject> konvertujRSUListu(ResultSet rs) {
+        ArrayList<AbstractDomainObject> radnici = new ArrayList<>();
+        try {
+            while (rs.next()) {
+                int rsId = rs.getInt("id");
+                String rsKorisnickoIme = rs.getString("username");
+                String rsLozinka = rs.getString("password");
+                String rsIme = rs.getString("ime");
+                String rePrezime = rs.getString("prezime");
+
+                radnici.add(new Radnik(rsId, rsKorisnickoIme, rsLozinka, rsIme, rePrezime));
+            }
+        } catch (SQLException e) {
+            System.out.println("Greska u Radnik::konvertujRSUListu\n" + e.getMessage());
+        }
+        return radnici;
+    }
+
+    @Override
+    public String getSelectUpit() {
+        return "SELECT * FROM " + getTableName();
+    }
+
+    @Override
+    public String getSelectUpitPoParametru() {
+        return "SELECT * FROM " + getTableName() + " WHERE id = " + getVrednostPrimarnogKljuca();
+    }
+
+    @Override
+    public String getInsertUpit() {
+        return null;
+    }
+
+    @Override
+    public String getUpdateUpit() {
+        return String.format("id = %d, korisnickoIme = '%s', lozinka = '%s', ime = '%s', prezime = '%s'",
+                id, username, password, ime, prezime);
+    }
+
+    @Override
+    public String getUpdateParametre() {
+        return null;
+    }
+
+    @Override
+    public String getDeleteUpit() {
+        return null;
     }
 
 }
