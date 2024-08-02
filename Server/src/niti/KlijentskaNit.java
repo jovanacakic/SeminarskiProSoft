@@ -6,6 +6,7 @@ package niti;
 
 import domen.AbstractDomainObject;
 import domen.Radnik;
+import domen.Student;
 import gui.frame.ServerFrame;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -14,6 +15,7 @@ import java.net.Socket;
 import java.util.List;
 import konstante.Operacije;
 import kontroleri.RadnikKontroler;
+import kontroleri.StudentKontroler;
 import transfer.KlijentskiZahtev;
 import transfer.ServerskiOdgovor;
 
@@ -46,23 +48,25 @@ public class KlijentskaNit extends Thread {
 
         while (signal && !isInterrupted()) {
             KlijentskiZahtev kz = primiZahtev();
-            if(kz == null) break;
-            
+            if (kz == null) {
+                break;
+            }
+
             ServerskiOdgovor so = new ServerskiOdgovor();
             boolean uspeh;
-            
+
             AbstractDomainObject radnik;
             List<AbstractDomainObject> lista;
-            
+
             switch (kz.getOperacija()) {
-                
+
                 case Operacije.PRIJAVI_RADNIKA:
                     radnik = RadnikKontroler.getInstanca().prijaviRadnika((Radnik) kz.getParametar());
-                    if(radnik != null){
+                    if (radnik != null) {
                         frame.dodajRadnika((Radnik) radnik, getKlijentskiSocket());
                         so.setOdgovor(radnik);
                         so.setUspeh(Operacije.USPEH);
-                    } else{
+                    } else {
                         so.setOdgovor(null);
                         so.setUspeh(Operacije.NEUSPEH);
                     }
@@ -70,6 +74,16 @@ public class KlijentskaNit extends Thread {
                 case Operacije.UCITAJ_RADNIKA:
                     radnik = RadnikKontroler.getInstanca().ucitajRadnika((Radnik) kz.getParametar());
                     so.setOdgovor(radnik);
+                    break;
+                case Operacije.DODAJ_STUDENTA:
+                    uspeh = StudentKontroler.getInstance().dodajStudenta((Student) kz.getParametar());
+                    if (uspeh) {
+                        so.setPoruka("Sistem je kreirao studenta");
+                        so.setUspeh(Operacije.USPEH);
+                    } else {
+                        so.setPoruka("Sistem ne moze da kreira studenta");
+                        so.setUspeh(Operacije.NEUSPEH);
+                    }
                     break;
                 default:
                     throw new AssertionError();

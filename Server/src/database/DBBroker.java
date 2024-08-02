@@ -95,6 +95,7 @@ public class DBBroker {
     public synchronized boolean saveOpstiDomenskiObjekat(AbstractDomainObject o) {
         try {
             String upit = o.getInsertUpit();
+            System.out.println(upit);
             try (Statement s = konekcija.createStatement()) {
                 s.executeUpdate(upit);
             }
