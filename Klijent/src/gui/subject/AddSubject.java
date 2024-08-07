@@ -150,7 +150,6 @@ public class AddSubject extends javax.swing.JFrame {
         int espb1;
         try {
            espb1 = Integer.parseInt(txtEspb.getText().trim());
-            // Ostatak koda koji koristi espb1
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(this, "Unesite validnu vrednost za ESPB.", "Greška", JOptionPane.ERROR_MESSAGE);
             return;
@@ -163,7 +162,6 @@ public class AddSubject extends javax.swing.JFrame {
             this.dispose();
         } else {
             JOptionPane.showMessageDialog(this, "Sistem ne moze da doda predmet", "Greska", JOptionPane.ERROR_MESSAGE);
-
         }
 
     }//GEN-LAST:event_btnDodajActionPerformed

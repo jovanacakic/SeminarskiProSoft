@@ -6,6 +6,7 @@ package kontroler;
 
 import domen.Predmet;
 import java.util.HashMap;
+import java.util.List;
 import konstante.Operacije;
 import transfer.KlijentskiZahtev;
 import transfer.ServerskiOdgovor;
@@ -32,5 +33,19 @@ public class PredmetKontroler {
         ServerskiOdgovor so = ServerKontroler.getInstanca().primiOdgovor();
         
         return so.getUspeh() == Operacije.USPEH;
+    }
+
+    public List<Predmet> vratiPredmeteFon() {
+        ServerKontroler.getInstanca().posaljiZahtev(new KlijentskiZahtev(null, Operacije.VRATI_PRED_FON));
+        ServerskiOdgovor so = ServerKontroler.getInstanca().primiOdgovor();
+        
+        return (List<Predmet>) so.getOdgovor();
+    }
+
+    public List<Predmet> vratiPredmeteDrugiFaks() {
+        ServerKontroler.getInstanca().posaljiZahtev(new KlijentskiZahtev(null, Operacije.VRATI_PRED_DRUGI));
+        ServerskiOdgovor so = ServerKontroler.getInstanca().primiOdgovor();
+        
+        return (List<Predmet>) so.getOdgovor();
     }
 }

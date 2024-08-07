@@ -6,6 +6,7 @@ package gui.frame;
 
 import gui.student.AddStudent;
 import gui.student.SearchStudent;
+import gui.subject.AddEquivalents;
 import gui.subject.AddSubject;
 import niti.KlijentskaNit;
 
@@ -48,6 +49,7 @@ public class KlijentFrame extends javax.swing.JFrame {
         jmiPretraga = new javax.swing.JMenuItem();
         jMenu10 = new javax.swing.JMenu();
         jmiDodajPredmet = new javax.swing.JMenuItem();
+        jmiDodajEkvivalente = new javax.swing.JMenuItem();
         jMenuItem3 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenu3 = new javax.swing.JMenu();
@@ -98,6 +100,14 @@ public class KlijentFrame extends javax.swing.JFrame {
         });
         jMenu10.add(jmiDodajPredmet);
 
+        jmiDodajEkvivalente.setText("Dodaj ekvivalente");
+        jmiDodajEkvivalente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiDodajEkvivalenteActionPerformed(evt);
+            }
+        });
+        jMenu10.add(jmiDodajEkvivalente);
+
         jMenuItem3.setText("Pregled predmeta");
         jMenu10.add(jMenuItem3);
 
@@ -136,6 +146,10 @@ public class KlijentFrame extends javax.swing.JFrame {
     private void jmiDodajPredmetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiDodajPredmetActionPerformed
         new AddSubject().setVisible(true);
     }//GEN-LAST:event_jmiDodajPredmetActionPerformed
+
+    private void jmiDodajEkvivalenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiDodajEkvivalenteActionPerformed
+        new AddEquivalents().setVisible(true);
+    }//GEN-LAST:event_jmiDodajEkvivalenteActionPerformed
 
 //    /**
 //     * @param args the command line arguments
@@ -186,6 +200,7 @@ public class KlijentFrame extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar3;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JMenuItem jmiDodajEkvivalente;
     private javax.swing.JMenuItem jmiDodajPredmet;
     private javax.swing.JMenuItem jmiDodajStudenta;
     private javax.swing.JMenuItem jmiPretraga;
