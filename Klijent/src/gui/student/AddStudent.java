@@ -174,7 +174,7 @@ public class AddStudent extends javax.swing.JFrame {
 
         Student student = new Student(0, ime, prezime, index);
         if (StudentKontroler.getInstance().dodajStudenta(student)) {
-            JOptionPane.showMessageDialog(this, "Sistem je kreirao spasioca", "Uspeh", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Sistem je kreirao studenta", "Uspeh", JOptionPane.INFORMATION_MESSAGE);
             //dialog.popuniTabelu(null);
             this.dispose();
         } else {

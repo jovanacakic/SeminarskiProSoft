@@ -6,6 +6,7 @@ package gui.frame;
 
 import gui.student.AddStudent;
 import gui.student.SearchStudent;
+import gui.subject.AddSubject;
 import niti.KlijentskaNit;
 
 /**
@@ -18,6 +19,7 @@ public class KlijentFrame extends javax.swing.JFrame {
      * Creates new form KlijentFrame
      */
     private KlijentskaNit kn;
+
     public KlijentFrame(KlijentskaNit kn) {
         initComponents();
         setLocationRelativeTo(null);
@@ -34,14 +36,35 @@ public class KlijentFrame extends javax.swing.JFrame {
     private void initComponents() {
 
         jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuBar2 = new javax.swing.JMenuBar();
+        jMenu4 = new javax.swing.JMenu();
+        jMenu5 = new javax.swing.JMenu();
+        jMenuBar3 = new javax.swing.JMenuBar();
+        jMenu6 = new javax.swing.JMenu();
+        jMenu7 = new javax.swing.JMenu();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jmiDodajStudenta = new javax.swing.JMenuItem();
         jmiPretraga = new javax.swing.JMenuItem();
+        jMenu10 = new javax.swing.JMenu();
+        jmiDodajPredmet = new javax.swing.JMenuItem();
+        jMenuItem3 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenu3 = new javax.swing.JMenu();
 
         jMenuItem1.setText("jMenuItem1");
+
+        jMenu4.setText("File");
+        jMenuBar2.add(jMenu4);
+
+        jMenu5.setText("Edit");
+        jMenuBar2.add(jMenu5);
+
+        jMenu6.setText("File");
+        jMenuBar3.add(jMenu6);
+
+        jMenu7.setText("Edit");
+        jMenuBar3.add(jMenu7);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -64,6 +87,21 @@ public class KlijentFrame extends javax.swing.JFrame {
         jMenu1.add(jmiPretraga);
 
         jMenuBar1.add(jMenu1);
+
+        jMenu10.setText("Predmeti");
+
+        jmiDodajPredmet.setText("Dodaj predmet");
+        jmiDodajPredmet.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiDodajPredmetActionPerformed(evt);
+            }
+        });
+        jMenu10.add(jmiDodajPredmet);
+
+        jMenuItem3.setText("Pregled predmeta");
+        jMenu10.add(jMenuItem3);
+
+        jMenuBar1.add(jMenu10);
 
         jMenu2.setText("Razmene");
         jMenuBar1.add(jMenu2);
@@ -94,6 +132,10 @@ public class KlijentFrame extends javax.swing.JFrame {
     private void jmiPretragaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiPretragaActionPerformed
         new SearchStudent().setVisible(true);
     }//GEN-LAST:event_jmiPretragaActionPerformed
+
+    private void jmiDodajPredmetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiDodajPredmetActionPerformed
+        new AddSubject().setVisible(true);
+    }//GEN-LAST:event_jmiDodajPredmetActionPerformed
 
 //    /**
 //     * @param args the command line arguments
@@ -132,10 +174,19 @@ public class KlijentFrame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu10;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
+    private javax.swing.JMenu jMenu4;
+    private javax.swing.JMenu jMenu5;
+    private javax.swing.JMenu jMenu6;
+    private javax.swing.JMenu jMenu7;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuBar jMenuBar2;
+    private javax.swing.JMenuBar jMenuBar3;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JMenuItem jmiDodajPredmet;
     private javax.swing.JMenuItem jmiDodajStudenta;
     private javax.swing.JMenuItem jmiPretraga;
     // End of variables declaration//GEN-END:variables
