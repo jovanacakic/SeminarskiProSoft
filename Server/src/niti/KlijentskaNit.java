@@ -5,6 +5,7 @@
 package niti;
 
 import domen.AbstractDomainObject;
+import domen.Predmet;
 import domen.Radnik;
 import domen.Student;
 import gui.frame.ServerFrame;
@@ -12,8 +13,10 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.util.HashMap;
 import java.util.List;
 import konstante.Operacije;
+import kontroleri.PredmetKontroler;
 import kontroleri.RadnikKontroler;
 import kontroleri.StudentKontroler;
 import transfer.KlijentskiZahtev;
@@ -101,6 +104,16 @@ public class KlijentskaNit extends Thread {
                 case Operacije.UCITAJ_STUDENTA:
                     student = StudentKontroler.getInstance().ucitajSpasioca((Student) kz.getParametar());
                     so.setOdgovor(student);
+                    break;
+                case Operacije.DODAJ_PREDMET:
+                    uspeh = PredmetKontroler.getInstance().dodajPredmet((Predmet) kz.getParametar());
+                    if (uspeh) {
+                        so.setPoruka("Sistem je dodao predmet");
+                        so.setUspeh(Operacije.USPEH);
+                    } else {
+                        so.setPoruka("Sistem ne moze da doda predmet");
+                        so.setUspeh(Operacije.NEUSPEH);
+                    }
                     break;
                 default:
                     throw new AssertionError();
