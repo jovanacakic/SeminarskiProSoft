@@ -15,9 +15,18 @@ import java.util.List;
  */
 public class Ekvivalenti extends AbstractDomainObject{
 
-    int id;
-    Predmet predmet1;
-    Predmet predmet2;
+    private int id;
+    private Predmet predmet1;
+    private Predmet predmet2;
+
+    public Ekvivalenti() {
+    }
+
+    public Ekvivalenti(int id, Predmet predmet1, Predmet predmet2) {
+        this.id = id;
+        this.predmet1 = predmet1;
+        this.predmet2 = predmet2;
+    }
     
     @Override
     public String getTableName() {
@@ -152,6 +161,30 @@ public class Ekvivalenti extends AbstractDomainObject{
     @Override
     public String getDeleteUpit() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public Predmet getPredmet1() {
+        return predmet1;
+    }
+
+    public void setPredmet1(Predmet predmet1) {
+        this.predmet1 = predmet1;
+    }
+
+    public Predmet getPredmet2() {
+        return predmet2;
+    }
+
+    public void setPredmet2(Predmet predmet2) {
+        this.predmet2 = predmet2;
     }
     
 }

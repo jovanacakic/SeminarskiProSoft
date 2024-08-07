@@ -25,4 +25,6 @@ public interface Operacije {
     public static int PRETRAZI_STUDENTE = 10;
     
     public static int DODAJ_PREDMET = 11;
+    public static int VRATI_PRED_FON = 12;
+    public static int VRATI_PRED_DRUGI = 13;
 }

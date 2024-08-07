@@ -7,6 +7,7 @@ package domen;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -20,6 +21,11 @@ public class Predmet extends AbstractDomainObject{
     private String ustanova;
     private String semestar;
     private int espb;
+
+    @Override
+    public String toString() {
+        return naziv;
+    }
 
     public Predmet() {
     }
@@ -134,17 +140,31 @@ public class Predmet extends AbstractDomainObject{
 
     @Override
     public List<AbstractDomainObject> konvertujRSUListu(ResultSet rs) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+       ArrayList<AbstractDomainObject> predmeti = new ArrayList<>();
+        try {
+            while (rs.next()) {
+                int rsId = rs.getInt("id");
+                String rsNaziv = rs.getString("naziv");
+                String rsUstanova = rs.getString("ustanova");
+                String rsSemestar = rs.getString("semestar");
+                int rsEspb = rs.getInt("espb");
+
+                predmeti.add(new Predmet(rsId, rsNaziv, rsUstanova, rsSemestar, rsEspb));
+            }
+        } catch (SQLException e) {
+            System.out.println("Greska u Predmet::konvertujRSUListu\n" + e.getMessage());
+        }
+        return predmeti;
     }
 
     @Override
     public String getSelectUpit() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return "SELECT * FROM " + getTableName();
     }
 
     @Override
     public String getSelectUpitPoParametru() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return "SELECT * FROM " + getTableName() + " WHERE id = " + getId() + " OR ustanova = '" + getUstanova() + "'";
     }
 
     @Override
