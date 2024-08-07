@@ -1,0 +1,41 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package sistemska_operacija.predmet;
+
+import database.DBBroker;
+import domen.AbstractDomainObject;
+import domen.Predmet;
+import java.util.ArrayList;
+import java.util.List;
+import sistemska_operacija.OpstaSO;
+
+/**
+ *
+ * @author jovana
+ */
+public class SOVratiPredmeteFon extends OpstaSO {
+
+    private List<AbstractDomainObject> predmeti;
+
+    public SOVratiPredmeteFon() {
+    }
+
+    public List<AbstractDomainObject> getPredmeti() {
+        return predmeti;
+    }
+
+    @Override
+    protected void izvrsiSpecificnuOperaciju() {
+        List<AbstractDomainObject> sviPredmeti = DBBroker.getInstance().getAllOpstiDomenskiObjekats(new Predmet());
+        predmeti = new ArrayList<>();  // Ovo osigurava da je lista inicijalizovana
+        for (AbstractDomainObject ado : sviPredmeti) {
+            Predmet p = (Predmet) ado;
+            if (p.getUstanova().equals("Fakultet Organizacionih Nauka")) {
+                predmeti.add(ado);
+            }
+        }
+    }
+
+}

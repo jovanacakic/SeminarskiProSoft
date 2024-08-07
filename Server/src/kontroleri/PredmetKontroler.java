@@ -4,8 +4,12 @@
  */
 package kontroleri;
 
+import domen.AbstractDomainObject;
 import domen.Predmet;
+import java.util.List;
 import sistemska_operacija.predmet.SODodajPredmet;
+import sistemska_operacija.predmet.SOVratiPredmeteDrugi;
+import sistemska_operacija.predmet.SOVratiPredmeteFon;
 
 /**
  *
@@ -28,5 +32,17 @@ public class PredmetKontroler {
         SODodajPredmet so = new SODodajPredmet(predmet);
         so.izvrsiSistemskuOperaciju();
         return so.isUspeh();
+    }
+
+    public List<AbstractDomainObject> vratiPredmeteFon() {
+        SOVratiPredmeteFon so = new SOVratiPredmeteFon();
+        so.izvrsiSistemskuOperaciju();
+        return so.getPredmeti();
+    }
+
+    public List<AbstractDomainObject> vratiPredmeteDrugi() {
+        SOVratiPredmeteDrugi so = new SOVratiPredmeteDrugi();
+        so.izvrsiSistemskuOperaciju();
+        return so.getPredmeti();
     }
 }

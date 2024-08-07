@@ -115,6 +115,15 @@ public class KlijentskaNit extends Thread {
                         so.setUspeh(Operacije.NEUSPEH);
                     }
                     break;
+                case Operacije.VRATI_PRED_FON:
+                    lista = PredmetKontroler.getInstance().vratiPredmeteFon();
+                    so.setOdgovor(lista);
+                    break;
+                case Operacije.VRATI_PRED_DRUGI:
+                    lista = PredmetKontroler.getInstance().vratiPredmeteDrugi();
+                    so.setOdgovor(lista);
+                    break;
+
                 default:
                     throw new AssertionError();
             }
