@@ -30,30 +30,30 @@ public class StudentKontroler {
     }
 
     public boolean dodajStudenta(Student s) {
-        ServerKontroler.getInstanca().posaljiZahtev(new KlijentskiZahtev(s, Operacije.DODAJ_STUDENTA));
-        ServerskiOdgovor so = ServerKontroler.getInstanca().primiOdgovor();
+        ServerKontroler.getInstance().posaljiZahtev(new KlijentskiZahtev(s, Operacije.DODAJ_STUDENTA));
+        ServerskiOdgovor so = ServerKontroler.getInstance().primiOdgovor();
 
         return so.getUspeh() == Operacije.USPEH;
 
     }
 
     public List<Student> pretraziStudente(String kriterijum) {
-        ServerKontroler.getInstanca().posaljiZahtev(new KlijentskiZahtev(kriterijum, Operacije.PRETRAZI_STUDENTE));
-        ServerskiOdgovor o = ServerKontroler.getInstanca().primiOdgovor();
+        ServerKontroler.getInstance().posaljiZahtev(new KlijentskiZahtev(kriterijum, Operacije.PRETRAZI_STUDENTE));
+        ServerskiOdgovor o = ServerKontroler.getInstance().primiOdgovor();
 
         return (List<Student>) o.getOdgovor();
     }
 
     public List<Student> ucitajListuStudenata(List<Student> studenti) {
-        ServerKontroler.getInstanca().posaljiZahtev(new KlijentskiZahtev(studenti, Operacije.UCITAJ_LISTU_STUDENATA));
-        ServerskiOdgovor o = ServerKontroler.getInstanca().primiOdgovor();
+        ServerKontroler.getInstance().posaljiZahtev(new KlijentskiZahtev(studenti, Operacije.UCITAJ_LISTU_STUDENATA));
+        ServerskiOdgovor o = ServerKontroler.getInstance().primiOdgovor();
 
         return (List<Student>) o.getOdgovor();
     }
 
     public Student ucitajSpasioca(Student student) {
-        ServerKontroler.getInstanca().posaljiZahtev(new KlijentskiZahtev(student, Operacije.UCITAJ_STUDENTA));
-        ServerskiOdgovor o = ServerKontroler.getInstanca().primiOdgovor();
+        ServerKontroler.getInstance().posaljiZahtev(new KlijentskiZahtev(student, Operacije.UCITAJ_STUDENTA));
+        ServerskiOdgovor o = ServerKontroler.getInstance().primiOdgovor();
 
         return (Student) o.getOdgovor();
     }

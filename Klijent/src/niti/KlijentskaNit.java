@@ -31,7 +31,7 @@ public class KlijentskaNit extends Thread {
     public void run() {
         try {
             socket = new Socket("localhost", port);
-            ServerKontroler.getInstanca().setSocket(socket);
+            ServerKontroler.getInstance().setSocket(socket);
         } catch (SocketException ex) {
             System.err.println("Konekcija zatvorena: " + ex.getMessage());
             JOptionPane.showMessageDialog(null, "Server nije pokrenut", "Obavestenje", JOptionPane.INFORMATION_MESSAGE);
@@ -46,8 +46,8 @@ public class KlijentskaNit extends Thread {
                 "Potvrda zatvaranja", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
 
         if (odgovor == JOptionPane.YES_OPTION) {
-            ServerKontroler.getInstanca().posaljiZahtev(new KlijentskiZahtev(null, Operacije.ZATVORI_KONEKCIJU));
-            ServerskiOdgovor o = ServerKontroler.getInstanca().primiOdgovor();
+            ServerKontroler.getInstance().posaljiZahtev(new KlijentskiZahtev(null, Operacije.ZATVORI_KONEKCIJU));
+            ServerskiOdgovor o = ServerKontroler.getInstance().primiOdgovor();
 
             if (o.getUspeh() == Operacije.USPEH) {
                 frame.dispose();

@@ -29,22 +29,22 @@ public class RadnikKontroler {
     }
 
     public boolean prijaviRadnika(Radnik radnik) {
-        ServerKontroler.getInstanca().posaljiZahtev(new KlijentskiZahtev(radnik, Operacije.PRIJAVI_RADNIKA));
-        ServerskiOdgovor odgovor = ServerKontroler.getInstanca().primiOdgovor();
+        ServerKontroler.getInstance().posaljiZahtev(new KlijentskiZahtev(radnik, Operacije.PRIJAVI_RADNIKA));
+        ServerskiOdgovor odgovor = ServerKontroler.getInstance().primiOdgovor();
 
         return odgovor.getUspeh() == Operacije.USPEH;
     }
 
     public Radnik ucitajRadnika(Radnik radnik) {
-        ServerKontroler.getInstanca().posaljiZahtev(new KlijentskiZahtev(radnik, Operacije.UCITAJ_RADNIKA));
-        ServerskiOdgovor odgovor = ServerKontroler.getInstanca().primiOdgovor();
+        ServerKontroler.getInstance().posaljiZahtev(new KlijentskiZahtev(radnik, Operacije.UCITAJ_RADNIKA));
+        ServerskiOdgovor odgovor = ServerKontroler.getInstance().primiOdgovor();
 
         return (Radnik) odgovor.getOdgovor();
     }
 
     public List<Radnik> ucitajListuKoordinatora(List<Radnik> radnici) {
-        ServerKontroler.getInstanca().posaljiZahtev(new KlijentskiZahtev(radnici, Operacije.UCITAJ_LISTU_RADNIKA));
-        ServerskiOdgovor odgovor = ServerKontroler.getInstanca().primiOdgovor();
+        ServerKontroler.getInstance().posaljiZahtev(new KlijentskiZahtev(radnici, Operacije.UCITAJ_LISTU_RADNIKA));
+        ServerskiOdgovor odgovor = ServerKontroler.getInstance().primiOdgovor();
 
         return (List<Radnik>) odgovor.getOdgovor();
     }

@@ -4,6 +4,7 @@
  */
 package gui.frame;
 
+import gui.exchange.AddExchange;
 import gui.student.AddStudent;
 import gui.student.SearchStudent;
 import gui.subject.AddEquivalents;
@@ -52,6 +53,7 @@ public class KlijentFrame extends javax.swing.JFrame {
         jmiDodajEkvivalente = new javax.swing.JMenuItem();
         jMenuItem3 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
+        jmiDodajRazmenu = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
 
         jMenuItem1.setText("jMenuItem1");
@@ -114,6 +116,15 @@ public class KlijentFrame extends javax.swing.JFrame {
         jMenuBar1.add(jMenu10);
 
         jMenu2.setText("Razmene");
+
+        jmiDodajRazmenu.setText("Dodaj razmenu");
+        jmiDodajRazmenu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiDodajRazmenuActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jmiDodajRazmenu);
+
         jMenuBar1.add(jMenu2);
 
         jMenu3.setText("Izveštaj");
@@ -150,6 +161,10 @@ public class KlijentFrame extends javax.swing.JFrame {
     private void jmiDodajEkvivalenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiDodajEkvivalenteActionPerformed
         new AddEquivalents().setVisible(true);
     }//GEN-LAST:event_jmiDodajEkvivalenteActionPerformed
+
+    private void jmiDodajRazmenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiDodajRazmenuActionPerformed
+        new AddExchange().setVisible(true);
+    }//GEN-LAST:event_jmiDodajRazmenuActionPerformed
 
 //    /**
 //     * @param args the command line arguments
@@ -202,6 +217,7 @@ public class KlijentFrame extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jmiDodajEkvivalente;
     private javax.swing.JMenuItem jmiDodajPredmet;
+    private javax.swing.JMenuItem jmiDodajRazmenu;
     private javax.swing.JMenuItem jmiDodajStudenta;
     private javax.swing.JMenuItem jmiPretraga;
     // End of variables declaration//GEN-END:variables

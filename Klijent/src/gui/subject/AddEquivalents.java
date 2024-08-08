@@ -4,8 +4,11 @@
  */
 package gui.subject;
 
+import domen.Ekvivalenti;
 import domen.Predmet;
 import java.util.List;
+import javax.swing.JOptionPane;
+import kontroler.EkvivalentiKontroler;
 import kontroler.PredmetKontroler;
 
 /**
@@ -55,6 +58,11 @@ public class AddEquivalents extends javax.swing.JFrame {
         jLabel2.setText("Naziv predmeta na drugoj visokoškolskoj instituciji:");
 
         btnDodaj.setText("Dodaj ekvivalente");
+        btnDodaj.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDodajActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -108,6 +116,20 @@ public class AddEquivalents extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnDodajActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDodajActionPerformed
+        Predmet pFon = (Predmet) cmbFon.getSelectedItem();
+        Predmet pDrugi = (Predmet) cmbDrugiFaks.getSelectedItem();
+
+        Ekvivalenti e = new Ekvivalenti(0, pFon, pDrugi, 2024);
+
+        if (EkvivalentiKontroler.getInstance().dodajEkvivalente(e)) {
+            JOptionPane.showMessageDialog(this, "Sistem je dodao ekvivalente", "Uspeh", JOptionPane.INFORMATION_MESSAGE);
+            this.dispose();
+        } else {
+            JOptionPane.showMessageDialog(this, "Sistem ne moze da doda ekvivalente", "Greska", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btnDodajActionPerformed
 
 //    /**
 //     * @param args the command line arguments

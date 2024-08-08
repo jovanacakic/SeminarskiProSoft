@@ -18,16 +18,16 @@ import transfer.KlijentskiZahtev;
 public class ServerKontroler {
 
     private Socket socket;
-    private static ServerKontroler instanca;
+    private static ServerKontroler instance;
 
     private ServerKontroler() {
     }
 
-    public static ServerKontroler getInstanca() {
-        if (instanca == null) {
-            instanca = new ServerKontroler();
+    public static ServerKontroler getInstance() {
+        if (instance == null) {
+            instance = new ServerKontroler();
         }
-        return instanca;
+        return instance;
     }
 
     public void setSocket(Socket socket) {
