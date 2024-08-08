@@ -5,6 +5,7 @@
 package niti;
 
 import domen.AbstractDomainObject;
+import domen.Ekvivalenti;
 import domen.Predmet;
 import domen.Radnik;
 import domen.Student;
@@ -13,9 +14,9 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
-import java.util.HashMap;
 import java.util.List;
 import konstante.Operacije;
+import kontroleri.EkvivalentiKontroler;
 import kontroleri.PredmetKontroler;
 import kontroleri.RadnikKontroler;
 import kontroleri.StudentKontroler;
@@ -63,7 +64,6 @@ public class KlijentskaNit extends Thread {
             List<AbstractDomainObject> lista;
 
             switch (kz.getOperacija()) {
-
                 case Operacije.PRIJAVI_RADNIKA:
                     radnik = RadnikKontroler.getInstanca().prijaviRadnika((Radnik) kz.getParametar());
                     if (radnik != null) {
@@ -123,7 +123,16 @@ public class KlijentskaNit extends Thread {
                     lista = PredmetKontroler.getInstance().vratiPredmeteDrugi();
                     so.setOdgovor(lista);
                     break;
-
+                case Operacije.DODAJ_EKVIVALENTE:
+                    uspeh = EkvivalentiKontroler.getInstance().dodajEkvivalente((Ekvivalenti) kz.getParametar());
+                    if (uspeh) {
+                        so.setPoruka("Sistem je dodao ekvivalente");
+                        so.setUspeh(Operacije.USPEH);
+                    } else {
+                        so.setPoruka("Sistem ne moze da doda ekvivalente");
+                        so.setUspeh(Operacije.NEUSPEH);
+                    }
+                    break;
                 default:
                     throw new AssertionError();
             }
