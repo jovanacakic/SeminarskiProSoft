@@ -23,8 +23,10 @@ public interface Operacije {
     public static int UCITAJ_LISTU_STUDENATA = 8;
     public static int UCITAJ_STUDENTA = 9;
     public static int PRETRAZI_STUDENTE = 10;
-    
+
     public static int DODAJ_PREDMET = 11;
     public static int VRATI_PRED_FON = 12;
     public static int VRATI_PRED_DRUGI = 13;
+
+    public static int DODAJ_EKVIVALENTE = 14;
 }

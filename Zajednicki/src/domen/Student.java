@@ -21,6 +21,11 @@ public class Student extends AbstractDomainObject {
     private String ime;
     private String prezime;
 
+    @Override
+    public String toString() {
+        return ime + " " + prezime + " " + index;
+    }
+
     public Student() {
     }
 

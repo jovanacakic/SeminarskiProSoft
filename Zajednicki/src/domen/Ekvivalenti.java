@@ -13,21 +13,23 @@ import java.util.List;
  *
  * @author jovana
  */
-public class Ekvivalenti extends AbstractDomainObject{
+public class Ekvivalenti extends AbstractDomainObject {
 
     private int id;
-    private Predmet predmet1;
-    private Predmet predmet2;
+    private Predmet predmetFon;
+    private Predmet predmetDrugiFakultet;
+    int godinaDodavanja;
 
     public Ekvivalenti() {
     }
 
-    public Ekvivalenti(int id, Predmet predmet1, Predmet predmet2) {
+    public Ekvivalenti(int id, Predmet predmetFon, Predmet predmetDrugiFakultet, int godinaDodavanja) {
         this.id = id;
-        this.predmet1 = predmet1;
-        this.predmet2 = predmet2;
+        this.predmetFon = predmetFon;
+        this.predmetDrugiFakultet = predmetDrugiFakultet;
+        this.godinaDodavanja = godinaDodavanja;
     }
-    
+
     @Override
     public String getTableName() {
         return "ekvivalenti";
@@ -105,12 +107,12 @@ public class Ekvivalenti extends AbstractDomainObject{
 
     @Override
     public String getParametre() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return String.format("%d, %d, %d, %d", id, predmetFon.getId(), predmetDrugiFakultet.getId(), godinaDodavanja);
     }
 
     @Override
     public String getNaziveParametara() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return "id, predmetFon, predmetDrugiFakultet, godinaDodavanja";
     }
 
     @Override
@@ -145,7 +147,7 @@ public class Ekvivalenti extends AbstractDomainObject{
 
     @Override
     public String getInsertUpit() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return "INSERT INTO " + getTableName() + "(" + getNaziveParametara() + ")" + " VALUES (" + getParametre() + ")";
     }
 
     @Override
@@ -171,20 +173,28 @@ public class Ekvivalenti extends AbstractDomainObject{
         this.id = id;
     }
 
-    public Predmet getPredmet1() {
-        return predmet1;
+    public Predmet getPredmetFon() {
+        return predmetFon;
     }
 
-    public void setPredmet1(Predmet predmet1) {
-        this.predmet1 = predmet1;
+    public void setPredmetFon(Predmet predmetFon) {
+        this.predmetFon = predmetFon;
     }
 
-    public Predmet getPredmet2() {
-        return predmet2;
+    public Predmet getPredmetDrugiFakultet() {
+        return predmetDrugiFakultet;
     }
 
-    public void setPredmet2(Predmet predmet2) {
-        this.predmet2 = predmet2;
+    public void setPredmetDrugiFakultet(Predmet predmetDrugiFakultet) {
+        this.predmetDrugiFakultet = predmetDrugiFakultet;
     }
-    
+
+    public int getGodinaDodavanja() {
+        return godinaDodavanja;
+    }
+
+    public void setGodinaDodavanja(int godinaDodavanja) {
+        this.godinaDodavanja = godinaDodavanja;
+    }
+
 }
