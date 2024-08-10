@@ -6,7 +6,6 @@ package model;
 
 import domen.Student;
 import java.util.List;
-import javax.swing.event.TableModelListener;
 import javax.swing.table.AbstractTableModel;
 
 /**

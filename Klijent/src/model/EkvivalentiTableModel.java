@@ -45,4 +45,13 @@ public class EkvivalentiTableModel extends AbstractTableModel {
         }
     }
 
+    public void dodajRed(Ekvivalenti e) {
+        ekvivalenti.add(e);
+        fireTableDataChanged();
+    }
+
+    public List<Ekvivalenti> getLista() {
+        return ekvivalenti;
+    }
+
 }

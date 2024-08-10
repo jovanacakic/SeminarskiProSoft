@@ -193,14 +193,14 @@ public class ChooseStudent extends javax.swing.JDialog {
         txtPretraga.addKeyListener(new KeyAdapter() {
             @Override
             public void keyReleased(KeyEvent e) {
-                List<Student> spasioci = StudentKontroler.getInstance().pretraziStudente(txtPretraga.getText());
+                List<Student> studenti = StudentKontroler.getInstance().pretraziStudente(txtPretraga.getText());
 
-                if (spasioci.isEmpty()) {
+                if (studenti.isEmpty()) {
                     JOptionPane.showMessageDialog(null, "Sistem ne moze da nadje studente po zadatom kriterijumu", "Greska", JOptionPane.ERROR_MESSAGE);
                     txtPretraga.setText("");
                     popuniTabelu(null);
                 }
-                popuniTabelu(spasioci);
+                popuniTabelu(studenti);
             }
 
         });

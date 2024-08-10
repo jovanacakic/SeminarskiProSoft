@@ -4,8 +4,12 @@
  */
 package gui.exchange;
 
+import domen.Ekvivalenti;
+import domen.Predmet;
 import domen.Student;
 import gui.student.SearchStudent;
+import java.util.List;
+import javax.swing.JOptionPane;
 import model.EkvivalentiTableModel;
 
 /**
@@ -25,6 +29,7 @@ public class AddExchange extends javax.swing.JFrame {
         setTitle("Dodavanje razmene studenata");
 
         txtStudent.setEditable(false);
+        rbZimski.setSelected(true);
         tblEkvivalenti.setModel(new EkvivalentiTableModel());
     }
 
@@ -37,6 +42,7 @@ public class AddExchange extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
         btnIzaberi = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
@@ -45,6 +51,12 @@ public class AddExchange extends javax.swing.JFrame {
         tblEkvivalenti = new javax.swing.JTable();
         btnDodajPredmete = new javax.swing.JButton();
         btnObrisiPredmete = new javax.swing.JButton();
+        btnDodaj = new javax.swing.JButton();
+        rbLetnji = new javax.swing.JRadioButton();
+        rbZimski = new javax.swing.JRadioButton();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jTextField1 = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -75,8 +87,33 @@ public class AddExchange extends javax.swing.JFrame {
         jScrollPane1.setViewportView(tblEkvivalenti);
 
         btnDodajPredmete.setText("Dodaj predmete");
+        btnDodajPredmete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDodajPredmeteActionPerformed(evt);
+            }
+        });
 
         btnObrisiPredmete.setText("Obrisi predmete");
+
+        btnDodaj.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnDodaj.setText("Dodaj razmenu");
+        btnDodaj.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDodajActionPerformed(evt);
+            }
+        });
+
+        buttonGroup1.add(rbLetnji);
+        rbLetnji.setText("letnji");
+
+        buttonGroup1.add(rbZimski);
+        rbZimski.setText("zimski");
+
+        jLabel2.setText("Semestar:");
+
+        jLabel3.setText("Školska godina:");
+
+        jTextField1.setText("2023/2024");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -86,19 +123,34 @@ public class AddExchange extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(46, 46, 46)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 521, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addComponent(txtStudent)
+                                .addGap(32, 32, 32)
+                                .addComponent(btnIzaberi))
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(txtStudent, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(31, 31, 31)
-                                .addComponent(btnIzaberi, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addGap(32, 32, 32)
+                                .addComponent(jLabel2)
+                                .addGap(24, 24, 24)
+                                .addComponent(rbZimski, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(rbLetnji, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(65, 65, 65))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(113, 113, 113)
+                        .addGap(148, 148, 148)
                         .addComponent(btnDodajPredmete, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(64, 64, 64)
-                        .addComponent(btnObrisiPredmete, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(99, Short.MAX_VALUE))
+                        .addGap(35, 35, 35)
+                        .addComponent(btnObrisiPredmete, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(164, 164, 164)
+                        .addComponent(btnDodaj, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(50, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -106,16 +158,25 @@ public class AddExchange extends javax.swing.JFrame {
                 .addGap(14, 14, 14)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(txtStudent, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnIzaberi))
-                .addGap(31, 31, 31)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(19, 19, 19)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(rbLetnji)
+                    .addComponent(rbZimski)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel3)
+                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnDodajPredmete)
                     .addComponent(btnObrisiPredmete))
-                .addContainerGap(142, Short.MAX_VALUE))
+                .addGap(38, 38, 38)
+                .addComponent(btnDodaj)
+                .addContainerGap(60, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -141,6 +202,21 @@ public class AddExchange extends javax.swing.JFrame {
     private void btnIzaberiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIzaberiActionPerformed
         new ChooseStudent(this, true).setVisible(true);
     }//GEN-LAST:event_btnIzaberiActionPerformed
+
+    private void btnDodajPredmeteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDodajPredmeteActionPerformed
+        if (!proveriSemestar()) {
+            JOptionPane.showMessageDialog(null, "Ne možete dodati predmet iz drugog semestra.", "Greska", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        new ChooseSubjects(this, true, rbZimski.isSelected()).setVisible(true);
+    }//GEN-LAST:event_btnDodajPredmeteActionPerformed
+
+    private void btnDodajActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDodajActionPerformed
+        int studentId = izabrani.getId();
+        EkvivalentiTableModel etb = (EkvivalentiTableModel) tblEkvivalenti.getModel();
+        List<Ekvivalenti> listaEkvivalenata = etb.getLista();
+
+    }//GEN-LAST:event_btnDodajActionPerformed
 
 //    /**
 //     * @param args the command line arguments
@@ -181,13 +257,34 @@ public class AddExchange extends javax.swing.JFrame {
         txtStudent.setText(izabrani.toString());
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnDodaj;
     private javax.swing.JButton btnDodajPredmete;
     private javax.swing.JButton btnIzaberi;
     private javax.swing.JButton btnObrisiPredmete;
+    private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextField jTextField1;
+    private javax.swing.JRadioButton rbLetnji;
+    private javax.swing.JRadioButton rbZimski;
     private javax.swing.JTable tblEkvivalenti;
     private javax.swing.JTextField txtStudent;
     // End of variables declaration//GEN-END:variables
+
+    void dodajPredmete(Predmet p1, Predmet p2) {
+        Ekvivalenti e = new Ekvivalenti(0, p1, p2, 2024);
+        EkvivalentiTableModel etb = (EkvivalentiTableModel) tblEkvivalenti.getModel();
+        etb.dodajRed(e);
+    }
+
+    private boolean proveriSemestar() {
+        EkvivalentiTableModel etb = (EkvivalentiTableModel) tblEkvivalenti.getModel();
+        if(etb.getLista().isEmpty()) return true;
+        String semestar = rbZimski.isSelected() ? "Zimski" : "Letnji";
+    
+        return etb.getLista().getLast().getPredmetDrugiFakultet().getSemestar().equals(semestar);
+    }
 }
