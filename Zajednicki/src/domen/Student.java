@@ -146,7 +146,7 @@ public class Student extends AbstractDomainObject {
                 String rsIme = rs.getString("ime");
                 String rsPrezime = rs.getString("prezime");
 
-                studenti.add(new Student(rsId, rsIndex, rsIme, rsPrezime));
+                studenti.add(new Student(rsId, rsIme, rsPrezime, rsIndex));
             }
         } catch (SQLException e) {
             System.out.println("Greska u Student::konvertujRSUListu\n" + e.getMessage());
