@@ -22,8 +22,6 @@ public class SOVratiPredmeteDrugi extends OpstaSO{
     public SOVratiPredmeteDrugi() {
     }
 
-   
-
     public List<AbstractDomainObject> getPredmeti() {
         return predmeti;
     }

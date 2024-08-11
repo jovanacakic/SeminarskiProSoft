@@ -31,13 +31,13 @@ public class StudentKontroler {
         return instance;
     }
 
-    public List<AbstractDomainObject> ucitajListuSpasioca() {
+    public List<AbstractDomainObject> ucitajListuStudenata() {
         SOUcitajListuStudenata so = new SOUcitajListuStudenata();
         so.izvrsiSistemskuOperaciju();
         return so.getStudenti();
     }
 
-    public AbstractDomainObject ucitajSpasioca(Student student) {
+    public AbstractDomainObject ucitajStudenta(Student student) {
         SOUcitajStudenta so = new SOUcitajStudenta(student);
         so.izvrsiSistemskuOperaciju();
         return so.getStudent();

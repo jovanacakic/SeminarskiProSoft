@@ -8,6 +8,7 @@ import domen.AbstractDomainObject;
 import domen.Ekvivalenti;
 import domen.Predmet;
 import domen.Radnik;
+import domen.Razmena;
 import domen.Student;
 import gui.frame.ServerFrame;
 import java.io.IOException;
@@ -19,6 +20,7 @@ import konstante.Operacije;
 import kontroleri.EkvivalentiKontroler;
 import kontroleri.PredmetKontroler;
 import kontroleri.RadnikKontroler;
+import kontroleri.RazmenaKontroler;
 import kontroleri.StudentKontroler;
 import transfer.KlijentskiZahtev;
 import transfer.ServerskiOdgovor;
@@ -61,6 +63,7 @@ public class KlijentskaNit extends Thread {
 
             AbstractDomainObject radnik;
             AbstractDomainObject student;
+            AbstractDomainObject razmena;
             List<AbstractDomainObject> lista;
 
             switch (kz.getOperacija()) {
@@ -94,15 +97,15 @@ public class KlijentskaNit extends Thread {
                     so.setOdgovor(lista);
 
                     if (lista.isEmpty()) {
-                        so.setPoruka("Sistem ne moze da nadje spasioca po zadatoj vrednosti");
+                        so.setPoruka("Sistem ne moze da nadje studenta po zadatoj vrednosti");
                     }
                     break;
                 case Operacije.UCITAJ_LISTU_STUDENATA:
-                    lista = StudentKontroler.getInstance().ucitajListuSpasioca();
+                    lista = StudentKontroler.getInstance().ucitajListuStudenata();
                     so.setOdgovor(lista);
                     break;
                 case Operacije.UCITAJ_STUDENTA:
-                    student = StudentKontroler.getInstance().ucitajSpasioca((Student) kz.getParametar());
+                    student = StudentKontroler.getInstance().ucitajStudenta((Student) kz.getParametar());
                     so.setOdgovor(student);
                     break;
                 case Operacije.DODAJ_PREDMET:
@@ -133,6 +136,31 @@ public class KlijentskaNit extends Thread {
                         so.setUspeh(Operacije.NEUSPEH);
                     }
                     break;
+                case Operacije.DODAJ_RAZMENU:
+                    uspeh = RazmenaKontroler.getInstance().dodajRazmenu((Razmena) kz.getParametar());
+                    if (uspeh) {
+                        so.setPoruka("Sistem je dodao razmenu");
+                        so.setUspeh(Operacije.USPEH);
+                    } else {
+                        so.setPoruka("Sistem ne moze da doda razmenu");
+                        so.setUspeh(Operacije.NEUSPEH);
+                    }
+                    break;
+                case Operacije.ZATVORI_KONEKCIJU: 
+                    try {
+                    System.out.println("Klijentski program zatvoren: " + getKlijentskiSocket());
+                    frame.ukloniRadnika(getKlijentskiSocket());
+
+                    so.setPoruka("KLIJENT_ZATVOREN");
+                    posaljiOdgovor(so);
+
+                    this.interrupt();
+                    getKlijentskiSocket().close();
+                    break;
+                } catch (IOException ex) {
+                    System.err.println("ZATVORI_KONEKCIJU: " + ex.getMessage());
+                }
+
                 default:
                     throw new AssertionError();
             }
