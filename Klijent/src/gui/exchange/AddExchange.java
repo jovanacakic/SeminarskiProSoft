@@ -6,10 +6,12 @@ package gui.exchange;
 
 import domen.Ekvivalenti;
 import domen.Predmet;
+import domen.Razmena;
 import domen.Student;
 import gui.student.SearchStudent;
 import java.util.List;
 import javax.swing.JOptionPane;
+import kontroler.RazmenaKontroler;
 import model.EkvivalentiTableModel;
 
 /**
@@ -56,7 +58,7 @@ public class AddExchange extends javax.swing.JFrame {
         rbZimski = new javax.swing.JRadioButton();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        txtSkolskaGodina = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -94,6 +96,11 @@ public class AddExchange extends javax.swing.JFrame {
         });
 
         btnObrisiPredmete.setText("Obrisi predmete");
+        btnObrisiPredmete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnObrisiPredmeteActionPerformed(evt);
+            }
+        });
 
         btnDodaj.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnDodaj.setText("Dodaj razmenu");
@@ -113,7 +120,7 @@ public class AddExchange extends javax.swing.JFrame {
 
         jLabel3.setText("Školska godina:");
 
-        jTextField1.setText("2023/2024");
+        txtSkolskaGodina.setText("2023/2024");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -140,7 +147,7 @@ public class AddExchange extends javax.swing.JFrame {
                                 .addGap(18, 18, 18)
                                 .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtSkolskaGodina, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(65, 65, 65))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(148, 148, 148)
@@ -167,7 +174,7 @@ public class AddExchange extends javax.swing.JFrame {
                     .addComponent(rbZimski)
                     .addComponent(jLabel2)
                     .addComponent(jLabel3)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtSkolskaGodina, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -205,18 +212,38 @@ public class AddExchange extends javax.swing.JFrame {
 
     private void btnDodajPredmeteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDodajPredmeteActionPerformed
         if (!proveriSemestar()) {
-            JOptionPane.showMessageDialog(null, "Ne možete dodati predmet iz drugog semestra.", "Greska", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Ne možete promeniti semestar ako su neki predmeti već dodati.", "Greska", JOptionPane.ERROR_MESSAGE);
             return;
         }
         new ChooseSubjects(this, true, rbZimski.isSelected()).setVisible(true);
     }//GEN-LAST:event_btnDodajPredmeteActionPerformed
 
     private void btnDodajActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDodajActionPerformed
-        int studentId = izabrani.getId();
+        //int studentId = izabrani.getId();
         EkvivalentiTableModel etb = (EkvivalentiTableModel) tblEkvivalenti.getModel();
         List<Ekvivalenti> listaEkvivalenata = etb.getLista();
+        String skolskaGodina = txtSkolskaGodina.getText();
+        String semestar = rbZimski.isSelected() ? "Zimski" : "Letnji";
+
+        Razmena razmena = new Razmena(0, izabrani, semestar, skolskaGodina, listaEkvivalenata);
+
+        if (RazmenaKontroler.getInstance().dodajRazmenu(razmena)) {
+            JOptionPane.showMessageDialog(this, "Sistem je dodao razmenu", "Uspeh", JOptionPane.INFORMATION_MESSAGE);
+            //dialog.popuniTabelu(null);
+            this.dispose();
+        } else {
+            JOptionPane.showMessageDialog(this, "Sistem ne moze da doda razmenu", "Greska", JOptionPane.ERROR_MESSAGE);
+        }
 
     }//GEN-LAST:event_btnDodajActionPerformed
+
+    private void btnObrisiPredmeteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnObrisiPredmeteActionPerformed
+        int row = tblEkvivalenti.getSelectedRow();
+        if (row != -1) {
+            EkvivalentiTableModel etb = (EkvivalentiTableModel) tblEkvivalenti.getModel();
+            etb.obrisiEkvivalente(row);
+        }
+    }//GEN-LAST:event_btnObrisiPredmeteActionPerformed
 
 //    /**
 //     * @param args the command line arguments
@@ -267,10 +294,10 @@ public class AddExchange extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JRadioButton rbLetnji;
     private javax.swing.JRadioButton rbZimski;
     private javax.swing.JTable tblEkvivalenti;
+    private javax.swing.JTextField txtSkolskaGodina;
     private javax.swing.JTextField txtStudent;
     // End of variables declaration//GEN-END:variables
 
@@ -282,9 +309,11 @@ public class AddExchange extends javax.swing.JFrame {
 
     private boolean proveriSemestar() {
         EkvivalentiTableModel etb = (EkvivalentiTableModel) tblEkvivalenti.getModel();
-        if(etb.getLista().isEmpty()) return true;
+        if (etb.getLista().isEmpty()) {
+            return true;
+        }
         String semestar = rbZimski.isSelected() ? "Zimski" : "Letnji";
-    
+
         return etb.getLista().getLast().getPredmetDrugiFakultet().getSemestar().equals(semestar);
     }
 }

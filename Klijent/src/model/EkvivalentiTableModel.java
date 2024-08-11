@@ -54,4 +54,9 @@ public class EkvivalentiTableModel extends AbstractTableModel {
         return ekvivalenti;
     }
 
+    public void obrisiEkvivalente(int row) {
+        ekvivalenti.remove(row);
+        fireTableDataChanged();
+    }
+
 }

@@ -79,7 +79,7 @@
                                   <EmptySpace type="separate" max="-2" attributes="0"/>
                                   <Component id="jLabel3" max="32767" attributes="0"/>
                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                  <Component id="jTextField1" min="-2" pref="84" max="-2" attributes="0"/>
+                                  <Component id="txtSkolskaGodina" min="-2" pref="84" max="-2" attributes="0"/>
                                   <EmptySpace min="-2" pref="65" max="-2" attributes="0"/>
                               </Group>
                           </Group>
@@ -115,7 +115,7 @@
                       <Component id="rbZimski" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jTextField1" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtSkolskaGodina" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="jScrollPane1" min="-2" pref="191" max="-2" attributes="0"/>
@@ -183,6 +183,9 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Obrisi predmete"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnObrisiPredmeteActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btnDodaj">
           <Properties>
@@ -221,7 +224,7 @@
             <Property name="text" type="java.lang.String" value="&#x160;kolska godina:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="jTextField1">
+        <Component class="javax.swing.JTextField" name="txtSkolskaGodina">
           <Properties>
             <Property name="text" type="java.lang.String" value="2023/2024"/>
           </Properties>
