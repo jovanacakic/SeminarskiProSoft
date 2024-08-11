@@ -14,7 +14,7 @@ import java.util.List;
  *
  * @author jovana
  */
-public class Predmet extends AbstractDomainObject{
+public class Predmet extends AbstractDomainObject {
 
     private int id;
     private String naziv;
@@ -24,7 +24,7 @@ public class Predmet extends AbstractDomainObject{
 
     @Override
     public String toString() {
-        return naziv;
+        return naziv + ": " + ustanova;
     }
 
     public Predmet() {
@@ -37,84 +37,14 @@ public class Predmet extends AbstractDomainObject{
         this.semestar = semestar;
         this.espb = espb;
     }
-    
+
     @Override
     public String getTableName() {
         return "predmet";
     }
 
     @Override
-    public String getColumnsForInsert() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public String getParamsForInsert() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public void setParamsForInsert(PreparedStatement statement, AbstractDomainObject domainObject) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public String getColumnsForUpdate() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public String getParamsForUpdate() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public void setParamsForUpdate(PreparedStatement statement, AbstractDomainObject domainObject) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public Long getPrimaryKeyValue() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public String alias() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public String join() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public List<AbstractDomainObject> getList(ResultSet rs) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public String getPrimaryKey() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public void setAutoIncrementPrimaryKey(long generatedKey) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public String conditon() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public Long setCondition() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public String getParametre() { 
+    public String getParametre() {
         return String.format("%d, '%s', '%s', '%s', %d", id, naziv, ustanova, semestar, espb);
     }
 
@@ -140,7 +70,7 @@ public class Predmet extends AbstractDomainObject{
 
     @Override
     public List<AbstractDomainObject> konvertujRSUListu(ResultSet rs) {
-       ArrayList<AbstractDomainObject> predmeti = new ArrayList<>();
+        ArrayList<AbstractDomainObject> predmeti = new ArrayList<>();
         try {
             while (rs.next()) {
                 int rsId = rs.getInt("id");
@@ -226,5 +156,5 @@ public class Predmet extends AbstractDomainObject{
     public void setEspb(int espb) {
         this.espb = espb;
     }
-    
+
 }

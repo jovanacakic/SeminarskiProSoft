@@ -29,4 +29,6 @@ public interface Operacije {
     public static int VRATI_PRED_DRUGI = 13;
 
     public static int DODAJ_EKVIVALENTE = 14;
+    
+    public static int DODAJ_RAZMENU = 17;
 }
