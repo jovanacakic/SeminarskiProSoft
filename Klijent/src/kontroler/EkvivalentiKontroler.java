@@ -5,6 +5,7 @@
 package kontroler;
 
 import domen.Ekvivalenti;
+import java.util.List;
 import konstante.Operacije;
 import transfer.KlijentskiZahtev;
 import transfer.ServerskiOdgovor;
@@ -33,5 +34,12 @@ public class EkvivalentiKontroler {
         ServerskiOdgovor so = ServerKontroler.getInstance().primiOdgovor();
 
         return so.getUspeh() == Operacije.USPEH;
+    }
+
+    public List<Ekvivalenti> vratiEkvivalente() {
+        ServerKontroler.getInstance().posaljiZahtev(new KlijentskiZahtev(null, Operacije.VRATI_EKVIVALENTE));
+        ServerskiOdgovor so = ServerKontroler.getInstance().primiOdgovor();
+
+        return (List<Ekvivalenti>) so.getOdgovor();
     }
 }

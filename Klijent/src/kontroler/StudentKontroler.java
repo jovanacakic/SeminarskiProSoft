@@ -39,19 +39,19 @@ public class StudentKontroler {
 
     public List<Student> pretraziStudente(String kriterijum) {
         ServerKontroler.getInstance().posaljiZahtev(new KlijentskiZahtev(kriterijum, Operacije.PRETRAZI_STUDENTE));
-        ServerskiOdgovor o = ServerKontroler.getInstance().primiOdgovor();
+        ServerskiOdgovor so = ServerKontroler.getInstance().primiOdgovor();
 
-        return (List<Student>) o.getOdgovor();
+        return (List<Student>) so.getOdgovor();
     }
 
     public List<Student> ucitajListuStudenata(List<Student> studenti) {
         ServerKontroler.getInstance().posaljiZahtev(new KlijentskiZahtev(studenti, Operacije.UCITAJ_LISTU_STUDENATA));
-        ServerskiOdgovor o = ServerKontroler.getInstance().primiOdgovor();
+        ServerskiOdgovor so = ServerKontroler.getInstance().primiOdgovor();
 
-        return (List<Student>) o.getOdgovor();
+        return (List<Student>) so.getOdgovor();
     }
 
-    public Student ucitajSpasioca(Student student) {
+    public Student ucitajStudenta(Student student) {
         ServerKontroler.getInstance().posaljiZahtev(new KlijentskiZahtev(student, Operacije.UCITAJ_STUDENTA));
         ServerskiOdgovor o = ServerKontroler.getInstance().primiOdgovor();
 

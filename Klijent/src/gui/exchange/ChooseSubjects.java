@@ -4,11 +4,15 @@
  */
 package gui.exchange;
 
+import domen.Ekvivalenti;
 import domen.Predmet;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.swing.JOptionPane;
+import kontroler.EkvivalentiKontroler;
 import kontroler.PredmetKontroler;
 
 /**
@@ -19,6 +23,9 @@ public class ChooseSubjects extends javax.swing.JDialog {
 
     boolean zimski;
     String semestar;
+    List<Ekvivalenti> sviEkvivalenti;
+    Ekvivalenti izabrani;
+    private Map<Predmet, Map<Predmet, Ekvivalenti>> ekvivalentiMapa = new HashMap<>();
 
     /**
      * Creates new form ChooseSubjects
@@ -29,8 +36,24 @@ public class ChooseSubjects extends javax.swing.JDialog {
         setLocationRelativeTo(null);
         setTitle("Izbor predmeta");
         zimski = rbZimski;
+        sviEkvivalenti = EkvivalentiKontroler.getInstance().vratiEkvivalente();
 
-        popuniCmbFon();
+        popuniCmbFon();  // Popunjava cmbFon i postavlja mapu sviEkvivalenti
+
+        cmbFon.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                osveziCmbEkvivalenti();  // Ažurira cmbEkvivalenti na osnovu izabranog predmeta u cmbFon
+                updateIzabraniEkvivalenti();  // Ažurira izabrani ekvivalent na osnovu trenutnih selekcija
+            }
+        });
+
+        cmbEkvivalenti.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                updateIzabraniEkvivalenti();  // Ažurira izabrani ekvivalent na osnovu trenutnih selekcija
+            }
+        });
     }
 
     /**
@@ -135,7 +158,7 @@ public class ChooseSubjects extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(null, "Izabrali ste da semestar razmene bude " + semestar + ". Ne mozete dodavati predmet iz drugog semestra", "Greska", JOptionPane.ERROR_MESSAGE);
             return;
         }
-        forma.dodajPredmete(p1, p2);
+        forma.dodajEkvivalente(izabrani);
         this.dispose();
     }//GEN-LAST:event_btnDodajActionPerformed
 
@@ -180,27 +203,34 @@ public class ChooseSubjects extends javax.swing.JDialog {
 //            }
 //        });
 //    }
-    private void popuniCmbFon() {
-        List<Predmet> predmeti = PredmetKontroler.getInstance().vratiPredmeteFon();
-        cmbFon.removeAllItems();
-        for (Predmet p : predmeti) {
-            cmbFon.addItem(p);
+    private void updateIzabraniEkvivalenti() {
+        Predmet fonPredmet = (Predmet) cmbFon.getSelectedItem();
+        Predmet drugiFakultetPredmet = (Predmet) cmbEkvivalenti.getSelectedItem();
+        if (fonPredmet != null && drugiFakultetPredmet != null && ekvivalentiMapa.containsKey(fonPredmet) && ekvivalentiMapa.get(fonPredmet).containsKey(drugiFakultetPredmet)) {
+            izabrani = ekvivalentiMapa.get(fonPredmet).get(drugiFakultetPredmet);
+        } else {
+            izabrani = null;  // Resetuje izabrani ekvivalent ako ne postoji validna kombinacija
         }
-        cmbFon.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                osveziCmbEkvivalenti();
+    }
+
+    private void popuniCmbFon() {
+        cmbFon.removeAllItems();
+        for (Ekvivalenti e : sviEkvivalenti) {
+            cmbFon.addItem(e.getPredmetFon());
+            if (!ekvivalentiMapa.containsKey(e.getPredmetFon())) {
+                ekvivalentiMapa.put(e.getPredmetFon(), new HashMap<>());
             }
-        });
+            ekvivalentiMapa.get(e.getPredmetFon()).put(e.getPredmetDrugiFakultet(), e);
+        }
     }
 
     private void osveziCmbEkvivalenti() {
         Predmet selektovaniPredmet = (Predmet) cmbFon.getSelectedItem();
         if (selektovaniPredmet != null) {
-            List<Predmet> ekvivalenti = PredmetKontroler.getInstance().vratiPredmeteDrugiFaks();
             cmbEkvivalenti.removeAllItems();
-            for (Predmet p : ekvivalenti) {
-                if (!p.getNaziv().equals("Fakultet Organizacionih Nauka")) {
+            Map<Predmet, Ekvivalenti> map = ekvivalentiMapa.get(selektovaniPredmet);
+            if (map != null) {
+                for (Predmet p : map.keySet()) {
                     cmbEkvivalenti.addItem(p);
                 }
             }

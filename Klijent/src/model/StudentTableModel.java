@@ -51,4 +51,8 @@ public class StudentTableModel extends AbstractTableModel {
         }
     }
 
+    public Student getStudent(int red) {
+        return studenti.get(red);
+    }
+
 }

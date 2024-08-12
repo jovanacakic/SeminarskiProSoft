@@ -159,7 +159,7 @@ public class AddSubject extends javax.swing.JFrame {
 
         if (PredmetKontroler.getInstance().dodajPredmet(p1)) {
             JOptionPane.showMessageDialog(this, "Sistem je dodao predmet", "Uspeh", JOptionPane.INFORMATION_MESSAGE);
-            this.dispose();
+            //this.dispose();
         } else {
             JOptionPane.showMessageDialog(this, "Sistem ne moze da doda predmet", "Greska", JOptionPane.ERROR_MESSAGE);
         }

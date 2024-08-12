@@ -219,21 +219,21 @@ public class AddExchange extends javax.swing.JFrame {
     }//GEN-LAST:event_btnDodajPredmeteActionPerformed
 
     private void btnDodajActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDodajActionPerformed
-        //int studentId = izabrani.getId();
-        EkvivalentiTableModel etb = (EkvivalentiTableModel) tblEkvivalenti.getModel();
-        List<Ekvivalenti> listaEkvivalenata = etb.getLista();
-        String skolskaGodina = txtSkolskaGodina.getText();
-        String semestar = rbZimski.isSelected() ? "Zimski" : "Letnji";
-
-        Razmena razmena = new Razmena(0, izabrani, semestar, skolskaGodina, listaEkvivalenata);
-
-        if (RazmenaKontroler.getInstance().dodajRazmenu(razmena)) {
-            JOptionPane.showMessageDialog(this, "Sistem je dodao razmenu", "Uspeh", JOptionPane.INFORMATION_MESSAGE);
-            //dialog.popuniTabelu(null);
-            this.dispose();
-        } else {
-            JOptionPane.showMessageDialog(this, "Sistem ne moze da doda razmenu", "Greska", JOptionPane.ERROR_MESSAGE);
-        }
+//        //int studentId = izabrani.getId();
+//        EkvivalentiTableModel etb = (EkvivalentiTableModel) tblEkvivalenti.getModel();
+//        List<Ekvivalenti> listaEkvivalenata = etb.getLista();
+//        String skolskaGodina = txtSkolskaGodina.getText();
+//        String semestar = rbZimski.isSelected() ? "Zimski" : "Letnji";
+//        
+//        Razmena razmena = new Razmena(0, izabrani, semestar, skolskaGodina, listaEkvivalenata);
+//        System.out.println(izabrani.getId());
+//        if (RazmenaKontroler.getInstance().dodajRazmenu(razmena)) {
+//            JOptionPane.showMessageDialog(this, "Sistem je dodao razmenu", "Uspeh", JOptionPane.INFORMATION_MESSAGE);
+//            //dialog.popuniTabelu(null);
+//            this.dispose();
+//        } else {
+//            JOptionPane.showMessageDialog(this, "Sistem ne moze da doda razmenu", "Greska", JOptionPane.ERROR_MESSAGE);
+//        }
 
     }//GEN-LAST:event_btnDodajActionPerformed
 
@@ -315,5 +315,10 @@ public class AddExchange extends javax.swing.JFrame {
         String semestar = rbZimski.isSelected() ? "Zimski" : "Letnji";
 
         return etb.getLista().getLast().getPredmetDrugiFakultet().getSemestar().equals(semestar);
+    }
+
+    void dodajEkvivalente(Ekvivalenti e) {
+        EkvivalentiTableModel etb = (EkvivalentiTableModel) tblEkvivalenti.getModel();
+        etb.dodajRed(e);
     }
 }

@@ -227,7 +227,7 @@ public class SearchStudent extends javax.swing.JFrame {
             student.setPrezime(prezime);
             student.setIndex(indeks);
 
-            student = StudentKontroler.getInstance().ucitajSpasioca(student);
+            student = StudentKontroler.getInstance().ucitajStudenta(student);
             JOptionPane.showMessageDialog(this, "Sistem je ucitao studenta", "Uspeh", JOptionPane.INFORMATION_MESSAGE);
             new DetailsStudent(this, true, student).setVisible(true);
         } else {

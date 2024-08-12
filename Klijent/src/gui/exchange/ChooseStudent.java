@@ -131,15 +131,17 @@ public class ChooseStudent extends javax.swing.JDialog {
     private void btnIzaberiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIzaberiActionPerformed
         int red = tblStudenti.getSelectedRow();
         if (red != -1) {
-            String ime = (String) tblStudenti.getValueAt(red, 0);
-            String prezime = (String) tblStudenti.getValueAt(red, 1);
-            String indeks = (String) tblStudenti.getValueAt(red, 2);
+//            String ime = (String) tblStudenti.getValueAt(red, 0);
+//            String prezime = (String) tblStudenti.getValueAt(red, 1);
+//            String indeks = (String) tblStudenti.getValueAt(red, 2);
+//
+//            Student student = new Student();
+//            student.setIme(ime);
+//            student.setPrezime(prezime);
+//            student.setIndex(indeks);
 
-            Student student = new Student();
-            student.setIme(ime);
-            student.setPrezime(prezime);
-            student.setIndex(indeks);
-
+            StudentTableModel stm = (StudentTableModel) tblStudenti.getModel();
+            Student student = stm.getStudent(red);
             AddExchange forma = (AddExchange) getParent();
             forma.postaviIzabranogStudenta(student);
             this.dispose();

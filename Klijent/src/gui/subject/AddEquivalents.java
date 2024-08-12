@@ -137,7 +137,7 @@ public class AddEquivalents extends javax.swing.JFrame {
 
         if (EkvivalentiKontroler.getInstance().dodajEkvivalente(e)) {
             JOptionPane.showMessageDialog(this, "Sistem je dodao ekvivalente", "Uspeh", JOptionPane.INFORMATION_MESSAGE);
-            this.dispose();
+            //this.dispose();
         } else {
             JOptionPane.showMessageDialog(this, "Sistem ne moze da doda ekvivalente", "Greska", JOptionPane.ERROR_MESSAGE);
         }
