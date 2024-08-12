@@ -8,6 +8,7 @@ import java.io.Serializable;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -45,31 +46,25 @@ public abstract class AbstractDomainObject implements Serializable {
 //    public abstract String conditon();
 //
 //    public abstract Long setCondition();
-
-    ///////////////////////
+    /////////////////////// 
     //public abstract String getNazivTabele();
 
-    public abstract String getParametre();
 
-    public abstract String getNaziveParametara();
+    /////////////////
 
-    public abstract String getNazivPrimarnogKljuca();
+    public abstract String getAlijas();
 
-    public abstract Integer getVrednostPrimarnogKljuca();
+    public abstract String getJoin();
 
-    public abstract String getSlozeniPrimarniKljuc();
+    public abstract ArrayList<AbstractDomainObject> getListuSvih(ResultSet rs) throws SQLException;
 
-    public abstract List<AbstractDomainObject> konvertujRSUListu(ResultSet rs);
+    public abstract String getKoloneZaInsert();
 
-    public abstract String getSelectUpit();
+    public abstract String getVrednostZaPrimarniKljuc();
 
-    public abstract String getSelectUpitPoParametru();
+    public abstract String getVrednostiZaInsert();
 
-    public abstract String getInsertUpit();
+    public abstract String getVrednostiZaUpdate();
 
-    public abstract String getUpdateUpit();
-
-    public abstract String getUpdateParametre();
-
-    public abstract String getDeleteUpit();
+    public abstract String getUslov();
 }

@@ -7,6 +7,7 @@ package domen;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -14,29 +15,30 @@ import java.util.List;
  * @author jovana
  */
 public class Razmena extends AbstractDomainObject {
+
     private int id;
     private Student student;
     private String semestar;
     private String skolskaGodina;
-    private List<Ekvivalenti> listaPredmeta;
+    private List<EkvivalentiRazmena> listaEkvivalenata;
 
     public Razmena() {
     }
 
-    public Razmena(int id, Student student, String semestar, String skolskaGodina, List<Ekvivalenti> listaPredmeta) {
+    public Razmena(int id, Student student, String semestar, String skolskaGodina, List<EkvivalentiRazmena> listaPredmeta) {
         this.id = id;
         this.student = student;
         this.semestar = semestar;
         this.skolskaGodina = skolskaGodina;
-        this.listaPredmeta = listaPredmeta;
+        this.listaEkvivalenata = listaPredmeta;
     }
 
-    public List<Ekvivalenti> getListaPredmeta() {
-        return listaPredmeta;
+    public List<EkvivalentiRazmena> getListaEkvivalenata() {
+        return listaEkvivalenata;
     }
 
-    public void setListaPredmeta(List<Ekvivalenti> listaPredmeta) {
-        this.listaPredmeta = listaPredmeta;
+    public void setListaEkvivalenata(List<EkvivalentiRazmena> listaEkvivalenata) {
+        this.listaEkvivalenata = listaEkvivalenata;
     }
 
     public int getId() {
@@ -73,68 +75,73 @@ public class Razmena extends AbstractDomainObject {
 
     @Override
     public String getTableName() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return "razmena";
     }
 
     @Override
-    public String getParametre() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public String getAlijas() {
+        return " r ";
     }
 
     @Override
-    public String getNaziveParametara() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public String getJoin() {
+        // Join sa tabelom studenta i eventualno ekvivalentima
+        return "JOIN student s ON r.StudentID = s.ID";
     }
 
     @Override
-    public String getNazivPrimarnogKljuca() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public ArrayList<AbstractDomainObject> getListuSvih(ResultSet rs) throws SQLException {
+        ArrayList<AbstractDomainObject> lista = new ArrayList<>();
+        while (rs.next()) {
+            Student student = new Student(
+                    rs.getInt("s.RazmenaID"),
+                    rs.getString("s.Ime"),
+                    rs.getString("s.Prezime"),
+                    rs.getString("s.Index"));
+
+            Razmena razmena = new Razmena(
+                    rs.getInt("r.RazmenaID"),
+                    student,
+                    rs.getString("r.Semestar"),
+                    rs.getString("r.SkolskaGodina"),
+                    new ArrayList<>() // Lista ekvivalenata se može dopuniti posebnim upitom ili logikom
+            );
+            lista.add(razmena);
+        }
+        rs.close();
+        return lista;
     }
 
     @Override
-    public Integer getVrednostPrimarnogKljuca() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public String getKoloneZaInsert() {
+        return "(StudentID, Semestar, SkolskaGodina)";
     }
 
     @Override
-    public String getSlozeniPrimarniKljuc() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public String getVrednostZaPrimarniKljuc() {
+        return " RazmenaID = " + id;
     }
 
     @Override
-    public List<AbstractDomainObject> konvertujRSUListu(ResultSet rs) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public String getVrednostiZaInsert() {
+        return student.getId() + ", '" + semestar + "', '" + skolskaGodina + "'";
     }
 
     @Override
-    public String getSelectUpit() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public String getVrednostiZaUpdate() {
+        return " StudentID = " + student.getId()
+                + ", Semestar = '" + semestar
+                + "', SkolskaGodina = '" + skolskaGodina + "' ";
     }
 
     @Override
-    public String getSelectUpitPoParametru() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public String getUslov() {
+        return " ORDER BY r.SkolskaGodina DESC, r.Semestar ASC";
     }
 
     @Override
-    public String getInsertUpit() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public String toString() {
+        return "Razmena: " + student.getIme() + " " + student.getPrezime() + " - " + semestar + " " + skolskaGodina;
     }
 
-    @Override
-    public String getUpdateUpit() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public String getUpdateParametre() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public String getDeleteUpit() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-    
-    
 }

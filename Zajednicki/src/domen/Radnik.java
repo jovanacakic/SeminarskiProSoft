@@ -84,78 +84,58 @@ public class Radnik extends AbstractDomainObject {
     }
 
     @Override
-    public String getParametre() {
-        return String.format("%d, '%s', '%s', '%s', '%s'", id, username, password, ime, prezime);
+    public String getAlijas() {
+        return " r ";
     }
 
     @Override
-    public String getNaziveParametara() {
-        return "id, username, password, ime, prezime";
+    public String getJoin() {
+        // Ako postoji potreba za spajanjem sa drugim tabelama, dodaj join naredbe ovde
+        return "";
     }
 
     @Override
-    public String getNazivPrimarnogKljuca() {
-        return "id";
-    }
-
-    @Override
-    public Integer getVrednostPrimarnogKljuca() {
-        return id;
-    }
-
-    @Override
-    public String getSlozeniPrimarniKljuc() {
-        return null;
-    }
-
-    @Override
-    public List<AbstractDomainObject> konvertujRSUListu(ResultSet rs) {
-        ArrayList<AbstractDomainObject> radnici = new ArrayList<>();
-        try {
-            while (rs.next()) {
-                int rsId = rs.getInt("id");
-                String rsKorisnickoIme = rs.getString("username");
-                String rsLozinka = rs.getString("password");
-                String rsIme = rs.getString("ime");
-                String rePrezime = rs.getString("prezime");
-
-                radnici.add(new Radnik(rsId, rsKorisnickoIme, rsLozinka, rsIme, rePrezime));
-            }
-        } catch (SQLException e) {
-            System.out.println("Greska u Radnik::konvertujRSUListu\n" + e.getMessage());
+    public ArrayList<AbstractDomainObject> getListuSvih(ResultSet rs) throws SQLException {
+        ArrayList<AbstractDomainObject> lista = new ArrayList<>();
+        while (rs.next()) {
+            Radnik radnik = new Radnik(
+                    rs.getInt("ID"),
+                    rs.getString("Username"),
+                    rs.getString("Password"),
+                    rs.getString("Ime"),
+                    rs.getString("Prezime"));
+            lista.add(radnik);
         }
-        return radnici;
+        rs.close();
+        return lista;
     }
 
     @Override
-    public String getSelectUpit() {
-        return "SELECT * FROM " + getTableName();
+    public String getKoloneZaInsert() {
+        return "(Username, Password, Ime, Prezime)";
     }
 
     @Override
-    public String getSelectUpitPoParametru() {
-        return "SELECT * FROM " + getTableName() + " WHERE id = " + getVrednostPrimarnogKljuca();
+    public String getVrednostZaPrimarniKljuc() {
+        return " id = " + id;
     }
 
     @Override
-    public String getInsertUpit() {
-        return null;
+    public String getVrednostiZaInsert() {
+        return "'" + username + "', '" + password + "', '" + ime + "', '" + prezime + "'";
     }
 
     @Override
-    public String getUpdateUpit() {
-        return String.format("id = %d, korisnickoIme = '%s', lozinka = '%s', ime = '%s', prezime = '%s'",
-                id, username, password, ime, prezime);
+    public String getVrednostiZaUpdate() {
+        return " Username = '" + username
+                + "', Password = '" + password
+                + "', Ime = '" + ime
+                + "', Prezime = '" + prezime + "' ";
     }
 
     @Override
-    public String getUpdateParametre() {
-        return null;
-    }
-
-    @Override
-    public String getDeleteUpit() {
-        return null;
+    public String getUslov() {
+        return " ORDER BY r.Ime ASC, r.Prezime ASC";
     }
 
 }

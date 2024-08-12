@@ -43,32 +43,32 @@ public class Predmet extends AbstractDomainObject {
         return "predmet";
     }
 
-    @Override
+    //@Override
     public String getParametre() {
         return String.format("%d, '%s', '%s', '%s', %d", id, naziv, ustanova, semestar, espb);
     }
 
-    @Override
+    //@Override
     public String getNaziveParametara() {
         return "id, naziv, ustanova, semestar, espb";
     }
 
-    @Override
+    //@Override
     public String getNazivPrimarnogKljuca() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
-    @Override
+    //@Override
     public Integer getVrednostPrimarnogKljuca() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
-    @Override
+    //@Override
     public String getSlozeniPrimarniKljuc() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
-    @Override
+    //@Override
     public List<AbstractDomainObject> konvertujRSUListu(ResultSet rs) {
         ArrayList<AbstractDomainObject> predmeti = new ArrayList<>();
         try {
@@ -87,32 +87,36 @@ public class Predmet extends AbstractDomainObject {
         return predmeti;
     }
 
-    @Override
+    //@Override
     public String getSelectUpit() {
         return "SELECT * FROM " + getTableName();
     }
 
-    @Override
+    //@Override
     public String getSelectUpitPoParametru() {
         return "SELECT * FROM " + getTableName() + " WHERE id = " + getId() + " OR ustanova = '" + getUstanova() + "'";
     }
 
-    @Override
+    public String getSelectUpitSaDodatnim(String dodatniUpit) {
+        return "SELECT * FROM " + getTableName() + " " + dodatniUpit;
+    }
+
+    //@Override
     public String getInsertUpit() {
         return "INSERT INTO " + getTableName() + "(" + getNaziveParametara() + ")" + " VALUES (" + getParametre() + ")";
     }
 
-    @Override
+    //@Override
     public String getUpdateUpit() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
-    @Override
+    //@Override
     public String getUpdateParametre() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
-    @Override
+    //@Override
     public String getDeleteUpit() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
@@ -155,6 +159,52 @@ public class Predmet extends AbstractDomainObject {
 
     public void setEspb(int espb) {
         this.espb = espb;
+    }
+
+    @Override
+    public String getAlijas() {
+        return " p ";
+    }
+
+    @Override
+    public String getJoin() {
+        return "";
+    }
+
+    @Override
+    public ArrayList<AbstractDomainObject> getListuSvih(ResultSet rs) throws SQLException {
+        ArrayList<AbstractDomainObject> lista = new ArrayList<>();
+        while (rs.next()) {
+            Predmet predmet = new Predmet(rs.getInt("ID"), rs.getString("Naziv"), rs.getString("Ustanova"), rs.getString("Semestar"), rs.getInt("Espb"));
+            lista.add(predmet);
+        }
+        rs.close();
+        return lista;
+    }
+
+    @Override
+    public String getKoloneZaInsert() {
+        return "(naziv, Ustanova, Semestar, Espb)";
+    }
+
+    @Override
+    public String getVrednostZaPrimarniKljuc() {
+        return " id = " + id;
+    }
+
+    @Override
+    public String getVrednostiZaInsert() {
+        return "'" + naziv + "', '" + ustanova + "', '" + semestar + "', '" + espb + "'";
+    }
+
+    @Override
+    public String getVrednostiZaUpdate() {
+        return " naziv='" + naziv + "', ustanova='" + ustanova + "', semestar='" + semestar + "', espb=" + espb + " ";
+    }
+
+    @Override
+    public String getUslov() {
+        return " ORDER BY p.naziv ASC";
     }
 
 }

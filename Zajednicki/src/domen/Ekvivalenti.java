@@ -7,6 +7,7 @@ package domen;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -28,71 +29,6 @@ public class Ekvivalenti extends AbstractDomainObject {
         this.predmetFon = predmetFon;
         this.predmetDrugiFakultet = predmetDrugiFakultet;
         this.godinaDodavanja = godinaDodavanja;
-    }
-
-    @Override
-    public String getTableName() {
-        return "ekvivalenti";
-    }
-
-    @Override
-    public String getParametre() {
-        return String.format("%d, %d, %d, %d", id, predmetFon.getId(), predmetDrugiFakultet.getId(), godinaDodavanja);
-    }
-
-    @Override
-    public String getNaziveParametara() {
-        return "id, predmetFon, predmetDrugiFakultet, godinaDodavanja";
-    }
-
-    @Override
-    public String getNazivPrimarnogKljuca() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public Integer getVrednostPrimarnogKljuca() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public String getSlozeniPrimarniKljuc() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public List<AbstractDomainObject> konvertujRSUListu(ResultSet rs) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public String getSelectUpit() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public String getSelectUpitPoParametru() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public String getInsertUpit() {
-        return "INSERT INTO " + getTableName() + "(" + getNaziveParametara() + ")" + " VALUES (" + getParametre() + ")";
-    }
-
-    @Override
-    public String getUpdateUpit() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public String getUpdateParametre() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public String getDeleteUpit() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     public int getId() {
@@ -125,6 +61,75 @@ public class Ekvivalenti extends AbstractDomainObject {
 
     public void setGodinaDodavanja(int godinaDodavanja) {
         this.godinaDodavanja = godinaDodavanja;
+    }
+
+    @Override
+    public String getTableName() {
+        return "ekvivalenti";
+    }
+
+    @Override
+    public String getAlijas() {
+        return " e ";
+    }
+
+    @Override
+    public String getJoin() {
+        // Ako je potrebno joinovati druge tabele za dobijanje kompletnih informacija o ekvivalentima
+        return " JOIN predmet p1 ON e.predmetFon = p1.ID "
+                + " JOIN predmet p2 ON e.predmetDrugiFakultet = p2.ID ";
+    }
+
+    @Override
+    public ArrayList<AbstractDomainObject> getListuSvih(ResultSet rs) throws SQLException {
+        ArrayList<AbstractDomainObject> lista = new ArrayList<>();
+        while (rs.next()) {
+            Predmet predmetFon = new Predmet(
+                    rs.getInt("p1.ID"), rs.getString("p1.Naziv"), rs.getString("p1.Ustanova"),
+                    rs.getString("p1.Semestar"), rs.getInt("p1.Espb"));
+            Predmet predmetDrugiFakultet = new Predmet(
+                    rs.getInt("p2.ID"), rs.getString("p2.Naziv"), rs.getString("p2.Ustanova"),
+                    rs.getString("p2.Semestar"), rs.getInt("p2.Espb"));
+
+            Ekvivalenti ekvivalent = new Ekvivalenti(
+                    rs.getInt("e.ID"), predmetFon, predmetDrugiFakultet, rs.getInt("e.GodinaDodavanja"));
+            lista.add(ekvivalent);
+        }
+        rs.close();
+        return lista;
+    }
+
+    @Override
+    public String getKoloneZaInsert() {
+        return "(PredmetFon, PredmetDrugiFakultet, GodinaDodavanja)";
+    }
+
+    @Override
+    public String getVrednostZaPrimarniKljuc() {
+        return " id = " + id;
+    }
+
+    @Override
+    public String getVrednostiZaInsert() {
+        return predmetFon.getId() + ", " + predmetDrugiFakultet.getId() + ", " + godinaDodavanja;
+    }
+
+    @Override
+    public String getVrednostiZaUpdate() {
+        return " PredmetFon = " + predmetFon.getId()
+                + ", PredmetDrugiFakultet = " + predmetDrugiFakultet.getId()
+                + ", GodinaDodavanja = " + godinaDodavanja;
+    }
+
+    @Override
+    public String getUslov() {
+        return " ORDER BY e.GodinaDodavanja DESC, p1.Naziv ASC, p2.Naziv ASC";
+    }
+
+    @Override
+    public String toString() {
+        return predmetFon.getNaziv() + " <-> " + predmetDrugiFakultet.getNaziv()
+                + " (" + godinaDodavanja + ")";
     }
 
 }

@@ -17,9 +17,9 @@ import java.util.List;
 public class Student extends AbstractDomainObject {
 
     private int id;
-    private String index;
     private String ime;
     private String prezime;
+    private String index;
 
     @Override
     public String toString() {
@@ -36,83 +36,6 @@ public class Student extends AbstractDomainObject {
         this.prezime = prezime;
     }
 
-    @Override
-    public String getTableName() {
-        return "student";
-    }
-
-    @Override
-    public String getParametre() {
-        return String.format("%d, '%s', '%s', '%s'", id, ime, prezime, index);
-    }
-
-    @Override
-    public String getNaziveParametara() {
-        return "id, ime, prezime, `index`";
-    }
-
-    @Override
-    public String getNazivPrimarnogKljuca() {
-        return "id";
-    }
-
-    @Override
-    public Integer getVrednostPrimarnogKljuca() {
-        return id;
-    }
-
-    @Override
-    public String getSlozeniPrimarniKljuc() {
-        return null;
-    }
-
-    @Override
-    public List<AbstractDomainObject> konvertujRSUListu(ResultSet rs) {
-        ArrayList<AbstractDomainObject> studenti = new ArrayList<>();
-        try {
-            while (rs.next()) {
-                int rsId = rs.getInt("id");
-                String rsIndex = rs.getString("index");
-                String rsIme = rs.getString("ime");
-                String rsPrezime = rs.getString("prezime");
-
-                studenti.add(new Student(rsId, rsIme, rsPrezime, rsIndex));
-            }
-        } catch (SQLException e) {
-            System.out.println("Greska u Student::konvertujRSUListu\n" + e.getMessage());
-        }
-        return studenti;
-    }
-
-    @Override
-    public String getSelectUpit() {
-        return "SELECT * FROM " + getTableName();
-    }
-
-    @Override
-    public String getSelectUpitPoParametru() {
-        return "SELECT * FROM " + getTableName() + " WHERE id = " + getId() + " OR jmbg = '" + getIndex() + "'";
-    }
-
-    @Override
-    public String getInsertUpit() {
-        return "INSERT INTO " + getTableName() + "(" + getNaziveParametara() + ")" + " VALUES (" + getParametre() + ")";
-    }
-
-    @Override
-    public String getUpdateUpit() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public String getUpdateParametre() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public String getDeleteUpit() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
 
     public String getIndex() {
         return index;
@@ -144,6 +67,56 @@ public class Student extends AbstractDomainObject {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    @Override
+    public String getTableName() {
+        return "student";
+    }
+    @Override
+    public String getAlijas() {
+        return " s ";
+    }
+
+    @Override
+    public String getJoin() {
+        return "";
+    }
+
+    @Override
+    public ArrayList<AbstractDomainObject> getListuSvih(ResultSet rs) throws SQLException {
+        ArrayList<AbstractDomainObject> lista = new ArrayList<>();
+        while (rs.next()) {
+            Student student = new Student(rs.getInt("ID"), rs.getString("Ime"), rs.getString("Prezime"), rs.getString("Index"));
+            lista.add(student);
+        }
+        rs.close();
+        return lista;
+    }
+
+    @Override
+    public String getKoloneZaInsert() {
+        return "(ime, prezime, `index`)";
+    }
+
+    @Override
+    public String getVrednostZaPrimarniKljuc() {
+        return " id = " + id;
+    }
+
+    @Override
+    public String getVrednostiZaInsert() {
+        return "'" + ime + "', '" + prezime + "', '" + index + "'";
+    }
+
+    @Override
+    public String getVrednostiZaUpdate() {
+        return " ime='" + ime + "', prezime='" + prezime + "', index='" + index + "' ";
+    }
+
+    @Override
+    public String getUslov() {
+        return " ORDER BY s.ime ASC";
     }
 
 }

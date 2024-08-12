@@ -29,6 +29,10 @@ public interface Operacije {
     public static int VRATI_PRED_DRUGI = 13;
 
     public static int DODAJ_EKVIVALENTE = 14;
+    public static int VRATI_EKVIVALENTE = 15;
     
     public static int DODAJ_RAZMENU = 17;
+    
+    
+    public static final int DODAJ_STUDENTA_ = 36;
 }
