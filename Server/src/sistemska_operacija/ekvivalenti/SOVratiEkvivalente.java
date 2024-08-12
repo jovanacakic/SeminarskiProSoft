@@ -6,29 +6,25 @@ package sistemska_operacija.ekvivalenti;
 
 import database.DBBroker;
 import domen.AbstractDomainObject;
+import domen.Ekvivalenti;
+import java.util.List;
 import sistemska_operacija.OpstaSO;
 
 /**
  *
  * @author jovana
  */
-public class SODodajEkvivalente extends OpstaSO {
+public class SOVratiEkvivalente extends OpstaSO {
 
-    private final AbstractDomainObject ekvivalenti;
-    private boolean uspeh = false;
-
-    public SODodajEkvivalente(AbstractDomainObject ekvivalenti) {
-        this.ekvivalenti = ekvivalenti;
-    }
-
-    public boolean isUspeh() {
-        return uspeh;
-    }
-
+    List<AbstractDomainObject> ekvivalenti;
+    
     @Override
     protected void izvrsiSpecificnuOperaciju() throws Exception {
-        DBBroker.getInstance().insert(ekvivalenti);
-        uspeh = true;
+        ekvivalenti = DBBroker.getInstance().select(new Ekvivalenti());
+    }
+
+    public List<AbstractDomainObject> getEkvivalenti() {
+        return ekvivalenti;
     }
 
 }

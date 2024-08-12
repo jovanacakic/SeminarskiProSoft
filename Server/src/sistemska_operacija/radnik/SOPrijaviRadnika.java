@@ -8,6 +8,7 @@ import database.DBBroker;
 import domen.AbstractDomainObject;
 import java.util.List;
 import domen.*;
+import java.sql.SQLException;
 import sistemska_operacija.OpstaSO;
 /**
  *
@@ -24,8 +25,8 @@ public class SOPrijaviRadnika extends OpstaSO {
     }
 
     @Override
-    protected void izvrsiSpecificnuOperaciju() {
-        List<AbstractDomainObject> radnici = DBBroker.getInstance().getAllOpstiDomenskiObjekats(radnik);
+    protected void izvrsiSpecificnuOperaciju() throws SQLException {
+        List<AbstractDomainObject> radnici = DBBroker.getInstance().select(radnik);
         Radnik uneti = (Radnik) radnik;
         for (AbstractDomainObject odo : radnici) {
             Radnik r = (Radnik) odo;

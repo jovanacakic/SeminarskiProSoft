@@ -7,6 +7,7 @@ package sistemska_operacija.student;
 import database.DBBroker;
 import domen.AbstractDomainObject;
 import domen.Student;
+import java.sql.SQLException;
 import java.util.List;
 import sistemska_operacija.OpstaSO;
 
@@ -23,8 +24,8 @@ public class SOUcitajListuStudenata extends OpstaSO{
     }
 
     @Override
-    protected void izvrsiSpecificnuOperaciju() {
-        studenti = DBBroker.getInstance().getAllOpstiDomenskiObjekats(new Student());
+    protected void izvrsiSpecificnuOperaciju() throws SQLException {
+        studenti = DBBroker.getInstance().select(new Student());
     }
 
 }

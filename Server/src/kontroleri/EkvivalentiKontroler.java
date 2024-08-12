@@ -4,8 +4,11 @@
  */
 package kontroleri;
 
+import domen.AbstractDomainObject;
 import domen.Ekvivalenti;
+import java.util.List;
 import sistemska_operacija.ekvivalenti.SODodajEkvivalente;
+import sistemska_operacija.ekvivalenti.SOVratiEkvivalente;
 
 /**
  *
@@ -30,5 +33,11 @@ public class EkvivalentiKontroler {
         SODodajEkvivalente so = new SODodajEkvivalente(e);
         so.izvrsiSistemskuOperaciju();
         return so.isUspeh();
+    }
+
+    public List<AbstractDomainObject> vratiEkvivalente() {
+        SOVratiEkvivalente so = new SOVratiEkvivalente();
+        so.izvrsiSistemskuOperaciju();
+        return so.getEkvivalenti();
     }
 }

@@ -6,6 +6,8 @@ package sistemska_operacija.radnik;
 
 import database.DBBroker;
 import domen.AbstractDomainObject;
+import java.sql.SQLException;
+import java.util.List;
 import sistemska_operacija.OpstaSO;
 
 /**
@@ -25,8 +27,9 @@ public class SOUcitajRadnika extends OpstaSO{
     }
     
     @Override
-    protected void izvrsiSpecificnuOperaciju() {
-        radnik = DBBroker.getInstance().getOpstiDomenskiObjekatPoParametru(radnik);
+    protected void izvrsiSpecificnuOperaciju() throws SQLException {
+        List<AbstractDomainObject> lista = DBBroker.getInstance().select(radnik);
+        radnik = lista.get(0);
     }
     
 }

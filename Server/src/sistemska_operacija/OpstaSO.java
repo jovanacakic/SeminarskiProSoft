@@ -24,5 +24,5 @@ public abstract class OpstaSO {
         }
     }
 
-    protected abstract void izvrsiSpecificnuOperaciju();
+    protected abstract void izvrsiSpecificnuOperaciju() throws Exception;
 }

@@ -7,6 +7,7 @@ package sistemska_operacija.predmet;
 import database.DBBroker;
 import domen.AbstractDomainObject;
 import domen.Predmet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import sistemska_operacija.OpstaSO;
@@ -27,8 +28,8 @@ public class SOVratiPredmeteDrugi extends OpstaSO{
     }
 
     @Override
-    protected void izvrsiSpecificnuOperaciju() {
-        List<AbstractDomainObject> sviPredmeti = DBBroker.getInstance().getAllOpstiDomenskiObjekats(new Predmet());
+    protected void izvrsiSpecificnuOperaciju() throws SQLException {
+        List<AbstractDomainObject> sviPredmeti = DBBroker.getInstance().select(new Predmet());
         predmeti = new ArrayList<>();  // Ovo osigurava da je lista inicijalizovana
         for (AbstractDomainObject ado : sviPredmeti) {
             Predmet p = (Predmet) ado;

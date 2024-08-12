@@ -6,6 +6,7 @@ package sistemska_operacija.predmet;
 
 import database.DBBroker;
 import domen.AbstractDomainObject;
+import java.sql.SQLException;
 import sistemska_operacija.OpstaSO;
 
 /**
@@ -26,8 +27,9 @@ public class SODodajPredmet extends OpstaSO {
     }
 
     @Override
-    protected void izvrsiSpecificnuOperaciju() {
-        uspeh = DBBroker.getInstance().saveOpstiDomenskiObjekat(predmet);
+    protected void izvrsiSpecificnuOperaciju() throws SQLException {
+        DBBroker.getInstance().insert(predmet);
+        uspeh = true;
     }
 
 }

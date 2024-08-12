@@ -7,6 +7,7 @@ package sistemska_operacija.student;
 import database.DBBroker;
 import domen.AbstractDomainObject;
 import domen.Student;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import sistemska_operacija.OpstaSO;
@@ -29,8 +30,8 @@ public class SONadjiStudente extends OpstaSO {
     }
 
     @Override
-    protected void izvrsiSpecificnuOperaciju() {
-        List<AbstractDomainObject> sviStudenti = DBBroker.getInstance().getAllOpstiDomenskiObjekats(new Student());
+    protected void izvrsiSpecificnuOperaciju() throws SQLException {
+        List<AbstractDomainObject> sviStudenti = DBBroker.getInstance().select(new Student());
         rezultat = new ArrayList<>();
 
         for (AbstractDomainObject odo : sviStudenti) {

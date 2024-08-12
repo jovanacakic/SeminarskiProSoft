@@ -12,7 +12,7 @@ import sistemska_operacija.OpstaSO;
  *
  * @author jovana
  */
-public class SODodajStudenta extends OpstaSO{
+public class SODodajStudenta extends OpstaSO {
 
     private final AbstractDomainObject student;
     private boolean uspeh = false;
@@ -24,10 +24,12 @@ public class SODodajStudenta extends OpstaSO{
     public boolean isUspeh() {
         return uspeh;
     }
-    
+
     @Override
-    protected void izvrsiSpecificnuOperaciju() {
-        uspeh = DBBroker.getInstance().saveOpstiDomenskiObjekat(student);
+    protected void izvrsiSpecificnuOperaciju() throws Exception {
+        //uspeh = DBBroker.getInstance().insert(student);
+        DBBroker.getInstance().insert(student);
+        uspeh = true;
     }
-    
+
 }

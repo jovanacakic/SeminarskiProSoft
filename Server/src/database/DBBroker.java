@@ -7,6 +7,7 @@ package database;
 import config.Config;
 import domen.AbstractDomainObject;
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -18,7 +19,7 @@ import java.util.logging.Logger;
 public class DBBroker {
 
     private static DBBroker instance;
-    private Connection konekcija;
+    private Connection connection;
 
     public static DBBroker getInstance() {
         if (instance == null) {
@@ -29,8 +30,8 @@ public class DBBroker {
 
     public void otvoriKonekciju() {
         try {
-            konekcija = DriverManager.getConnection(Config.getDatabaseUrl(), Config.getUsername(), Config.getPassword());
-            konekcija.setAutoCommit(false);
+            connection = DriverManager.getConnection(Config.getDatabaseUrl(), Config.getUsername(), Config.getPassword());
+            connection.setAutoCommit(false);
         } catch (SQLException ex) {
             System.err.println("Neuspesno konektovanje sa bazom");
         }
@@ -38,7 +39,7 @@ public class DBBroker {
 
     public void zatvoriKonekciju() {
         try {
-            konekcija.close();
+            connection.close();
         } catch (SQLException ex) {
             Logger.getLogger(DBBroker.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -46,7 +47,7 @@ public class DBBroker {
 
     public void commit() {
         try {
-            konekcija.commit();
+            connection.commit();
         } catch (SQLException ex) {
             Logger.getLogger(DBBroker.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -54,82 +55,50 @@ public class DBBroker {
 
     public void rollback() {
         try {
-            konekcija.rollback();
+            connection.rollback();
         } catch (SQLException ex) {
             Logger.getLogger(DBBroker.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
-    public synchronized List<AbstractDomainObject> getAllOpstiDomenskiObjekats(AbstractDomainObject o) {
-        try {
-            String upit = o.getSelectUpit();
-            List<AbstractDomainObject> lista;
-            try (Statement s = konekcija.createStatement()) {
-                System.out.println(upit);
-                ResultSet rs = s.executeQuery(upit);
-                lista = o.konvertujRSUListu(rs);
-            }
-            
-            return lista;
-        } catch (SQLException ex) {
-            System.err.println("Greska prilikom vracanja opstih domenskih objkekata tabele: " + o.getTableName());
-        }
-        return null;
+       public ArrayList<AbstractDomainObject> select(AbstractDomainObject o) throws SQLException {
+        String query = "SELECT * FROM " + o.getTableName() + o.getAlijas() + " " + o.getJoin() + " " + o.getUslov();
+        System.out.println(query);
+        Statement statement = connection.createStatement();
+        ResultSet rs = statement.executeQuery(query);
+        return o.getListuSvih(rs);
     }
 
-    public synchronized AbstractDomainObject getOpstiDomenskiObjekatPoParametru(AbstractDomainObject o) {
-        try {
-            String upit = o.getSelectUpitPoParametru();
-            List<AbstractDomainObject> lista;
-            try (Statement s = konekcija.createStatement()) {
-                ResultSet rs = s.executeQuery(upit);
-                lista = o.konvertujRSUListu(rs);
-            }
-            return lista.isEmpty() ? null : lista.get(0);
-        } catch (SQLException ex) {
-            System.err.println("Greska prilikom vracanja opstih domenskih objkekata tabele: " + o.getTableName());
-        }
-        return null;
+    public PreparedStatement insert(AbstractDomainObject o) throws SQLException {
+        String query = "INSERT INTO " + o.getTableName()+ " " + o.getKoloneZaInsert() + " VALUES(" + o.getVrednostiZaInsert() + ")";
+        System.out.println(query);
+        PreparedStatement ps = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+        int i = ps.executeUpdate();
+        return ps;
     }
 
-    public synchronized boolean saveOpstiDomenskiObjekat(AbstractDomainObject o) {
-        try {
-            String upit = o.getInsertUpit();
-            System.out.println(upit);
-            try (Statement s = konekcija.createStatement()) {
-                s.executeUpdate(upit);
-            }
-            return true;
-        } catch (SQLException ex) {
-            System.err.println("Greska prilikom cuvanja novog domenskog objekta u tabelu: " + o.getTableName() + "Greska: " + ex.getMessage());
-        }
-        return false;
+    public boolean update(AbstractDomainObject o) throws SQLException {
+        String query = "UPDATE " + o.getTableName()+ " SET " + o.getVrednostiZaUpdate() + " WHERE " + o.getVrednostZaPrimarniKljuc();
+        System.out.println(query);
+        Statement statement = connection.createStatement();
+        int rezultat = statement.executeUpdate(query);
+        
+        if(rezultat == 0)
+            return false;
+        
+        return true;
     }
 
-    public synchronized boolean updateOpstiDomenskiObjekat(AbstractDomainObject o) {
-        try {
-            String upit = o.getUpdateUpit();
-            try (Statement s = konekcija.createStatement()) {
-                s.executeUpdate(upit);
-            }
-            return true;
-        } catch (SQLException ex) {
-            System.out.println("Greska prilikom azuriranja objekta: " + o.getTableName() + " Greska: " + ex.getMessage());
-        }
-        return false;
-    }
-
-    public synchronized boolean deleteOpstiDomenskiObjekat(AbstractDomainObject o) {
-        try {
-            String upit = o.getDeleteUpit();
-            try (Statement s = konekcija.createStatement()) {
-                s.executeUpdate(upit);
-            }
-            return true;
-        } catch (SQLException ex) {
-            System.out.println("Greska prilikom brisanja objekta: " + o.getTableName() + " Greska: " + ex.getMessage());
-        }
-        return false;
+    public boolean delete(AbstractDomainObject o) throws SQLException {
+        String query = "DELETE FROM " + o.getTableName()+ " WHERE " + o.getVrednostZaPrimarniKljuc();
+        System.out.println(query);
+        Statement statement = connection.createStatement();
+        int rezultat = statement.executeUpdate(query);
+        
+        if(rezultat == 0)
+            return false;
+        
+        return true;
     }
 
 }

@@ -92,6 +92,9 @@ public class KlijentskaNit extends Thread {
                         so.setUspeh(Operacije.NEUSPEH);
                     }
                     break;
+                case Operacije.DODAJ_STUDENTA_:
+                    so.setOdgovor(StudentKontroler.getInstance().dodajStudenta((Student) kz.getParametar()));
+                    break;
                 case Operacije.PRETRAZI_STUDENTE:
                     lista = StudentKontroler.getInstance().pretraziStudente((String) kz.getParametar());
                     so.setOdgovor(lista);
@@ -135,6 +138,10 @@ public class KlijentskaNit extends Thread {
                         so.setPoruka("Sistem ne moze da doda ekvivalente");
                         so.setUspeh(Operacije.NEUSPEH);
                     }
+                    break;
+                case Operacije.VRATI_EKVIVALENTE:
+                    lista = EkvivalentiKontroler.getInstance().vratiEkvivalente();
+                    so.setOdgovor(lista);
                     break;
                 case Operacije.DODAJ_RAZMENU:
                     uspeh = RazmenaKontroler.getInstance().dodajRazmenu((Razmena) kz.getParametar());
