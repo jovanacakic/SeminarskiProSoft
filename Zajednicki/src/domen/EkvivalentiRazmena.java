@@ -46,7 +46,7 @@ public class EkvivalentiRazmena extends AbstractDomainObject {
                 + "JOIN ekvivalenti e ON er.EkvivalentiID = e.ID "
                 + "JOIN predmet p1 ON e.PredmetFon = p1.ID "
                 + "JOIN predmet p2 ON e.PredmetDrugiFakultet = p2.ID "
-                + "JOIN student s ON r.StudentID = s.ID"; // Dodaje se join sa studentom
+                + "JOIN student s ON r.StudentID = s.ID";
     }
 
     @Override
@@ -102,7 +102,7 @@ public class EkvivalentiRazmena extends AbstractDomainObject {
 
     @Override
     public String getKoloneZaInsert() {
-        return "(RazmenaID, EkvivalentiID, Ocena)";
+        return "(RB, RazmenaID, EkvivalentiID, Ocena)";
     }
 
     @Override
@@ -112,7 +112,7 @@ public class EkvivalentiRazmena extends AbstractDomainObject {
 
     @Override
     public String getVrednostiZaInsert() {
-        return razmena.getId() + ", " + ekvivalenti.getId() + ", " + ocena;
+        return rb + ", " + razmena.getId() + ", " + ekvivalenti.getId() + ", " + ocena;
     }
 
     @Override
