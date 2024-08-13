@@ -5,6 +5,7 @@
 package gui.exchange;
 
 import domen.Ekvivalenti;
+import domen.EkvivalentiRazmena;
 import domen.Predmet;
 import domen.Razmena;
 import domen.Student;
@@ -13,6 +14,7 @@ import java.util.List;
 import javax.swing.JOptionPane;
 import kontroler.RazmenaKontroler;
 import model.EkvivalentiTableModel;
+import model.EkvivalentiTableModel2;
 
 /**
  *
@@ -21,6 +23,7 @@ import model.EkvivalentiTableModel;
 public class AddExchange extends javax.swing.JFrame {
 
     Student izabrani;
+    int rb;
 
     /**
      * Creates new form AddExchange
@@ -32,7 +35,8 @@ public class AddExchange extends javax.swing.JFrame {
 
         txtStudent.setEditable(false);
         rbZimski.setSelected(true);
-        tblEkvivalenti.setModel(new EkvivalentiTableModel());
+        tblEkvivalenti.setModel(new EkvivalentiTableModel2());
+        rb = 0;
     }
 
     /**
@@ -219,29 +223,33 @@ public class AddExchange extends javax.swing.JFrame {
     }//GEN-LAST:event_btnDodajPredmeteActionPerformed
 
     private void btnDodajActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDodajActionPerformed
-//        //int studentId = izabrani.getId();
-//        EkvivalentiTableModel etb = (EkvivalentiTableModel) tblEkvivalenti.getModel();
-//        List<Ekvivalenti> listaEkvivalenata = etb.getLista();
-//        String skolskaGodina = txtSkolskaGodina.getText();
-//        String semestar = rbZimski.isSelected() ? "Zimski" : "Letnji";
-//        
-//        Razmena razmena = new Razmena(0, izabrani, semestar, skolskaGodina, listaEkvivalenata);
-//        System.out.println(izabrani.getId());
-//        if (RazmenaKontroler.getInstance().dodajRazmenu(razmena)) {
-//            JOptionPane.showMessageDialog(this, "Sistem je dodao razmenu", "Uspeh", JOptionPane.INFORMATION_MESSAGE);
-//            //dialog.popuniTabelu(null);
-//            this.dispose();
-//        } else {
-//            JOptionPane.showMessageDialog(this, "Sistem ne moze da doda razmenu", "Greska", JOptionPane.ERROR_MESSAGE);
-//        }
+        //int studentId = izabrani.getId();
+        EkvivalentiTableModel2 etb = (EkvivalentiTableModel2) tblEkvivalenti.getModel();
+        //List<Ekvivalenti> listaEkvivalenata = etb.getLista();
+        String skolskaGodina = txtSkolskaGodina.getText();
+        String semestar = rbZimski.isSelected() ? "Zimski" : "Letnji";
+        List<EkvivalentiRazmena> listaEkvNaRazmeni = etb.getLista();
+        for (EkvivalentiRazmena ekvivalentiRazmena : listaEkvNaRazmeni) {
+            System.out.println(ekvivalentiRazmena.getEkvivalenti().getPredmetFon() + " " + ekvivalentiRazmena.getEkvivalenti().getPredmetDrugiFakultet());
+        }
+
+        Razmena razmena = new Razmena(0, izabrani, semestar, skolskaGodina, listaEkvNaRazmeni);
+        if (RazmenaKontroler.getInstance().dodajRazmenu(razmena)) {
+            JOptionPane.showMessageDialog(this, "Sistem je dodao razmenu", "Uspeh", JOptionPane.INFORMATION_MESSAGE);
+            //dialog.popuniTabelu(null);
+            this.dispose();
+        } else {
+            JOptionPane.showMessageDialog(this, "Sistem ne moze da doda razmenu", "Greska", JOptionPane.ERROR_MESSAGE);
+        }
 
     }//GEN-LAST:event_btnDodajActionPerformed
 
     private void btnObrisiPredmeteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnObrisiPredmeteActionPerformed
         int row = tblEkvivalenti.getSelectedRow();
         if (row != -1) {
-            EkvivalentiTableModel etb = (EkvivalentiTableModel) tblEkvivalenti.getModel();
+            EkvivalentiTableModel2 etb = (EkvivalentiTableModel2) tblEkvivalenti.getModel();
             etb.obrisiEkvivalente(row);
+            rb--;
         }
     }//GEN-LAST:event_btnObrisiPredmeteActionPerformed
 
@@ -308,17 +316,18 @@ public class AddExchange extends javax.swing.JFrame {
     }
 
     private boolean proveriSemestar() {
-        EkvivalentiTableModel etb = (EkvivalentiTableModel) tblEkvivalenti.getModel();
+        EkvivalentiTableModel2 etb = (EkvivalentiTableModel2) tblEkvivalenti.getModel();
         if (etb.getLista().isEmpty()) {
             return true;
         }
         String semestar = rbZimski.isSelected() ? "Zimski" : "Letnji";
 
-        return etb.getLista().getLast().getPredmetDrugiFakultet().getSemestar().equals(semestar);
+        return etb.getLista().getLast().getEkvivalenti().getPredmetDrugiFakultet().getSemestar().equals(semestar);
     }
 
     void dodajEkvivalente(Ekvivalenti e) {
-        EkvivalentiTableModel etb = (EkvivalentiTableModel) tblEkvivalenti.getModel();
-        etb.dodajRed(e);
+        EkvivalentiTableModel2 etb = (EkvivalentiTableModel2) tblEkvivalenti.getModel();
+        EkvivalentiRazmena e2 = new EkvivalentiRazmena(++rb, null, e, 0);
+        etb.dodajRed(e2);
     }
 }

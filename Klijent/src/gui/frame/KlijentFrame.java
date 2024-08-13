@@ -54,6 +54,7 @@ public class KlijentFrame extends javax.swing.JFrame {
         jMenuItem3 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jmiDodajRazmenu = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
 
         jMenuItem1.setText("jMenuItem1");
@@ -124,6 +125,9 @@ public class KlijentFrame extends javax.swing.JFrame {
             }
         });
         jMenu2.add(jmiDodajRazmenu);
+
+        jMenuItem2.setText("Dodaj ocene na razmeni");
+        jMenu2.add(jMenuItem2);
 
         jMenuBar1.add(jMenu2);
 
@@ -214,6 +218,7 @@ public class KlijentFrame extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar2;
     private javax.swing.JMenuBar jMenuBar3;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jmiDodajEkvivalente;
     private javax.swing.JMenuItem jmiDodajPredmet;
