@@ -162,7 +162,7 @@ public class Predmet extends AbstractDomainObject {
     }
 
     @Override
-    public String getAlijas() {
+    public String getAlias() {
         return " p ";
     }
 

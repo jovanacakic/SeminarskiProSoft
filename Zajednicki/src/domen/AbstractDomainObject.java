@@ -52,7 +52,7 @@ public abstract class AbstractDomainObject implements Serializable {
 
     /////////////////
 
-    public abstract String getAlijas();
+    public abstract String getAlias();
 
     public abstract String getJoin();
 

@@ -35,7 +35,7 @@ public class EkvivalentiRazmena extends AbstractDomainObject {
     }
 
     @Override
-    public String getAlijas() {
+    public String getAlias() {
         return " er ";
     }
 

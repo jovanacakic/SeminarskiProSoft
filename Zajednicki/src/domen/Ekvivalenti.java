@@ -69,7 +69,7 @@ public class Ekvivalenti extends AbstractDomainObject {
     }
 
     @Override
-    public String getAlijas() {
+    public String getAlias() {
         return " e ";
     }
 

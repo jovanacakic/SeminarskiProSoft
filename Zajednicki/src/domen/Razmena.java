@@ -79,7 +79,7 @@ public class Razmena extends AbstractDomainObject {
     }
 
     @Override
-    public String getAlijas() {
+    public String getAlias() {
         return " r ";
     }
 
@@ -94,7 +94,7 @@ public class Razmena extends AbstractDomainObject {
         ArrayList<AbstractDomainObject> lista = new ArrayList<>();
         while (rs.next()) {
             Student student = new Student(
-                    rs.getInt("s.RazmenaID"),
+                    rs.getInt("s.ID"),
                     rs.getString("s.Ime"),
                     rs.getString("s.Prezime"),
                     rs.getString("s.Index"));
@@ -104,7 +104,7 @@ public class Razmena extends AbstractDomainObject {
                     student,
                     rs.getString("r.Semestar"),
                     rs.getString("r.SkolskaGodina"),
-                    new ArrayList<>() // Lista ekvivalenata se može dopuniti posebnim upitom ili logikom
+                    new ArrayList<>()
             );
             lista.add(razmena);
         }

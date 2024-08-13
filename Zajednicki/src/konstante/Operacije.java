@@ -32,7 +32,8 @@ public interface Operacije {
     public static int VRATI_EKVIVALENTE = 15;
     
     public static int DODAJ_RAZMENU = 17;
+    public static int PRETRAZI_RAZMENU = 18;
+    public static int UCITAJ_LISTU_RAZMENA = 19;
     
     
-    public static final int DODAJ_STUDENTA_ = 36;
 }

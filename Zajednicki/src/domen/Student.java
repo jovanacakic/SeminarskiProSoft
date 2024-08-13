@@ -74,7 +74,7 @@ public class Student extends AbstractDomainObject {
         return "student";
     }
     @Override
-    public String getAlijas() {
+    public String getAlias() {
         return " s ";
     }
 

@@ -84,7 +84,7 @@ public class Radnik extends AbstractDomainObject {
     }
 
     @Override
-    public String getAlijas() {
+    public String getAlias() {
         return " r ";
     }
 
