@@ -20,7 +20,7 @@ public class AddStudent extends javax.swing.JFrame {
     public AddStudent() {
         initComponents();
         setLocationRelativeTo(null);
-        setTitle("Dodaj studenta");
+        setTitle("Dodanje studenta");
     }
 
     /**
@@ -99,10 +99,10 @@ public class AddStudent extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addGap(159, 159, 159)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnSacuvaj)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(157, 157, 157))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -178,7 +178,7 @@ public class AddStudent extends javax.swing.JFrame {
             //dialog.popuniTabelu(null);
             this.dispose();
         } else {
-            JOptionPane.showMessageDialog(this, "Sistem ne moze da kreira studenta", "Greska", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Sistem ne moze da doda studenta", "Greska", JOptionPane.ERROR_MESSAGE);
         }
     }
 }

@@ -34,6 +34,11 @@ public class EkvivalentiTableModel2 extends AbstractTableModel {
     }
 
     @Override
+    public String getColumnName(int column) {
+        return kolone[column];
+    }
+
+    @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
         EkvivalentiRazmena e = ekvivalentiRazmena.get(rowIndex);
         switch (columnIndex) {

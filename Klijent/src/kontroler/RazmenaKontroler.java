@@ -5,6 +5,7 @@
 package kontroler;
 
 import domen.Razmena;
+import java.util.List;
 import konstante.Operacije;
 import transfer.KlijentskiZahtev;
 import transfer.ServerskiOdgovor;
@@ -33,5 +34,19 @@ public class RazmenaKontroler {
         ServerskiOdgovor so = ServerKontroler.getInstance().primiOdgovor();
 
         return so.getUspeh() == Operacije.USPEH;
+    }
+
+    public List<Razmena> pretraziRazmene(String kriterijum) {
+        ServerKontroler.getInstance().posaljiZahtev(new KlijentskiZahtev(kriterijum, Operacije.PRETRAZI_RAZMENU));
+        ServerskiOdgovor so = ServerKontroler.getInstance().primiOdgovor();
+
+        return (List<Razmena>) so.getOdgovor();
+    }
+
+    public List<Razmena> ucitajListuRazmena(List<Razmena> razmene) {
+        ServerKontroler.getInstance().posaljiZahtev(new KlijentskiZahtev(razmene, Operacije.UCITAJ_LISTU_RAZMENA));
+        ServerskiOdgovor so = ServerKontroler.getInstance().primiOdgovor();
+        
+        return (List<Razmena>) so.getOdgovor();
     }
 }
