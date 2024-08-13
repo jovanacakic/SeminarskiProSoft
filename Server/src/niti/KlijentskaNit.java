@@ -68,7 +68,7 @@ public class KlijentskaNit extends Thread {
 
             switch (kz.getOperacija()) {
                 case Operacije.PRIJAVI_RADNIKA:
-                    radnik = RadnikKontroler.getInstanca().prijaviRadnika((Radnik) kz.getParametar());
+                    radnik = RadnikKontroler.getInstancе().prijaviRadnika((Radnik) kz.getParametar());
                     if (radnik != null) {
                         frame.dodajRadnika((Radnik) radnik, getKlijentskiSocket());
                         so.setOdgovor(radnik);
@@ -79,7 +79,7 @@ public class KlijentskaNit extends Thread {
                     }
                     break;
                 case Operacije.UCITAJ_RADNIKA:
-                    radnik = RadnikKontroler.getInstanca().ucitajRadnika((Radnik) kz.getParametar());
+                    radnik = RadnikKontroler.getInstancе().ucitajRadnika((Radnik) kz.getParametar());
                     so.setOdgovor(radnik);
                     break;
                 case Operacije.DODAJ_STUDENTA:
@@ -92,9 +92,7 @@ public class KlijentskaNit extends Thread {
                         so.setUspeh(Operacije.NEUSPEH);
                     }
                     break;
-                case Operacije.DODAJ_STUDENTA_:
-                    so.setOdgovor(StudentKontroler.getInstance().dodajStudenta((Student) kz.getParametar()));
-                    break;
+
                 case Operacije.PRETRAZI_STUDENTE:
                     lista = StudentKontroler.getInstance().pretraziStudente((String) kz.getParametar());
                     so.setOdgovor(lista);
@@ -152,6 +150,18 @@ public class KlijentskaNit extends Thread {
                         so.setPoruka("Sistem ne moze da doda razmenu");
                         so.setUspeh(Operacije.NEUSPEH);
                     }
+                    break;
+                case Operacije.PRETRAZI_RAZMENU:
+                    lista = RazmenaKontroler.getInstance().pretraziRazmene((String) kz.getParametar());
+                    so.setOdgovor(lista);
+
+                    if (lista.isEmpty()) {
+                        so.setPoruka("Sistem ne moze da nadje razmenu po zadatoj vrednosti");
+                    }
+                    break;
+                case Operacije.UCITAJ_LISTU_RAZMENA:
+                    lista = RazmenaKontroler.getInstance().ucitajListuRazmena();
+                    so.setOdgovor(lista);
                     break;
                 case Operacije.ZATVORI_KONEKCIJU: 
                     try {

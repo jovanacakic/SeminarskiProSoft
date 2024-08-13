@@ -4,16 +4,18 @@
  */
 package kontroleri;
 
+import domen.AbstractDomainObject;
 import domen.Razmena;
-import konstante.Operacije;
+import java.util.List;
 import sistemska_operacija.razmena.SODodajRazmenu;
-import transfer.KlijentskiZahtev;
-import transfer.ServerskiOdgovor;
+import sistemska_operacija.razmena.SONadjiRazmene;
+import sistemska_operacija.razmena.SOUcitajListuRazmena;
 
 /**
  *
  * @author jovana
  */
+//server
 public class RazmenaKontroler {
     
     private static RazmenaKontroler instance;
@@ -32,5 +34,18 @@ public class RazmenaKontroler {
         SODodajRazmenu so = new SODodajRazmenu(novaRazmena);
         so.izvrsiSistemskuOperaciju();
         return so.isUspeh();
+    }
+
+    public List<AbstractDomainObject> pretraziRazmene(String kriterijum) {
+        SONadjiRazmene so = new SONadjiRazmene(kriterijum);
+        so.izvrsiSistemskuOperaciju();
+        if(so.getRezultat() == null)System.out.println("HELLO");
+        return so.getRezultat();
+    }
+
+    public List<AbstractDomainObject> ucitajListuRazmena() {
+        SOUcitajListuRazmena so = new SOUcitajListuRazmena();
+        so.izvrsiSistemskuOperaciju();
+        return so.getRazmene();
     }
 }

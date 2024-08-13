@@ -62,7 +62,7 @@ public class DBBroker {
     }
 
        public ArrayList<AbstractDomainObject> select(AbstractDomainObject o) throws SQLException {
-        String query = "SELECT * FROM " + o.getTableName() + o.getAlijas() + " " + o.getJoin() + " " + o.getUslov();
+        String query = "SELECT * FROM " + o.getTableName() + o.getAlias() + " " + o.getJoin() + " " + o.getUslov();
         System.out.println(query);
         Statement statement = connection.createStatement();
         ResultSet rs = statement.executeQuery(query);

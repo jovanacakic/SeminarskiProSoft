@@ -16,16 +16,16 @@ import sistemska_operacija.radnik.SOUcitajRadnika;
  */
 public class RadnikKontroler {
     //server
-    private static RadnikKontroler instanca;
+    private static RadnikKontroler instancе;
 
     private RadnikKontroler() {
     }
 
-    public static RadnikKontroler getInstanca() {
-        if (instanca == null) {
-            instanca = new RadnikKontroler();
+    public static RadnikKontroler getInstancе() {
+        if (instancе == null) {
+            instancе = new RadnikKontroler();
         }
-        return instanca;
+        return instancе;
     }
 
     public AbstractDomainObject prijaviRadnika(Radnik radnik) {

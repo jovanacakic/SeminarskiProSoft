@@ -49,8 +49,8 @@ public class StudentKontroler {
         return so.isUspeh();
     }
 
-//    public boolean azurirajSpasioca(Spasilac spasilac) {
-//        SOAzurirajSpasioca so = new SOAzurirajSpasioca(spasilac);
+//    public boolean azurirajStudenta(Student student) {
+//        SOAzurirajStudenta so = new SOAzurirajStudenta(student);
 //        so.izvrsiSistemskuOperaciju();
 //        return so.isUspeh();
 //    }
