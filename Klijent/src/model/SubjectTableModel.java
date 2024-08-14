@@ -4,7 +4,7 @@
  */
 package model;
 
-import domen.Razmena;
+import domen.Predmet;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
@@ -13,22 +13,22 @@ import javax.swing.table.AbstractTableModel;
  *
  * @author jovana
  */
-public class ExchangeTableModel extends AbstractTableModel {
+public class SubjectTableModel extends AbstractTableModel {
 
-    List<Razmena> razmene;
-    String[] kolone = {"Ime", "Prezime", "Indeks", "Semestar", "Skolska godina"};
+    List<Predmet> predmeti;
+    String[] kolone = {"Naziv", "Ustanova", "Semestar", "ESPB"};
 
-    public ExchangeTableModel() {
-        razmene = new ArrayList<>();
+    public SubjectTableModel() {
+        predmeti = new ArrayList<>();
     }
 
-    public ExchangeTableModel(List<Razmena> razmene) {
-        this.razmene = razmene;
+    public SubjectTableModel(List<Predmet> predmeti) {
+        this.predmeti = predmeti;
     }
 
     @Override
     public int getRowCount() {
-        return razmene.size();
+        return predmeti.size();
     }
 
     @Override
@@ -43,25 +43,23 @@ public class ExchangeTableModel extends AbstractTableModel {
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        Razmena r = razmene.get(rowIndex);
+        Predmet p = predmeti.get(rowIndex);
         switch (columnIndex) {
             case 0:
-                return r.getStudent().getIme();
+                return p.getNaziv();
             case 1:
-                return r.getStudent().getPrezime();
+                return p.getUstanova();
             case 2:
-                return r.getStudent().getIndex();
+                return p.getSemestar();
             case 3:
-                return r.getSemestar();
-            case 4:
-                return r.getSkolskaGodina();
+                return p.getEspb();
             default:
                 throw new AssertionError();
         }
     }
 
-    public Razmena getRazmena(int row) {
-        return razmene.get(row);
+    public Predmet getPredmet(int row) {
+        return predmeti.get(row);
     }
 
 }

@@ -49,4 +49,29 @@ public class PredmetKontroler {
 
         return (List<Predmet>) so.getOdgovor();
     }
+
+    public boolean obrisiPredmet(Predmet p) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    public boolean azurirajPredmet(Predmet p) {
+        ServerKontroler.getInstance().posaljiZahtev(new KlijentskiZahtev(p, Operacije.AZURIRAJ_PREDMET));
+        ServerskiOdgovor so = ServerKontroler.getInstance().primiOdgovor();
+
+        return so.getUspeh() == Operacije.USPEH;
+    }
+
+    public List<Predmet> pretraziPredmete(String kriterijum) {
+        ServerKontroler.getInstance().posaljiZahtev(new KlijentskiZahtev(kriterijum, Operacije.PRETRAZI_PREDMETE));
+        ServerskiOdgovor so = ServerKontroler.getInstance().primiOdgovor();
+
+        return (List<Predmet>) so.getOdgovor();
+    }
+
+    public List<Predmet> ucitajListuPredmeta(List<Predmet> predmeti) {
+        ServerKontroler.getInstance().posaljiZahtev(new KlijentskiZahtev(null, Operacije.UCITAJ_LISTU_PREDMETA));
+        ServerskiOdgovor so = ServerKontroler.getInstance().primiOdgovor();
+
+        return (List<Predmet>) so.getOdgovor();
+    }
 }

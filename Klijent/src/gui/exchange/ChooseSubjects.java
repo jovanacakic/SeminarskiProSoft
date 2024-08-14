@@ -150,15 +150,24 @@ public class ChooseSubjects extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnDodajActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDodajActionPerformed
-        AddExchange forma = (AddExchange) getParent();
+        java.awt.Frame parentFrame = (java.awt.Frame) getParent();
         Predmet p1 = (Predmet) cmbFon.getSelectedItem();
         Predmet p2 = (Predmet) cmbEkvivalenti.getSelectedItem();
-
         if (zimski && p2.getSemestar().equals("Letnji")) {
             JOptionPane.showMessageDialog(null, "Izabrali ste da semestar razmene bude " + semestar + ". Ne mozete dodavati predmet iz drugog semestra", "Greska", JOptionPane.ERROR_MESSAGE);
             return;
         }
-        forma.dodajEkvivalente(izabrani);
+        if (parentFrame instanceof AddExchange) {
+            AddExchange addForm = (AddExchange) parentFrame;
+            // Ovde implementiraj logiku specifičnu za AddExchange
+            // Na primer:
+            addForm.dodajEkvivalente(izabrani);
+        } else if (parentFrame instanceof UpdateExchange) {
+            UpdateExchange updateForm = (UpdateExchange) parentFrame;
+
+            updateForm.dodajEkvivalente(izabrani);
+        }
+
         this.dispose();
     }//GEN-LAST:event_btnDodajActionPerformed
 

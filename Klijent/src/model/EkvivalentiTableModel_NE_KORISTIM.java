@@ -5,7 +5,6 @@
 package model;
 
 import domen.Ekvivalenti;
-import domen.EkvivalentiRazmena;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
@@ -14,56 +13,52 @@ import javax.swing.table.AbstractTableModel;
  *
  * @author jovana
  */
-public class EkvivalentiTableModel2 extends AbstractTableModel {
+public class EkvivalentiTableModel_NE_KORISTIM extends AbstractTableModel {
 
-    private List<EkvivalentiRazmena> ekvivalentiRazmena;
-    private final String[] kolone = {"RB", "Predmet na FON-u", "Predmet na drugom fakultetu"};
+    private List<Ekvivalenti> ekvivalenti;
+    private final String[] kolone = {"Predmet na FON-u", "Predmet na drugom fakultetu"};
 
-    public EkvivalentiTableModel2() {
-        ekvivalentiRazmena = new ArrayList<>();
+    public EkvivalentiTableModel_NE_KORISTIM() {
+        ekvivalenti = new ArrayList<>();
     }
 
     @Override
     public int getRowCount() {
-        return ekvivalentiRazmena.size();
+        return ekvivalenti.size();
     }
 
     @Override
     public int getColumnCount() {
         return kolone.length;
     }
-
     @Override
     public String getColumnName(int column) {
         return kolone[column];
     }
-
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        EkvivalentiRazmena e = ekvivalentiRazmena.get(rowIndex);
+        Ekvivalenti e = ekvivalenti.get(rowIndex);
         switch (columnIndex) {
             case 0:
-                return e.getRb();
+                return e.getPredmetFon();
             case 1:
-                return e.getEkvivalenti().getPredmetFon().toString();
-            case 2:
-                return e.getEkvivalenti().getPredmetDrugiFakultet().toString();
+                return e.getPredmetDrugiFakultet();
             default:
                 throw new AssertionError();
         }
     }
 
-    public void dodajRed(EkvivalentiRazmena e) {
-        ekvivalentiRazmena.add(e);
+    public void dodajRed(Ekvivalenti e) {
+        ekvivalenti.add(e);
         fireTableDataChanged();
     }
 
-    public List<EkvivalentiRazmena> getLista() {
-        return ekvivalentiRazmena;
+    public List<Ekvivalenti> getLista() {
+        return ekvivalenti;
     }
 
     public void obrisiEkvivalente(int row) {
-        ekvivalentiRazmena.remove(row);
+        ekvivalenti.remove(row);
         fireTableDataChanged();
     }
 

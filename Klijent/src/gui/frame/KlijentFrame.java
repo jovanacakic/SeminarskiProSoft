@@ -5,11 +5,12 @@
 package gui.frame;
 
 import gui.exchange.AddExchange;
-import gui.exchange.UpdateExchange;
+import gui.exchange.SearchExchange;
 import gui.student.AddStudent;
 import gui.student.SearchStudent;
 import gui.subject.AddEquivalents;
 import gui.subject.AddSubject;
+import gui.subject.SearchSubject;
 import niti.KlijentskaNit;
 
 /**
@@ -51,11 +52,11 @@ public class KlijentFrame extends javax.swing.JFrame {
         jmiPretraga = new javax.swing.JMenuItem();
         jMenu10 = new javax.swing.JMenu();
         jmiDodajPredmet = new javax.swing.JMenuItem();
-        jmiDodajEkvivalente = new javax.swing.JMenuItem();
         jMenuItem3 = new javax.swing.JMenuItem();
+        jmiDodajEkvivalente = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jmiDodajRazmenu = new javax.swing.JMenuItem();
-        jmiAžurirajRazmenu = new javax.swing.JMenuItem();
+        jmiPretraziRazmene = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
 
         jMenuItem1.setText("jMenuItem1");
@@ -104,6 +105,14 @@ public class KlijentFrame extends javax.swing.JFrame {
         });
         jMenu10.add(jmiDodajPredmet);
 
+        jMenuItem3.setText("Azuriraj predmet");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
+        jMenu10.add(jMenuItem3);
+
         jmiDodajEkvivalente.setText("Dodaj ekvivalente");
         jmiDodajEkvivalente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -111,9 +120,6 @@ public class KlijentFrame extends javax.swing.JFrame {
             }
         });
         jMenu10.add(jmiDodajEkvivalente);
-
-        jMenuItem3.setText("Pregled predmeta");
-        jMenu10.add(jMenuItem3);
 
         jMenuBar1.add(jMenu10);
 
@@ -127,13 +133,13 @@ public class KlijentFrame extends javax.swing.JFrame {
         });
         jMenu2.add(jmiDodajRazmenu);
 
-        jmiAžurirajRazmenu.setText("Ažuriraj razmenu");
-        jmiAžurirajRazmenu.addActionListener(new java.awt.event.ActionListener() {
+        jmiPretraziRazmene.setText("Pretraži razmene");
+        jmiPretraziRazmene.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jmiAžurirajRazmenuActionPerformed(evt);
+                jmiPretraziRazmeneActionPerformed(evt);
             }
         });
-        jMenu2.add(jmiAžurirajRazmenu);
+        jMenu2.add(jmiPretraziRazmene);
 
         jMenuBar1.add(jMenu2);
 
@@ -176,9 +182,13 @@ public class KlijentFrame extends javax.swing.JFrame {
         new AddExchange().setVisible(true);
     }//GEN-LAST:event_jmiDodajRazmenuActionPerformed
 
-    private void jmiAžurirajRazmenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiAžurirajRazmenuActionPerformed
-        new UpdateExchange().setVisible(true);
-    }//GEN-LAST:event_jmiAžurirajRazmenuActionPerformed
+    private void jmiPretraziRazmeneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiPretraziRazmeneActionPerformed
+        new SearchExchange().setVisible(true);
+    }//GEN-LAST:event_jmiPretraziRazmeneActionPerformed
+
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+        new SearchSubject().setVisible(true);
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
 
 //    /**
 //     * @param args the command line arguments
@@ -229,11 +239,11 @@ public class KlijentFrame extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar3;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JMenuItem jmiAžurirajRazmenu;
     private javax.swing.JMenuItem jmiDodajEkvivalente;
     private javax.swing.JMenuItem jmiDodajPredmet;
     private javax.swing.JMenuItem jmiDodajRazmenu;
     private javax.swing.JMenuItem jmiDodajStudenta;
     private javax.swing.JMenuItem jmiPretraga;
+    private javax.swing.JMenuItem jmiPretraziRazmene;
     // End of variables declaration//GEN-END:variables
 }

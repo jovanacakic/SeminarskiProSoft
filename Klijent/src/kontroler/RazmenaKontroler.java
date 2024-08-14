@@ -46,7 +46,21 @@ public class RazmenaKontroler {
     public List<Razmena> ucitajListuRazmena(List<Razmena> razmene) {
         ServerKontroler.getInstance().posaljiZahtev(new KlijentskiZahtev(razmene, Operacije.UCITAJ_LISTU_RAZMENA));
         ServerskiOdgovor so = ServerKontroler.getInstance().primiOdgovor();
-        
+
         return (List<Razmena>) so.getOdgovor();
+    }
+
+    public boolean azurirajRazmenu(Razmena razmena) {
+        ServerKontroler.getInstance().posaljiZahtev(new KlijentskiZahtev(razmena, Operacije.AZURIRAJ_RAZMENU));
+        ServerskiOdgovor so = ServerKontroler.getInstance().primiOdgovor();
+
+        return so.getUspeh() == Operacije.USPEH;
+    }
+
+    public boolean obrisiRazmenu(Razmena r) {
+        ServerKontroler.getInstance().posaljiZahtev(new KlijentskiZahtev(r, Operacije.OBRISI_RAZMENU));
+        ServerskiOdgovor so = ServerKontroler.getInstance().primiOdgovor();
+
+        return so.getUspeh() == Operacije.USPEH;
     }
 }
