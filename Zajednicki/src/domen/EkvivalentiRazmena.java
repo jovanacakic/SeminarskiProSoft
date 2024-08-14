@@ -31,7 +31,7 @@ public class EkvivalentiRazmena extends AbstractDomainObject {
 
     @Override
     public String getTableName() {
-        return "ekvivalentirazmena";
+        return "ekvivalenti_razmena";
     }
 
     @Override
@@ -124,7 +124,7 @@ public class EkvivalentiRazmena extends AbstractDomainObject {
 
     @Override
     public String getUslov() {
-        return " WHERE RazmenaID = " + razmena.getId()
+        return " WHERE er.RazmenaID = " + razmena.getId()
                 + " ORDER BY RB ASC";
     }
 
