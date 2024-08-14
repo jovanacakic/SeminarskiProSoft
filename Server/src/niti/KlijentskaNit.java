@@ -6,6 +6,7 @@ package niti;
 
 import domen.AbstractDomainObject;
 import domen.Ekvivalenti;
+import domen.EkvivalentiRazmena;
 import domen.Predmet;
 import domen.Radnik;
 import domen.Razmena;
@@ -127,6 +128,24 @@ public class KlijentskaNit extends Thread {
                     lista = PredmetKontroler.getInstance().vratiPredmeteDrugi();
                     so.setOdgovor(lista);
                     break;
+                case Operacije.PRETRAZI_PREDMETE:
+                    lista = PredmetKontroler.getInstance().pretraziPredmete((String) kz.getParametar());
+                    so.setOdgovor(lista);
+                    break;
+                case Operacije.UCITAJ_LISTU_PREDMETA:
+                    lista = PredmetKontroler.getInstance().ucitajListuPredmeta();
+                    so.setOdgovor(lista);
+                    break;
+                case Operacije.AZURIRAJ_PREDMET:
+                    uspeh = PredmetKontroler.getInstance().azurirajPredmet((Predmet) kz.getParametar());
+                    if (uspeh) {
+                        so.setPoruka("Sistem je azurirao predmet");
+                        so.setUspeh(Operacije.USPEH);
+                    } else {
+                        so.setPoruka("Sistem ne moze da azurira predmet");
+                        so.setUspeh(Operacije.NEUSPEH);
+                    }
+                    break;
                 case Operacije.DODAJ_EKVIVALENTE:
                     uspeh = EkvivalentiKontroler.getInstance().dodajEkvivalente((Ekvivalenti) kz.getParametar());
                     if (uspeh) {
@@ -162,6 +181,26 @@ public class KlijentskaNit extends Thread {
                 case Operacije.UCITAJ_LISTU_RAZMENA:
                     lista = RazmenaKontroler.getInstance().ucitajListuRazmena();
                     so.setOdgovor(lista);
+                    break;
+                case Operacije.OBRISI_RAZMENU:
+                    uspeh = RazmenaKontroler.getInstance().obrisiRazmenu((Razmena) kz.getParametar());
+                    if (uspeh) {
+                        so.setPoruka("Sistem je obrisao razmenu");
+                        so.setUspeh(Operacije.USPEH);
+                    } else {
+                        so.setPoruka("Sistem ne moze da obrise razmenu");
+                        so.setUspeh(Operacije.NEUSPEH);
+                    }
+                    break;
+                case Operacije.AZURIRAJ_RAZMENU:
+                    uspeh = RazmenaKontroler.getInstance().azurirajRazmenu((Razmena) kz.getParametar());
+                    if (uspeh) {
+                        so.setPoruka("Sistem je azurirao razmenu");
+                        so.setUspeh(Operacije.USPEH);
+                    } else {
+                        so.setPoruka("Sistem ne moze da azurira razmenu");
+                        so.setUspeh(Operacije.NEUSPEH);
+                    }
                     break;
                 case Operacije.ZATVORI_KONEKCIJU: 
                     try {

@@ -61,7 +61,7 @@ public class DBBroker {
         }
     }
 
-       public ArrayList<AbstractDomainObject> select(AbstractDomainObject o) throws SQLException {
+    public ArrayList<AbstractDomainObject> select(AbstractDomainObject o) throws SQLException {
         String query = "SELECT * FROM " + o.getTableName() + o.getAlias() + " " + o.getJoin() + " " + o.getUslov();
         System.out.println(query);
         Statement statement = connection.createStatement();
@@ -70,7 +70,7 @@ public class DBBroker {
     }
 
     public PreparedStatement insert(AbstractDomainObject o) throws SQLException {
-        String query = "INSERT INTO " + o.getTableName()+ " " + o.getKoloneZaInsert() + " VALUES(" + o.getVrednostiZaInsert() + ")";
+        String query = "INSERT INTO " + o.getTableName() + " " + o.getKoloneZaInsert() + " VALUES(" + o.getVrednostiZaInsert() + ")";
         System.out.println(query);
         PreparedStatement ps = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
         int i = ps.executeUpdate();
@@ -78,26 +78,29 @@ public class DBBroker {
     }
 
     public boolean update(AbstractDomainObject o) throws SQLException {
-        String query = "UPDATE " + o.getTableName()+ " SET " + o.getVrednostiZaUpdate() + " WHERE " + o.getVrednostZaPrimarniKljuc();
+        String query = "UPDATE " + o.getTableName() + " SET " + o.getVrednostiZaUpdate() + " WHERE " + o.getVrednostZaPrimarniKljuc();
         System.out.println(query);
         Statement statement = connection.createStatement();
         int rezultat = statement.executeUpdate(query);
-        
-        if(rezultat == 0)
+
+        if (rezultat == 0) {
             return false;
-        
+        }
+
+        System.out.println("nesto u update::dbbbroker");
         return true;
     }
 
     public boolean delete(AbstractDomainObject o) throws SQLException {
-        String query = "DELETE FROM " + o.getTableName()+ " WHERE " + o.getVrednostZaPrimarniKljuc();
+        String query = "DELETE FROM " + o.getTableName() + " WHERE " + o.getVrednostZaPrimarniKljuc();
         System.out.println(query);
         Statement statement = connection.createStatement();
         int rezultat = statement.executeUpdate(query);
-        
-        if(rezultat == 0)
+
+        if (rezultat == 0) {
             return false;
-        
+        }
+
         return true;
     }
 

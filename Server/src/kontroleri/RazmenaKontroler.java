@@ -5,10 +5,13 @@
 package kontroleri;
 
 import domen.AbstractDomainObject;
+import domen.EkvivalentiRazmena;
 import domen.Razmena;
 import java.util.List;
+import sistemska_operacija.razmena.SOAzurirajRazmenu;
 import sistemska_operacija.razmena.SODodajRazmenu;
 import sistemska_operacija.razmena.SONadjiRazmene;
+import sistemska_operacija.razmena.SOObrisiRazmenu;
 import sistemska_operacija.razmena.SOUcitajListuRazmena;
 
 /**
@@ -47,5 +50,17 @@ public class RazmenaKontroler {
         SOUcitajListuRazmena so = new SOUcitajListuRazmena();
         so.izvrsiSistemskuOperaciju();
         return so.getRazmene();
+    }
+
+    public boolean obrisiRazmenu(Razmena razmena) {
+        SOObrisiRazmenu so = new SOObrisiRazmenu(razmena);
+        so.izvrsiSistemskuOperaciju();
+        return so.isUspeh();
+    }
+
+    public boolean azurirajRazmenu(Razmena razmena) {
+        SOAzurirajRazmenu so = new SOAzurirajRazmenu(razmena);
+        so.izvrsiSistemskuOperaciju();
+        return so.isUspeh();
     }
 }

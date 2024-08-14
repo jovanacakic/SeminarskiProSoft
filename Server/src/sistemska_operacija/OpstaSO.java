@@ -19,6 +19,7 @@ public abstract class OpstaSO {
             DBBroker.getInstance().commit();
             DBBroker.getInstance().zatvoriKonekciju();
         } catch (Exception ex) {
+            System.err.println(ex.getMessage());
             DBBroker.getInstance().rollback();
             DBBroker.getInstance().zatvoriKonekciju();
         }
