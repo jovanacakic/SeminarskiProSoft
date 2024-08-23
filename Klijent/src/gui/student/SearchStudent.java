@@ -7,6 +7,7 @@ package gui.student;
 import domen.Student;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 import kontroler.StudentKontroler;
@@ -26,6 +27,8 @@ public class SearchStudent extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         setTitle("Pretraga studenata");
 
+        List<Student> studenti = StudentKontroler.getInstance().pretraziStudente(txtPretraga.getText());
+        popuniTabelu(studenti);
         dodajOsluskivacNaPretragu();
     }
 
@@ -46,7 +49,7 @@ public class SearchStudent extends javax.swing.JFrame {
         btnDodaj = new javax.swing.JButton();
         btnDetalji = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Pretraga studenata"));
 

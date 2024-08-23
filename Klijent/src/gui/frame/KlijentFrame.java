@@ -11,7 +11,12 @@ import gui.student.SearchStudent;
 import gui.subject.AddEquivalents;
 import gui.subject.AddSubject;
 import gui.subject.SearchSubject;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import konstante.Operacije;
+import kontroler.ServerKontroler;
 import niti.KlijentskaNit;
+import transfer.KlijentskiZahtev;
 
 /**
  *
@@ -28,6 +33,14 @@ public class KlijentFrame extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
         setTitle("Razmena studenata");
+
+        this.kn = kn;
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                zatvoriKonekciju();
+            }
+        });
     }
 
     /**
@@ -246,4 +259,12 @@ public class KlijentFrame extends javax.swing.JFrame {
     private javax.swing.JMenuItem jmiPretraga;
     private javax.swing.JMenuItem jmiPretraziRazmene;
     // End of variables declaration//GEN-END:variables
+    private void zatvoriKonekciju() {
+        try {
+            //ServerKontroler.getInstance().posaljiZahtev(new KlijentskiZahtev(null, Operacije.ZATVORI_KONEKCIJU));
+            kn.zatvoriKonekciju(this);
+        } catch (Exception ex) {
+            System.out.println("Greska: " + ex.getMessage());
+        }
+    }
 }

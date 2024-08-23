@@ -42,19 +42,15 @@ public class KlijentskaNit extends Thread {
     }
 
     public void zatvoriKonekciju(Frame frame) {
-        int odgovor = JOptionPane.showConfirmDialog(null, "Da li ste sigurni da želite da zatvorite program?",
-                "Potvrda zatvaranja", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
 
-        if (odgovor == JOptionPane.YES_OPTION) {
-            ServerKontroler.getInstance().posaljiZahtev(new KlijentskiZahtev(null, Operacije.ZATVORI_KONEKCIJU));
-            ServerskiOdgovor o = ServerKontroler.getInstance().primiOdgovor();
+        ServerKontroler.getInstance().posaljiZahtev(new KlijentskiZahtev(null, Operacije.ZATVORI_KONEKCIJU));
+        ServerskiOdgovor o = ServerKontroler.getInstance().primiOdgovor();
 
-            if (o.getUspeh() == Operacije.USPEH) {
-                frame.dispose();
-                this.interrupt();
-            } else {
-                JOptionPane.showMessageDialog(frame, o.getPoruka(), "Greska", JOptionPane.ERROR_MESSAGE);
-            }
+        if (o.getUspeh() == Operacije.USPEH) {
+            frame.dispose();
+            this.interrupt();
+        } else {
+            JOptionPane.showMessageDialog(frame, o.getPoruka(), "Greska", JOptionPane.ERROR_MESSAGE);
         }
     }
 

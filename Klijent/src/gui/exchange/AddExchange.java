@@ -4,6 +4,7 @@
  */
 package gui.exchange;
 
+import java.time.Year;
 import domen.Ekvivalenti;
 import domen.EkvivalentiRazmena;
 import domen.Predmet;
@@ -12,8 +13,8 @@ import domen.Student;
 import gui.student.SearchStudent;
 import java.util.List;
 import javax.swing.JOptionPane;
+import javax.swing.table.TableColumn;
 import kontroler.RazmenaKontroler;
-import model.EkvivalentiTableModel_NE_KORISTIM;
 import model.EkvivalentiTableModel;
 
 /**
@@ -36,6 +37,10 @@ public class AddExchange extends javax.swing.JFrame {
         txtStudent.setEditable(false);
         rbZimski.setSelected(true);
         tblEkvivalenti.setModel(new EkvivalentiTableModel());
+        TableColumn firstColumn = tblEkvivalenti.getColumnModel().getColumn(0);
+        firstColumn.setMinWidth(50);
+        firstColumn.setMaxWidth(50); 
+        firstColumn.setPreferredWidth(50);
         rb = 0;
     }
 
@@ -57,16 +62,16 @@ public class AddExchange extends javax.swing.JFrame {
         tblEkvivalenti = new javax.swing.JTable();
         btnDodajPredmete = new javax.swing.JButton();
         btnObrisiPredmete = new javax.swing.JButton();
-        btnDodaj = new javax.swing.JButton();
         rbLetnji = new javax.swing.JRadioButton();
         rbZimski = new javax.swing.JRadioButton();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         txtSkolskaGodina = new javax.swing.JTextField();
+        btnDodajRazmenu = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Dodavanje razmene studenata"));
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Unos podataka o razmeni"));
 
         btnIzaberi.setText("Izaberi studenta");
         btnIzaberi.addActionListener(new java.awt.event.ActionListener() {
@@ -103,14 +108,6 @@ public class AddExchange extends javax.swing.JFrame {
         btnObrisiPredmete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnObrisiPredmeteActionPerformed(evt);
-            }
-        });
-
-        btnDodaj.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        btnDodaj.setText("Dodaj razmenu");
-        btnDodaj.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnDodajActionPerformed(evt);
             }
         });
 
@@ -155,12 +152,10 @@ public class AddExchange extends javax.swing.JFrame {
                                         .addComponent(txtSkolskaGodina, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addGap(65, 65, 65))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(153, 153, 153)
+                        .addGap(290, 290, 290)
                         .addComponent(btnDodajPredmete, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(119, 119, 119)
-                        .addComponent(btnObrisiPredmete, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(114, 114, 114)
-                        .addComponent(btnDodaj, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(162, 162, 162)
+                        .addComponent(btnObrisiPredmete, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(37, 37, 37)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 946, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -182,20 +177,22 @@ public class AddExchange extends javax.swing.JFrame {
                     .addComponent(jLabel2)
                     .addComponent(jLabel3)
                     .addComponent(txtSkolskaGodina, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnDodajPredmete)
-                            .addComponent(btnObrisiPredmete))
-                        .addContainerGap(215, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnDodaj)
-                        .addGap(199, 199, 199))))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnObrisiPredmete)
+                    .addComponent(btnDodajPredmete))
+                .addContainerGap(29, Short.MAX_VALUE))
         );
+
+        btnDodajRazmenu.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnDodajRazmenu.setText("Dodaj razmenu");
+        btnDodajRazmenu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDodajRazmenuActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -205,12 +202,18 @@ public class AddExchange extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(408, 408, 408)
+                .addComponent(btnDodajRazmenu, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnDodajRazmenu)
                 .addContainerGap())
         );
 
@@ -229,27 +232,42 @@ public class AddExchange extends javax.swing.JFrame {
         new ChooseSubjects(this, true, rbZimski.isSelected()).setVisible(true);
     }//GEN-LAST:event_btnDodajPredmeteActionPerformed
 
-    private void btnDodajActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDodajActionPerformed
+    private void btnDodajRazmenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDodajRazmenuActionPerformed
         //int studentId = izabrani.getId();
-        EkvivalentiTableModel etb = (EkvivalentiTableModel) tblEkvivalenti.getModel();
         //List<Ekvivalenti> listaEkvivalenata = etb.getLista();
+
+        if (izabrani == null) {
+            JOptionPane.showMessageDialog(this, "Morate izabrati studenta.", "Greska", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
         String skolskaGodina = txtSkolskaGodina.getText();
-        String semestar = rbZimski.isSelected() ? "Zimski" : "Letnji";
+        if (!isValidSkolskaGodina(skolskaGodina)) {
+            JOptionPane.showMessageDialog(this, "Skolska godina mora da bude u odgovarajucem formatu.", "Greska", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        EkvivalentiTableModel etb = (EkvivalentiTableModel) tblEkvivalenti.getModel();
         List<EkvivalentiRazmena> listaEkvNaRazmeni = etb.getLista();
+        if (listaEkvNaRazmeni.size() < 3) {
+            JOptionPane.showMessageDialog(this, "Razmena mora da ima bar 3 predmeta.", "Greska", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
         for (EkvivalentiRazmena ekvivalentiRazmena : listaEkvNaRazmeni) {
             System.out.println(ekvivalentiRazmena.getEkvivalenti().getPredmetFon() + " " + ekvivalentiRazmena.getEkvivalenti().getPredmetDrugiFakultet());
         }
+        String semestar = rbZimski.isSelected() ? "Zimski" : "Letnji";
 
         Razmena razmena = new Razmena(0, izabrani, semestar, skolskaGodina, listaEkvNaRazmeni);
         if (RazmenaKontroler.getInstance().dodajRazmenu(razmena)) {
             JOptionPane.showMessageDialog(this, "Sistem je dodao razmenu", "Uspeh", JOptionPane.INFORMATION_MESSAGE);
             //dialog.popuniTabelu(null);
-            this.dispose();
+            //this.dispose();
         } else {
             JOptionPane.showMessageDialog(this, "Sistem ne moze da doda razmenu", "Greska", JOptionPane.ERROR_MESSAGE);
         }
 
-    }//GEN-LAST:event_btnDodajActionPerformed
+    }//GEN-LAST:event_btnDodajRazmenuActionPerformed
 
     private void btnObrisiPredmeteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnObrisiPredmeteActionPerformed
         int row = tblEkvivalenti.getSelectedRow();
@@ -257,6 +275,8 @@ public class AddExchange extends javax.swing.JFrame {
             EkvivalentiTableModel etb = (EkvivalentiTableModel) tblEkvivalenti.getModel();
             etb.obrisiEkvivalente(row);
             rb--;
+            etb.resetujRB();
+
         }
     }//GEN-LAST:event_btnObrisiPredmeteActionPerformed
 
@@ -299,8 +319,8 @@ public class AddExchange extends javax.swing.JFrame {
         txtStudent.setText(izabrani.toString());
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnDodaj;
     private javax.swing.JButton btnDodajPredmete;
+    private javax.swing.JButton btnDodajRazmenu;
     private javax.swing.JButton btnIzaberi;
     private javax.swing.JButton btnObrisiPredmete;
     private javax.swing.ButtonGroup buttonGroup1;
@@ -321,7 +341,6 @@ public class AddExchange extends javax.swing.JFrame {
 //        EkvivalentiTableModel_NE_KORISTIM etb = (EkvivalentiTableModel_NE_KORISTIM) tblEkvivalenti.getModel();
 //        etb.dodajRed(e);
 //    }
-
     private boolean proveriSemestar() {
         EkvivalentiTableModel etb = (EkvivalentiTableModel) tblEkvivalenti.getModel();
         if (etb.getLista().isEmpty()) {
@@ -337,4 +356,28 @@ public class AddExchange extends javax.swing.JFrame {
         EkvivalentiRazmena e2 = new EkvivalentiRazmena(++rb, null, e, 0);
         etb.dodajRed(e2);
     }
+
+    public boolean isValidSkolskaGodina(String skolskaGodina) {
+        // Regex za format "godina/godina"
+        String regex = "^(20\\d{2})/(20\\d{2})$";
+
+        // Proveri da li uneti string odgovara regexu
+        if (skolskaGodina.matches(regex)) {
+            // Dobij trenutnu godinu
+            int currentYear = Year.now().getValue();
+
+            // Podeli string na dve godine
+            String[] godine = skolskaGodina.split("/");
+            int prvaGodina = Integer.parseInt(godine[0]);
+            int drugaGodina = Integer.parseInt(godine[1]);
+
+            // Proveri da li su godine u validnom opsegu i da li je razlika između njih tačno 1
+            if (prvaGodina >= 2000 && drugaGodina <= currentYear && drugaGodina - prvaGodina == 1) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
 }

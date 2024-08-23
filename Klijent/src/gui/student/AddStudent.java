@@ -4,6 +4,7 @@
  */
 package gui.student;
 
+import java.time.Year;
 import domen.Student;
 import javax.swing.JOptionPane;
 import kontroler.StudentKontroler;
@@ -20,7 +21,7 @@ public class AddStudent extends javax.swing.JFrame {
     public AddStudent() {
         initComponents();
         setLocationRelativeTo(null);
-        setTitle("Dodanje studenta");
+        setTitle("Dodavanje studenta");
     }
 
     /**
@@ -32,7 +33,7 @@ public class AddStudent extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        btnSacuvaj = new javax.swing.JButton();
+        btnDodaj = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         txtIme = new javax.swing.JTextField();
@@ -41,22 +42,22 @@ public class AddStudent extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         txtIndex = new javax.swing.JTextField();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        btnSacuvaj.setText("Sačuvaj");
-        btnSacuvaj.addActionListener(new java.awt.event.ActionListener() {
+        btnDodaj.setText("Dodaj studenta");
+        btnDodaj.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSacuvajActionPerformed(evt);
+                btnDodajActionPerformed(evt);
             }
         });
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Dodavanje studenta"));
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Unos podataka o studentu"));
 
         jLabel1.setText("Ime:");
 
         jLabel2.setText("Prezime:");
 
-        jLabel3.setText("Indeks:");
+        jLabel3.setText("Indeks (godina/broj npr. 2020/0036):");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -64,13 +65,13 @@ public class AddStudent extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(90, 90, 90)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3)
-                    .addComponent(txtIndex, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(txtIndex, javax.swing.GroupLayout.DEFAULT_SIZE, 198, Short.MAX_VALUE)
                     .addComponent(jLabel2)
-                    .addComponent(txtPrezime, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtPrezime, javax.swing.GroupLayout.DEFAULT_SIZE, 198, Short.MAX_VALUE)
                     .addComponent(jLabel1)
-                    .addComponent(txtIme, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtIme, javax.swing.GroupLayout.DEFAULT_SIZE, 198, Short.MAX_VALUE)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(90, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -88,7 +89,7 @@ public class AddStudent extends javax.swing.JFrame {
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtIndex, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(69, Short.MAX_VALUE))
+                .addContainerGap(45, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -101,25 +102,25 @@ public class AddStudent extends javax.swing.JFrame {
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnSacuvaj)
-                .addGap(157, 157, 157))
+                .addComponent(btnDodaj, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(130, 130, 130))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnSacuvaj)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnDodaj)
+                .addContainerGap(14, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnSacuvajActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSacuvajActionPerformed
+    private void btnDodajActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDodajActionPerformed
         dodajStudenta();
-    }//GEN-LAST:event_btnSacuvajActionPerformed
+    }//GEN-LAST:event_btnDodajActionPerformed
 
 //    /**
 //     * @param args the command line arguments
@@ -157,7 +158,7 @@ public class AddStudent extends javax.swing.JFrame {
 //    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnSacuvaj;
+    private javax.swing.JButton btnDodaj;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -172,13 +173,44 @@ public class AddStudent extends javax.swing.JFrame {
         String prezime = txtPrezime.getText();
         String index = txtIndex.getText();
 
+        if (ime.isEmpty() || prezime.isEmpty() || index.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Sva polja su obavezna", "Greska", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        if(!isValidIndex(index)){
+            JOptionPane.showMessageDialog(this, "Indeks studenta nije u dobrom formatu", "Greska", JOptionPane.ERROR_MESSAGE);
+            return;            
+        }
         Student student = new Student(0, ime, prezime, index);
         if (StudentKontroler.getInstance().dodajStudenta(student)) {
-            JOptionPane.showMessageDialog(this, "Sistem je kreirao studenta", "Uspeh", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Sistem je dodao studenta", "Uspeh", JOptionPane.INFORMATION_MESSAGE);
             //dialog.popuniTabelu(null);
-            this.dispose();
+            //this.dispose();
         } else {
             JOptionPane.showMessageDialog(this, "Sistem ne moze da doda studenta", "Greska", JOptionPane.ERROR_MESSAGE);
         }
+    }
+
+    public boolean isValidIndex(String index) {
+        // Dobij trenutnu godinu
+        int currentYear = Year.now().getValue();
+
+        // Regex za format "godina/broj"
+        String regex = "^(20\\d{2})/(\\d{4})$";
+
+        // Provera da li se index poklapa sa regexom
+        if (index.matches(regex)) {
+            // Ekstraktuj godinu i broj iz indeksa
+            String[] parts = index.split("/");
+            int year = Integer.parseInt(parts[0]);
+            int number = Integer.parseInt(parts[1]);
+
+            // Proveri da li je godina u validnom opsegu i da li je broj u opsegu 0001-9999
+            if (year >= 2000 && year <= currentYear && number >= 1 && number <= 9999) {
+                return true;
+            }
+        }
+        return false;
     }
 }

@@ -24,10 +24,11 @@ public class SearchSubject extends javax.swing.JFrame {
     public SearchSubject() {
         initComponents();
         setLocationRelativeTo(null);
-        setTitle("Azuriranje predmeta");
+        setTitle("Pretrazivanje predmeta");
 
+        List<Predmet> predmeti = PredmetKontroler.getInstance().pretraziPredmete(txtPretraga.getText());
+        popuniTabelu(predmeti);
         dodajOsluskivacNaPretragu();
-
     }
 
     /**
@@ -47,7 +48,7 @@ public class SearchSubject extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         btnAzuriraj = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         btnObrisi.setText("Obriši");
         btnObrisi.addActionListener(new java.awt.event.ActionListener() {
@@ -141,10 +142,10 @@ public class SearchSubject extends javax.swing.JFrame {
         if (row != -1) {
             // Prikazuje dijalog za potvrdu
             int confirm = JOptionPane.showConfirmDialog(this,
-                "Da li ste sigurni da želite obrisati ovu razmenu?",
-                "Potvrda brisanja",
-                JOptionPane.YES_NO_OPTION,
-                JOptionPane.QUESTION_MESSAGE);
+                    "Da li ste sigurni da želite obrisati ovu razmenu?",
+                    "Potvrda brisanja",
+                    JOptionPane.YES_NO_OPTION,
+                    JOptionPane.QUESTION_MESSAGE);
 
             if (confirm == JOptionPane.YES_OPTION) {
                 SubjectTableModel stm = (SubjectTableModel) tblPredmeti.getModel();
