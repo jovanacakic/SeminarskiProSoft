@@ -27,23 +27,23 @@ public class SOVratiPredmeteFon extends OpstaSO {
         return predmeti;
     }
 
-//    @Override
-//    protected void izvrsiSpecificnuOperaciju() {
-//        List<AbstractDomainObject> sviPredmeti = DBBroker.getInstance().getAllOpstiDomenskiObjekats(new Predmet());
-//        predmeti = new ArrayList<>();  // Ovo osigurava da je lista inicijalizovana
-//        for (AbstractDomainObject ado : sviPredmeti) {
-//            Predmet p = (Predmet) ado;
-//            if (p.getUstanova().equals("Fakultet Organizacionih Nauka")) {
-//                predmeti.add(ado);
-//            }
-//        }
-//    }
     @Override
     protected void izvrsiSpecificnuOperaciju() throws SQLException {
-        Predmet p = new Predmet(-1, "", "Fakultet Organizacionih Nauka", "", 0);
-        predmeti= DBBroker.getInstance().select(p);
-        
-
+        List<AbstractDomainObject> sviPredmeti = DBBroker.getInstance().select(new Predmet());
+        predmeti = new ArrayList<>();  // Ovo osigurava da je lista inicijalizovana
+        for (AbstractDomainObject ado : sviPredmeti) {
+            Predmet p = (Predmet) ado;
+            if (p.getUstanova().equals("Fakultet Organizacionih Nauka")) {
+                predmeti.add(ado);
+            }
+        }
     }
+//    @Override
+//    protected void izvrsiSpecificnuOperaciju() throws SQLException {
+//        Predmet p = new Predmet(-1, "", "Fakultet Organizacionih Nauka", "", 0);
+//        predmeti= DBBroker.getInstance().select(p);
+//        
+//
+//    }
 
 }

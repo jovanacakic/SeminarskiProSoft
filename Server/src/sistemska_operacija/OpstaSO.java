@@ -11,19 +11,36 @@ import database.DBBroker;
  * @author jovana
  */
 public abstract class OpstaSO {
-    
+
     public final void izvrsiSistemskuOperaciju() {
         try {
-            DBBroker.getInstance().otvoriKonekciju();
+            openConnection();
             izvrsiSpecificnuOperaciju();
-            DBBroker.getInstance().commit();
-            DBBroker.getInstance().zatvoriKonekciju();
+            commit();
+            closeConnection();
         } catch (Exception ex) {
             System.err.println(ex.getMessage());
-            DBBroker.getInstance().rollback();
-            DBBroker.getInstance().zatvoriKonekciju();
+            rollback();
+            closeConnection();
         }
     }
 
     protected abstract void izvrsiSpecificnuOperaciju() throws Exception;
+
+    private void openConnection() {
+        DBBroker.getInstance().otvoriKonekciju();
+    }
+
+    private void closeConnection() {
+        DBBroker.getInstance().zatvoriKonekciju();
+    }
+
+    private void commit() throws Exception {
+        DBBroker.getInstance().commit();
+    }
+    
+    private void rollback() {
+        DBBroker.getInstance().rollback();
+    }
+
 }

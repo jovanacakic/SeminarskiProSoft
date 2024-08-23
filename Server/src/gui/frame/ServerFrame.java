@@ -50,7 +50,7 @@ public class ServerFrame extends javax.swing.JFrame {
         lblStatus = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tblKoordinatori = new javax.swing.JTable();
+        tblRadnici = new javax.swing.JTable();
         btnPokreniServer = new javax.swing.JButton();
         btnZaustaviServer = new javax.swing.JButton();
 
@@ -60,9 +60,9 @@ public class ServerFrame extends javax.swing.JFrame {
 
         lblStatus.setText("STATUS");
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Prijavljeni koordinatori"));
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Prijavljeni radnici"));
 
-        tblKoordinatori.setModel(new javax.swing.table.DefaultTableModel(
+        tblRadnici.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -73,7 +73,7 @@ public class ServerFrame extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(tblKoordinatori);
+        jScrollPane1.setViewportView(tblRadnici);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -197,7 +197,7 @@ public class ServerFrame extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblStatus;
-    private javax.swing.JTable tblKoordinatori;
+    private javax.swing.JTable tblRadnici;
     // End of variables declaration//GEN-END:variables
 
     private void srediStatus() {
@@ -229,7 +229,7 @@ public class ServerFrame extends javax.swing.JFrame {
         List<Radnik> radnici = new ArrayList<>(prijavljeniRadnici.values());
 
         RadnikTableModel rtm = new RadnikTableModel(radnici);
-        tblKoordinatori.setModel(rtm);
+        tblRadnici.setModel(rtm);
     }
 
     public void dodajRadnika(Radnik radnik, Socket klijentskiSocket) {

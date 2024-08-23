@@ -28,53 +28,69 @@ public class SOAzurirajRazmenu extends OpstaSO {
 
     @Override
     protected void izvrsiSpecificnuOperaciju() throws Exception {
-        try {
-            ArrayList<AbstractDomainObject> listaubazi = new ArrayList<>();
-            try {
-                
-            listaubazi = DBBroker.getInstance().select(new EkvivalentiRazmena(0, razmena, null, 0));
-            } catch (Exception e) {
-                System.out.println("traaaaaaaalalalalallalalala");
-            }
+        ArrayList<AbstractDomainObject> listaubazi = new ArrayList<>();
+        listaubazi = DBBroker.getInstance().select(new EkvivalentiRazmena(0, razmena, null, 0));
+        for (int i = 0; i < listaubazi.size(); i++) {
 
-            int razlika = listaubazi.size() - razmena.getListaEkvivalenata().size();
-            if (razlika < 0) {
-
-                for (EkvivalentiRazmena er : razmena.getListaEkvivalenata()) {
-                    System.out.println(er.getRb() + " " + er.getEkvivalenti().getId());
-                    uspeh = DBBroker.getInstance().update(er);
-                    if (!uspeh) {
-                        System.err.println("Update nije uspeo za EkvivalentiRazmena: RB = " + er.getRb());
-                        DBBroker.getInstance().insert(er);
-                    }
-                }
-            } else {
-
-                for (EkvivalentiRazmena er : razmena.getListaEkvivalenata()) {
-                    System.out.println(er.getRb() + " " + er.getEkvivalenti().getId());
-                    uspeh = DBBroker.getInstance().update(er);
-                    if (!uspeh) {
-                        System.err.println("Update nije uspeo za EkvivalentiRazmena: RB = " + er.getRb());
-                        DBBroker.getInstance().insert(er);
-                    }
-                }
-
-                for (int i = razmena.getListaEkvivalenata().size()-1; i < listaubazi.size()-1; i++) {
-                    uspeh = DBBroker.getInstance().delete(razmena.getListaEkvivalenata().get(i));
-                }
-            }
-            uspeh = DBBroker.getInstance().update(razmena);
-            if (!uspeh) {
-                System.err.println("Update nije uspeo za Razmena: ID = " + razmena.getId());
-            }
-        } catch (SQLException e) {
-            System.err.println("SQL Exception: " + e.getMessage());
-            throw e;
-        } catch (Exception e) {
-            System.err.println("General Exception: " + e.getMessage());
-            throw e;
+            EkvivalentiRazmena er = new EkvivalentiRazmena();
+            er.setRazmena(razmena);
+            er.setRb(i + 1);
+            uspeh = DBBroker.getInstance().delete(er);
         }
+        for (EkvivalentiRazmena er : razmena.getListaEkvivalenata()) {
+            DBBroker.getInstance().insert(er);
+        }
+
     }
+//    @Override
+//    protected void izvrsiSpecificnuOperaciju() throws Exception {
+//        try {
+//            ArrayList<AbstractDomainObject> listaubazi = new ArrayList<>();
+//            try {
+//                
+//            listaubazi = DBBroker.getInstance().select(new EkvivalentiRazmena(0, razmena, null, 0));
+//            } catch (Exception e) {
+//                System.out.println("traaaaaaaalalalalallalalala");
+//            }
+//
+//            int razlika = listaubazi.size() - razmena.getListaEkvivalenata().size();
+//            if (razlika < 0) {
+//
+//                for (EkvivalentiRazmena er : razmena.getListaEkvivalenata()) {
+//                    System.out.println(er.getRb() + " " + er.getEkvivalenti().getId());
+//                    uspeh = DBBroker.getInstance().update(er);
+//                    if (!uspeh) {
+//                        System.err.println("Update nije uspeo za EkvivalentiRazmena: RB = " + er.getRb());
+//                        DBBroker.getInstance().insert(er);
+//                    }
+//                }
+//            } else {
+//
+//                for (EkvivalentiRazmena er : razmena.getListaEkvivalenata()) {
+//                    System.out.println(er.getRb() + " " + er.getEkvivalenti().getId());
+//                    uspeh = DBBroker.getInstance().update(er);
+//                    if (!uspeh) {
+//                        System.err.println("Update nije uspeo za EkvivalentiRazmena: RB = " + er.getRb());
+//                        DBBroker.getInstance().insert(er);
+//                    }
+//                }
+//
+//                for (int i = razmena.getListaEkvivalenata().size()-1; i < listaubazi.size()-1; i++) {
+//                    uspeh = DBBroker.getInstance().delete(razmena.getListaEkvivalenata().get(i));
+//                }
+//            }
+//            uspeh = DBBroker.getInstance().update(razmena);
+//            if (!uspeh) {
+//                System.err.println("Update nije uspeo za Razmena: ID = " + razmena.getId());
+//            }
+//        } catch (SQLException e) {
+//            System.err.println("SQL Exception: " + e.getMessage());
+//            throw e;
+//        } catch (Exception e) {
+//            System.err.println("General Exception: " + e.getMessage());
+//            throw e;
+//        }
+//    }
 
     public boolean isUspeh() {
         return uspeh;

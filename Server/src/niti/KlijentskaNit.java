@@ -207,6 +207,7 @@ public class KlijentskaNit extends Thread {
                     System.out.println("Klijentski program zatvoren: " + getKlijentskiSocket());
                     frame.ukloniRadnika(getKlijentskiSocket());
 
+                    so.setUspeh(Operacije.USPEH);
                     so.setPoruka("KLIJENT_ZATVOREN");
                     posaljiOdgovor(so);
 
