@@ -93,6 +93,11 @@ public class LoginFrame extends javax.swing.JFrame {
         );
 
         btnPrijaviSe.setText("Prijavi se");
+        btnPrijaviSe.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPrijaviSeActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -119,6 +124,27 @@ public class LoginFrame extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnPrijaviSeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrijaviSeActionPerformed
+        String username = txtUsername.getText();
+        String password = String.valueOf(txtPassword.getPassword());
+
+        if (username.isEmpty() || password.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Sva polja su obavezna", "Greska", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        Radnik radnik = new Radnik();
+        radnik.setUsername(username);
+        radnik.setPassword(password);
+
+        if (RadnikKontroler.getInstance().prijaviRadnika(radnik)) {
+            JOptionPane.showMessageDialog(this, "Uspesno prijavljivanje", "Uspeh", JOptionPane.INFORMATION_MESSAGE);
+            this.dispose();
+            new KlijentFrame(kn).setVisible(true);
+        } else {
+            JOptionPane.showMessageDialog(this, "Neuspesno prijavljivanje", "Greska", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btnPrijaviSeActionPerformed
 
 //    /**
 //     * @param args the command line arguments

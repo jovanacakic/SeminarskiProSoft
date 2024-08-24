@@ -11,6 +11,7 @@ import gui.student.SearchStudent;
 import gui.subject.AddEquivalents;
 import gui.subject.AddSubject;
 import gui.subject.SearchSubject;
+import gui.university.AddUniversity;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import konstante.Operacije;
@@ -64,6 +65,7 @@ public class KlijentFrame extends javax.swing.JFrame {
         jmiDodajStudenta = new javax.swing.JMenuItem();
         jmiPretraga = new javax.swing.JMenuItem();
         jMenu10 = new javax.swing.JMenu();
+        jmiDodajUniverzitet = new javax.swing.JMenuItem();
         jmiDodajPredmet = new javax.swing.JMenuItem();
         jMenuItem3 = new javax.swing.JMenuItem();
         jmiDodajEkvivalente = new javax.swing.JMenuItem();
@@ -109,6 +111,14 @@ public class KlijentFrame extends javax.swing.JFrame {
         jMenuBar1.add(jMenu1);
 
         jMenu10.setText("Predmeti");
+
+        jmiDodajUniverzitet.setText(" Dodaj univerzitet");
+        jmiDodajUniverzitet.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiDodajUniverzitetActionPerformed(evt);
+            }
+        });
+        jMenu10.add(jmiDodajUniverzitet);
 
         jmiDodajPredmet.setText("Dodaj predmet");
         jmiDodajPredmet.addActionListener(new java.awt.event.ActionListener() {
@@ -203,6 +213,10 @@ public class KlijentFrame extends javax.swing.JFrame {
         new SearchSubject().setVisible(true);
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
+    private void jmiDodajUniverzitetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiDodajUniverzitetActionPerformed
+        new AddUniversity().setVisible(true);
+    }//GEN-LAST:event_jmiDodajUniverzitetActionPerformed
+
 //    /**
 //     * @param args the command line arguments
 //     */
@@ -256,6 +270,7 @@ public class KlijentFrame extends javax.swing.JFrame {
     private javax.swing.JMenuItem jmiDodajPredmet;
     private javax.swing.JMenuItem jmiDodajRazmenu;
     private javax.swing.JMenuItem jmiDodajStudenta;
+    private javax.swing.JMenuItem jmiDodajUniverzitet;
     private javax.swing.JMenuItem jmiPretraga;
     private javax.swing.JMenuItem jmiPretraziRazmene;
     // End of variables declaration//GEN-END:variables

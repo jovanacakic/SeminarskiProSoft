@@ -148,7 +148,7 @@ public class UpdateSubject extends javax.swing.JDialog {
             return;
         }
 
-        Predmet p = new Predmet(this.predmet.getId(), nazivPredmeta, uni, semestar1, espb1);
+        Predmet p = new Predmet(this.predmet.getPredmetID(), nazivPredmeta, uni, semestar1, espb1);
 
         if (PredmetKontroler.getInstance().azurirajPredmet(p)) {
             JOptionPane.showMessageDialog(this, "Sistem je azurirao predmet", "Uspeh", JOptionPane.INFORMATION_MESSAGE);
