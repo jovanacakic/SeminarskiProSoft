@@ -11,6 +11,7 @@ import domen.Predmet;
 import domen.Radnik;
 import domen.Razmena;
 import domen.Student;
+import domen.Univerzitet;
 import gui.frame.ServerFrame;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -23,6 +24,7 @@ import kontroleri.PredmetKontroler;
 import kontroleri.RadnikKontroler;
 import kontroleri.RazmenaKontroler;
 import kontroleri.StudentKontroler;
+import kontroleri.UniverzitetKontroler;
 import transfer.KlijentskiZahtev;
 import transfer.ServerskiOdgovor;
 
@@ -109,6 +111,16 @@ public class KlijentskaNit extends Thread {
                 case Operacije.UCITAJ_STUDENTA:
                     student = StudentKontroler.getInstance().ucitajStudenta((Student) kz.getParametar());
                     so.setOdgovor(student);
+                    break;
+                case Operacije.DODAJ_UNIVERZITET:
+                    uspeh = UniverzitetKontroler.getInstance().dodajUniverzitet((Univerzitet)kz.getParametar());
+                    if(uspeh){
+                        so.setPoruka("Sistem je dodao univerzitet");
+                        so.setUspeh(Operacije.USPEH);
+                    }else {
+                        so.setPoruka("Sistem ne moze da doda univerzitet");
+                        so.setUspeh(Operacije.NEUSPEH);
+                    }
                     break;
                 case Operacije.DODAJ_PREDMET:
                     uspeh = PredmetKontroler.getInstance().dodajPredmet((Predmet) kz.getParametar());
