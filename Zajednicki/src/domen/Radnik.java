@@ -16,7 +16,7 @@ import java.util.List;
  */
 public class Radnik extends AbstractDomainObject {
 
-    private int id;
+    private int radnikID;
     private String username;
     private String password;
     private String ime;
@@ -31,7 +31,7 @@ public class Radnik extends AbstractDomainObject {
     }
 
     public Radnik(int id, String username, String password, String ime, String prezime) {
-        this.id = id;
+        this.radnikID = id;
         this.username = username;
         this.password = password;
         this.ime = ime;
@@ -46,12 +46,12 @@ public class Radnik extends AbstractDomainObject {
         this.prezime = prezime;
     }
 
-    public int getId() {
-        return id;
+    public int getRadnikID() {
+        return radnikID;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setRadnikID(int radnikID) {
+        this.radnikID = radnikID;
     }
 
     public String getUsername() {
@@ -99,7 +99,7 @@ public class Radnik extends AbstractDomainObject {
         ArrayList<AbstractDomainObject> lista = new ArrayList<>();
         while (rs.next()) {
             Radnik radnik = new Radnik(
-                    rs.getInt("ID"),
+                    rs.getInt("RadnikID"),
                     rs.getString("Username"),
                     rs.getString("Password"),
                     rs.getString("Ime"),
@@ -117,7 +117,7 @@ public class Radnik extends AbstractDomainObject {
 
     @Override
     public String getVrednostZaPrimarniKljuc() {
-        return " id = " + id;
+        return " RadnikID = " + radnikID;
     }
 
     @Override

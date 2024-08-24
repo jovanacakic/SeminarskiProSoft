@@ -111,13 +111,13 @@ public class Ekvivalenti extends AbstractDomainObject {
 
     @Override
     public String getVrednostiZaInsert() {
-        return predmetFon.getId() + ", " + predmetDrugiFakultet.getId() + ", " + godinaDodavanja;
+        return predmetFon.getPredmetID() + ", " + predmetDrugiFakultet.getPredmetID() + ", " + godinaDodavanja;
     }
 
     @Override
     public String getVrednostiZaUpdate() {
-        return " PredmetFon = " + predmetFon.getId()
-                + ", PredmetDrugiFakultet = " + predmetDrugiFakultet.getId()
+        return " PredmetFon = " + predmetFon.getPredmetID()
+                + ", PredmetDrugiFakultet = " + predmetDrugiFakultet.getPredmetID()
                 + ", GodinaDodavanja = " + godinaDodavanja;
     }
 

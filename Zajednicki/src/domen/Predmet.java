@@ -16,7 +16,7 @@ import java.util.List;
  */
 public class Predmet extends AbstractDomainObject {
 
-    private int id;
+    private int predmetID;
     private String naziv;
     private String ustanova;
     private String semestar;
@@ -31,7 +31,7 @@ public class Predmet extends AbstractDomainObject {
     }
 
     public Predmet(int id, String naziv, String ustanova, String semestar, int espb) {
-        this.id = id;
+        this.predmetID = id;
         this.naziv = naziv;
         this.ustanova = ustanova;
         this.semestar = semestar;
@@ -45,7 +45,7 @@ public class Predmet extends AbstractDomainObject {
 
     //@Override
     public String getParametre() {
-        return String.format("%d, '%s', '%s', '%s', %d", id, naziv, ustanova, semestar, espb);
+        return String.format("%d, '%s', '%s', '%s', %d", predmetID, naziv, ustanova, semestar, espb);
     }
 
     //@Override
@@ -94,7 +94,7 @@ public class Predmet extends AbstractDomainObject {
 
     //@Override
     public String getSelectUpitPoParametru() {
-        return "SELECT * FROM " + getTableName() + " WHERE id = " + getId() + " OR ustanova = '" + getUstanova() + "'";
+        return "SELECT * FROM " + getTableName() + " WHERE id = " + getPredmetID() + " OR ustanova = '" + getUstanova() + "'";
     }
 
     public String getSelectUpitSaDodatnim(String dodatniUpit) {
@@ -121,12 +121,12 @@ public class Predmet extends AbstractDomainObject {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
-    public int getId() {
-        return id;
+    public int getPredmetID() {
+        return predmetID;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setPredmetID(int predmetID) {
+        this.predmetID = predmetID;
     }
 
     public String getNaziv() {
@@ -175,7 +175,7 @@ public class Predmet extends AbstractDomainObject {
     public ArrayList<AbstractDomainObject> getListuSvih(ResultSet rs) throws SQLException {
         ArrayList<AbstractDomainObject> lista = new ArrayList<>();
         while (rs.next()) {
-            Predmet predmet = new Predmet(rs.getInt("ID"), rs.getString("Naziv"), rs.getString("Ustanova"), rs.getString("Semestar"), rs.getInt("Espb"));
+            Predmet predmet = new Predmet(rs.getInt("PredmetID"), rs.getString("Naziv"), rs.getString("Ustanova"), rs.getString("Semestar"), rs.getInt("Espb"));
             lista.add(predmet);
         }
         rs.close();
@@ -189,7 +189,7 @@ public class Predmet extends AbstractDomainObject {
 
     @Override
     public String getVrednostZaPrimarniKljuc() {
-        return " id = " + id;
+        return " PredmetID = " + predmetID;
     }
 
     @Override

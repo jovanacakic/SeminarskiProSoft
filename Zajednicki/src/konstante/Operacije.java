@@ -39,5 +39,8 @@ public interface Operacije {
     public static int UCITAJ_LISTU_RAZMENA = 21;
     public static int OBRISI_RAZMENU = 22;
     public static int AZURIRAJ_RAZMENU = 23;
+    
+    
+    public static int DODAJ_UNIVERZITET = 24;
 
 }

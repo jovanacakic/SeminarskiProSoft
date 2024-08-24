@@ -87,7 +87,7 @@ public class Student extends AbstractDomainObject {
     public ArrayList<AbstractDomainObject> getListuSvih(ResultSet rs) throws SQLException {
         ArrayList<AbstractDomainObject> lista = new ArrayList<>();
         while (rs.next()) {
-            Student student = new Student(rs.getInt("ID"), rs.getString("Ime"), rs.getString("Prezime"), rs.getString("Index"));
+            Student student = new Student(rs.getInt("StudentID"), rs.getString("Ime"), rs.getString("Prezime"), rs.getString("Index"));
             lista.add(student);
         }
         rs.close();
@@ -101,7 +101,7 @@ public class Student extends AbstractDomainObject {
 
     @Override
     public String getVrednostZaPrimarniKljuc() {
-        return " id = " + id;
+        return " StudentID = " + id;
     }
 
     @Override
