@@ -42,11 +42,11 @@ public class EkvivalentiRazmena extends AbstractDomainObject {
     @Override
     public String getJoin() {
         // Join sa tabelom razmene, ekvivalenti, studenti i predmeti
-        return "JOIN razmena r ON er.RazmenaID = r.RazmenaID "
+        return "JOIN razmena raz ON er.RazmenaID = raz.RazmenaID "
                 + "JOIN ekvivalenti e ON er.EkvivalentiID = e.EkvivalentiID "
                 + "JOIN predmet p1 ON e.PredmetFon = p1.PredmetID "
                 + "JOIN predmet p2 ON e.PredmetDrugiFakultet = p2.PredmetID "
-                + "JOIN student s ON r.StudentID = s.ID "
+                + "JOIN student s ON raz.StudentID = s.StudentID "
                 + " JOIN univerzitet u1 ON u1.UniverzitetID = p1.UniverzitetID "
                 + " JOIN univerzitet u2 ON u2.UniverzitetID = p2.UniverzitetID ";
     }
@@ -57,14 +57,13 @@ public class EkvivalentiRazmena extends AbstractDomainObject {
         while (rs.next()) {
             Radnik radnik = new Radnik();
             Univerzitet fon = new Univerzitet(rs.getInt("u1.UniverzitetID"), rs.getString("u1.Naziv"), rs.getString("u1.Grad"));
-            Univerzitet drugiUni = new Univerzitet(rs.getInt("u1.UniverzitetID"), rs.getString("u1.Naziv"), rs.getString("u1.Grad"));
+            Univerzitet drugiUni = new Univerzitet(rs.getInt("u2.UniverzitetID"), rs.getString("u2.Naziv"), rs.getString("u2.Grad"));
 
             Student student = new Student(
-                    rs.getInt("s.ID"),
+                    rs.getInt("s.StudentID"),
                     rs.getString("s.Ime"),
                     rs.getString("s.Prezime"),
-                    rs.getString("s.Index"), radnik); // Ažurirano za uključivanje informacija o studentu
-
+                    rs.getString("s.Index"), radnik); 
             Predmet predmetFon = new Predmet(
                     rs.getInt("p1.PredmetID"), rs.getString("p1.Naziv"), fon,
                     rs.getString("p1.Semestar"), rs.getInt("p1.Espb"), radnik);
@@ -73,16 +72,17 @@ public class EkvivalentiRazmena extends AbstractDomainObject {
                     rs.getString("p2.Semestar"), rs.getInt("p2.Espb"), radnik);
 
             Ekvivalenti ekvivalent = new Ekvivalenti(
-                    rs.getInt("e.ID"),
+                    rs.getInt("e.EkvivalentiID"),
                     predmetFon,
                     predmetDrugiFakultet,
                     rs.getInt("e.GodinaDodavanja"));
 
             Razmena razmena = new Razmena(
-                    rs.getInt("r.RazmenaID"),
+                    rs.getInt("raz.RazmenaID"),
                     student,
-                    rs.getString("r.Semestar"),
-                    rs.getString("r.SkolskaGodina"),
+                    rs.getString("raz.Semestar"),
+                    rs.getString("raz.SkolskaGodina"),
+                    fon, drugiUni,
                     new ArrayList<>());  // Lista ekvivalenata može biti dodata naknadno ili popunjena ovde ako je potrebno
 
             int ocena = rs.getInt("er.Ocena");
@@ -106,24 +106,24 @@ public class EkvivalentiRazmena extends AbstractDomainObject {
 
     @Override
     public String getVrednostZaPrimarniKljuc() {
-        return " RB = " + rb + " AND RazmenaID = " + razmena.getId();
+        return " RB = " + rb + " AND RazmenaID = " + razmena.getRazmenaID();
     }
 
     @Override
     public String getVrednostiZaInsert() {
-        return rb + ", " + razmena.getId() + ", " + ekvivalenti.getEkvivalentiID() + ", " + ocena;
+        return rb + ", " + razmena.getRazmenaID() + ", " + ekvivalenti.getEkvivalentiID() + ", " + ocena;
     }
 
     @Override
     public String getVrednostiZaUpdate() {
-        return " RazmenaID = " + razmena.getId()
+        return " RazmenaID = " + razmena.getRazmenaID()
                 + ", EkvivalentiID = " + ekvivalenti.getEkvivalentiID()
                 + ", Ocena = " + ocena;
     }
 
     @Override
     public String getUslov() {
-        return " WHERE er.RazmenaID = " + razmena.getId()
+        return " WHERE er.RazmenaID = " + razmena.getRazmenaID()
                 + " ORDER BY RB ASC";
     }
 

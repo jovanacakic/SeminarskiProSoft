@@ -75,7 +75,7 @@ public class Univerzitet extends AbstractDomainObject {
 
     @Override
     public String getVrednostiZaUpdate() {
-        return " naziv='" + naziv + "', grad='" + grad +  " ";
+        return " naziv='" + naziv + "', grad='" + grad + " ";
     }
 
     @Override
@@ -105,6 +105,33 @@ public class Univerzitet extends AbstractDomainObject {
 
     public void setGrad(String grad) {
         this.grad = grad;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+        Univerzitet other = (Univerzitet) obj;
+
+        // Poređenje univerzitetID
+        if (univerzitetID != other.univerzitetID) {
+            return false;
+        }
+
+        // Poređenje naziv neosetljivo na velika/mala slova
+        if (naziv == null) {
+            if (other.naziv != null) {
+                return false;
+            }
+        } else if (!naziv.equalsIgnoreCase(other.naziv)) {
+            return false;
+        }
+
+        return true;
     }
 
 }

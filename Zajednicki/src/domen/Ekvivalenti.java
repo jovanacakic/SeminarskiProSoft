@@ -86,7 +86,7 @@ public class Ekvivalenti extends AbstractDomainObject {
         ArrayList<AbstractDomainObject> lista = new ArrayList<>();
         while (rs.next()) {
             Univerzitet fon = new Univerzitet(rs.getInt("u1.UniverzitetID"), rs.getString("u1.Naziv"), rs.getString("u1.Grad"));
-            Univerzitet drugiUni = new Univerzitet(rs.getInt("u1.UniverzitetID"), rs.getString("u1.Naziv"), rs.getString("u1.Grad"));
+            Univerzitet drugiUni = new Univerzitet(rs.getInt("u2.UniverzitetID"), rs.getString("u2.Naziv"), rs.getString("u2.Grad"));
             Radnik radnik = new Radnik();
             Predmet predmetFon = new Predmet(
                     rs.getInt("p1.PredmetID"), rs.getString("p1.Naziv"), fon,
