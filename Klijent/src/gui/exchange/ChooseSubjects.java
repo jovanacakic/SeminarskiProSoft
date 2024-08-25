@@ -6,8 +6,10 @@ package gui.exchange;
 
 import domen.Ekvivalenti;
 import domen.Predmet;
+import domen.Univerzitet;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,22 +25,25 @@ public class ChooseSubjects extends javax.swing.JDialog {
 
     boolean zimski;
     String semestar;
-    List<Ekvivalenti> sviEkvivalenti;
+    List<Ekvivalenti> ekvivalentiZaOdabraniUni;
+    Univerzitet izabraniUniverzitet;
     Ekvivalenti izabrani;
     private Map<Predmet, Map<Predmet, Ekvivalenti>> ekvivalentiMapa = new HashMap<>();
 
     /**
      * Creates new form ChooseSubjects
      */
-    public ChooseSubjects(java.awt.Frame parent, boolean modal, boolean rbZimski) {
+    public ChooseSubjects(java.awt.Frame parent, boolean modal, boolean rbZimski, Univerzitet u) {
         super(parent, modal);
         initComponents();
         setLocationRelativeTo(null);
         setTitle("Izbor predmeta");
         zimski = rbZimski;
-        sviEkvivalenti = EkvivalentiKontroler.getInstance().vratiEkvivalente();
+        this.izabraniUniverzitet = u;
 
-        popuniCmbFon();  // Popunjava cmbFon i postavlja mapu sviEkvivalenti
+        ucitajListuEkvivalenata();
+
+        popuniCmbFon();  // Popunjava cmbFon i postavlja mapu ekvivalentiZaOdabraniUni
 
         cmbFon.addActionListener(new ActionListener() {
             @Override
@@ -224,7 +229,7 @@ public class ChooseSubjects extends javax.swing.JDialog {
 
     private void popuniCmbFon() {
         cmbFon.removeAllItems();
-        for (Ekvivalenti e : sviEkvivalenti) {
+        for (Ekvivalenti e : ekvivalentiZaOdabraniUni) {
             cmbFon.addItem(e.getPredmetFon());
             if (!ekvivalentiMapa.containsKey(e.getPredmetFon())) {
                 ekvivalentiMapa.put(e.getPredmetFon(), new HashMap<>());
@@ -255,5 +260,15 @@ public class ChooseSubjects extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
+
+    private void ucitajListuEkvivalenata() {
+        List<Ekvivalenti> sviEkvivalenti = EkvivalentiKontroler.getInstance().vratiEkvivalente();
+        this.ekvivalentiZaOdabraniUni = new ArrayList<>();
+        for (Ekvivalenti e : sviEkvivalenti) {
+            if (e.getPredmetDrugiFakultet().getUniverzitet().equals(izabraniUniverzitet)) {
+                this.ekvivalentiZaOdabraniUni.add(e);
+            }
+        }
+    }
 
 }

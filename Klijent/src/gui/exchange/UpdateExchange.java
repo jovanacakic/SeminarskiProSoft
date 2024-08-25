@@ -42,7 +42,7 @@ public class UpdateExchange extends javax.swing.JFrame {
         firstColumn.setMinWidth(50);
         firstColumn.setMaxWidth(50);
         firstColumn.setPreferredWidth(50);
-        razmenaID = razmena.getId();
+        razmenaID = razmena.getRazmenaID();
         rb = razmena.getListaEkvivalenata().size();
         this.izabranaRazmena = razmena;
 
