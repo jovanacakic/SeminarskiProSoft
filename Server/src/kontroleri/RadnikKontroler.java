@@ -31,7 +31,7 @@ public class RadnikKontroler {
     public AbstractDomainObject prijaviRadnika(Radnik radnik) {
         SOPrijaviRadnika so = new SOPrijaviRadnika(radnik);
         so.izvrsiSistemskuOperaciju();
-        return so.getRadnik();
+        return so.getPrijavljeni();
     }
 
     public AbstractDomainObject ucitajRadnika(Radnik radnik) {

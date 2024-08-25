@@ -33,7 +33,7 @@ public class SOVratiPredmeteDrugi extends OpstaSO{
         predmeti = new ArrayList<>();  // Ovo osigurava da je lista inicijalizovana
         for (AbstractDomainObject ado : sviPredmeti) {
             Predmet p = (Predmet) ado;
-            if (!p.getUstanova().equals("Fakultet Organizacionih Nauka")) {
+            if (!p.getUniverzitet().getNaziv().equals("Fakultet Organizacionih Nauka")) {
                 predmeti.add(ado);
             }
         }

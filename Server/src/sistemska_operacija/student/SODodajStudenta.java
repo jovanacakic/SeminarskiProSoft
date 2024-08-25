@@ -6,6 +6,8 @@ package sistemska_operacija.student;
 
 import database.DBBroker;
 import domen.AbstractDomainObject;
+import domen.Student;
+import java.util.List;
 import sistemska_operacija.OpstaSO;
 
 /**
@@ -28,6 +30,17 @@ public class SODodajStudenta extends OpstaSO {
     @Override
     protected void izvrsiSpecificnuOperaciju() throws Exception {
         //uspeh = DBBroker.getInstance().insert(student);
+        Student noviStudent = (Student) student;
+        List<AbstractDomainObject> listaStudenata = DBBroker.getInstance().select(student);
+        for (AbstractDomainObject ado : listaStudenata) {
+            Student trenutni = (Student) ado;
+            
+            if(trenutni.getIndex().equals(noviStudent.getIndex())){
+                
+                uspeh = false;
+                return;
+            }
+        }
         DBBroker.getInstance().insert(student);
         uspeh = true;
     }

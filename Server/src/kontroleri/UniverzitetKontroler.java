@@ -4,8 +4,11 @@
  */
 package kontroleri;
 
+import domen.AbstractDomainObject;
 import domen.Univerzitet;
+import java.util.List;
 import sistemska_operacija.univerzitet.SODodajUniverzitet;
+import sistemska_operacija.univerzitet.SOUcitajListuUniverziteta;
 
 /**
  *
@@ -28,6 +31,13 @@ public class UniverzitetKontroler {
         so.izvrsiSistemskuOperaciju();
 
         return so.isUspeh();
+    }
+
+    public List<AbstractDomainObject> ucitajListuUniverziteta() {
+        SOUcitajListuUniverziteta so = new SOUcitajListuUniverziteta();
+        so.izvrsiSistemskuOperaciju();
+        
+        return so.getLista();
     }
 
 }

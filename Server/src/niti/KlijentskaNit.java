@@ -122,6 +122,10 @@ public class KlijentskaNit extends Thread {
                         so.setUspeh(Operacije.NEUSPEH);
                     }
                     break;
+                case Operacije.UCITAJ_LISTU_UNIVERZITETA:
+                    lista = UniverzitetKontroler.getInstance().ucitajListuUniverziteta();
+                    so.setOdgovor(lista);
+                    break;
                 case Operacije.DODAJ_PREDMET:
                     uspeh = PredmetKontroler.getInstance().dodajPredmet((Predmet) kz.getParametar());
                     if (uspeh) {

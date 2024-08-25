@@ -6,7 +6,9 @@ package sistemska_operacija.predmet;
 
 import database.DBBroker;
 import domen.AbstractDomainObject;
+import domen.Predmet;
 import java.sql.SQLException;
+import java.util.List;
 import sistemska_operacija.OpstaSO;
 
 /**
@@ -28,6 +30,17 @@ public class SODodajPredmet extends OpstaSO {
 
     @Override
     protected void izvrsiSpecificnuOperaciju() throws SQLException {
+        Predmet noviPredmet = (Predmet) predmet;
+        List<AbstractDomainObject> listaStudenata = DBBroker.getInstance().select(predmet);
+        for (AbstractDomainObject ado : listaStudenata) {
+            Predmet trenutni = (Predmet) ado;
+
+            if (trenutni.equals(noviPredmet)) {
+                
+                uspeh = false;
+                return;
+            }
+        }
         DBBroker.getInstance().insert(predmet);
         uspeh = true;
     }

@@ -10,33 +10,35 @@ import java.util.List;
 import domen.*;
 import java.sql.SQLException;
 import sistemska_operacija.OpstaSO;
+
 /**
  *
  * @author jovana
  */
 public class SOPrijaviRadnika extends OpstaSO {
 
-    private AbstractDomainObject radnik;
+    private AbstractDomainObject radnikSaKredencijalima;
     private AbstractDomainObject prijavljeni;
 
     public SOPrijaviRadnika(AbstractDomainObject radnik) {
-        this.radnik = radnik;
+        this.radnikSaKredencijalima = radnik;
         prijavljeni = null;
     }
 
     @Override
     protected void izvrsiSpecificnuOperaciju() throws SQLException {
-        List<AbstractDomainObject> radnici = DBBroker.getInstance().select(radnik);
-        Radnik uneti = (Radnik) radnik;
+        List<AbstractDomainObject> radnici = DBBroker.getInstance().select(radnikSaKredencijalima);
+        Radnik uneti = (Radnik) radnikSaKredencijalima;
         for (AbstractDomainObject odo : radnici) {
             Radnik r = (Radnik) odo;
             if (r.getUsername().equals(uneti.getUsername()) && r.getPassword().equals(uneti.getPassword())) {
                 this.prijavljeni = r;
+                Radnik provera = (Radnik) prijavljeni;
             }
         }
     }
 
-    public AbstractDomainObject getRadnik() {
+    public AbstractDomainObject getPrijavljeni() {
         return prijavljeni;
     }
 

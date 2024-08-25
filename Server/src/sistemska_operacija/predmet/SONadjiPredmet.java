@@ -43,7 +43,7 @@ public class SONadjiPredmet extends OpstaSO {
 
     private boolean sadrziKriterijum(Predmet p) {
         return p.getNaziv().toLowerCase().contains(kriterijum.toLowerCase())
-                || p.getUstanova().toLowerCase().contains(kriterijum.toLowerCase())
+                || p.getUniverzitet().getNaziv().toLowerCase().contains(kriterijum.toLowerCase())
                 || p.getSemestar().toLowerCase().contains(kriterijum);
     }
 }
