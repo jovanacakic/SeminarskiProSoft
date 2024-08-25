@@ -36,7 +36,7 @@ public class SODodajRazmenu extends OpstaSO {
         ResultSet rs = ps.getGeneratedKeys();
         if (rs.next()) {
             int id = rs.getInt(1);
-            razmena.setId(id);
+            razmena.setRazmenaID(id);
         }
         List<EkvivalentiRazmena> ekvivalentiRazmena = razmena.getListaEkvivalenata();
         ekvivalentiRazmena.stream().forEach((ekvivalenti) -> {
