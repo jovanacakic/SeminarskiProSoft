@@ -169,12 +169,12 @@ public class Razmena extends AbstractDomainObject {
 
     @Override
     public String getVrednostiZaInsert() {
-        return student.getId() + ", '" + semestar + "', '" + skolskaGodina + "'";
+        return student.getStudentID() + ", '" + semestar + "', '" + skolskaGodina + "'";
     }
 
     @Override
     public String getVrednostiZaUpdate() {
-        return " StudentID = " + student.getId()
+        return " StudentID = " + student.getStudentID()
                 + ", Semestar = '" + semestar
                 + "', SkolskaGodina = '" + skolskaGodina + "' ";
     }

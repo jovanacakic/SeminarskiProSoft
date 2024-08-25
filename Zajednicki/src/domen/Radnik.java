@@ -30,8 +30,8 @@ public class Radnik extends AbstractDomainObject {
     public Radnik() {
     }
 
-    public Radnik(int id, String username, String password, String ime, String prezime) {
-        this.radnikID = id;
+    public Radnik(int radnikID, String username, String password, String ime, String prezime) {
+        this.radnikID = radnikID;
         this.username = username;
         this.password = password;
         this.ime = ime;
@@ -85,12 +85,11 @@ public class Radnik extends AbstractDomainObject {
 
     @Override
     public String getAlias() {
-        return " r ";
+        return " rad ";
     }
 
     @Override
     public String getJoin() {
-        // Ako postoji potreba za spajanjem sa drugim tabelama, dodaj join naredbe ovde
         return "";
     }
 
@@ -135,7 +134,7 @@ public class Radnik extends AbstractDomainObject {
 
     @Override
     public String getUslov() {
-        return " ORDER BY r.Ime ASC, r.Prezime ASC";
+        return " ORDER BY rad.Ime ASC, rad.Prezime ASC";
     }
 
 }

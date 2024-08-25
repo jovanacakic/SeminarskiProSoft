@@ -42,5 +42,6 @@ public interface Operacije {
     
     
     public static int DODAJ_UNIVERZITET = 24;
+    public static int UCITAJ_LISTU_UNIVERZITETA = 25; 
 
 }

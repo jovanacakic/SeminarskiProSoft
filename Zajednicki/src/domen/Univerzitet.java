@@ -18,6 +18,11 @@ public class Univerzitet extends AbstractDomainObject {
     private String naziv;
     private String grad;
 
+    @Override
+    public String toString() {
+        return naziv;
+    }
+
     public Univerzitet() {
     }
 

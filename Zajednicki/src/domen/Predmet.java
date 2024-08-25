@@ -18,24 +18,26 @@ public class Predmet extends AbstractDomainObject {
 
     private int predmetID;
     private String naziv;
-    private String ustanova;
+    private Univerzitet univerzitet;
     private String semestar;
     private int espb;
+    Radnik radnik;
 
     @Override
     public String toString() {
-        return naziv + ": " + ustanova;
+        return naziv;
     }
 
     public Predmet() {
     }
 
-    public Predmet(int id, String naziv, String ustanova, String semestar, int espb) {
-        this.predmetID = id;
+    public Predmet(int predmetID, String naziv, Univerzitet univerzitet, String semestar, int espb, Radnik radnik) {
+        this.predmetID = predmetID;
         this.naziv = naziv;
-        this.ustanova = ustanova;
+        this.univerzitet = univerzitet;
         this.semestar = semestar;
         this.espb = espb;
+        this.radnik = radnik;
     }
 
     @Override
@@ -45,46 +47,12 @@ public class Predmet extends AbstractDomainObject {
 
     //@Override
     public String getParametre() {
-        return String.format("%d, '%s', '%s', '%s', %d", predmetID, naziv, ustanova, semestar, espb);
+        return String.format("%d, '%s', %d, '%s', %d, %d", predmetID, naziv, univerzitet.getUniverzitetID(), semestar, espb, radnik.getRadnikID());
     }
 
     //@Override
     public String getNaziveParametara() {
-        return "id, naziv, ustanova, semestar, espb";
-    }
-
-    //@Override
-    public String getNazivPrimarnogKljuca() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    //@Override
-    public Integer getVrednostPrimarnogKljuca() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    //@Override
-    public String getSlozeniPrimarniKljuc() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    //@Override
-    public List<AbstractDomainObject> konvertujRSUListu(ResultSet rs) {
-        ArrayList<AbstractDomainObject> predmeti = new ArrayList<>();
-        try {
-            while (rs.next()) {
-                int rsId = rs.getInt("id");
-                String rsNaziv = rs.getString("naziv");
-                String rsUstanova = rs.getString("ustanova");
-                String rsSemestar = rs.getString("semestar");
-                int rsEspb = rs.getInt("espb");
-
-                predmeti.add(new Predmet(rsId, rsNaziv, rsUstanova, rsSemestar, rsEspb));
-            }
-        } catch (SQLException e) {
-            System.out.println("Greska u Predmet::konvertujRSUListu\n" + e.getMessage());
-        }
-        return predmeti;
+        return "predmetID, naziv, univerzitetID, semestar, espb";
     }
 
     //@Override
@@ -94,7 +62,7 @@ public class Predmet extends AbstractDomainObject {
 
     //@Override
     public String getSelectUpitPoParametru() {
-        return "SELECT * FROM " + getTableName() + " WHERE id = " + getPredmetID() + " OR ustanova = '" + getUstanova() + "'";
+        return "SELECT * FROM " + getTableName() + " WHERE predmetID = " + getPredmetID() + " OR univerzitetID = '" + univerzitet.getUniverzitetID() + "'";
     }
 
     public String getSelectUpitSaDodatnim(String dodatniUpit) {
@@ -104,21 +72,6 @@ public class Predmet extends AbstractDomainObject {
     //@Override
     public String getInsertUpit() {
         return "INSERT INTO " + getTableName() + "(" + getNaziveParametara() + ")" + " VALUES (" + getParametre() + ")";
-    }
-
-    //@Override
-    public String getUpdateUpit() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    //@Override
-    public String getUpdateParametre() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    //@Override
-    public String getDeleteUpit() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     public int getPredmetID() {
@@ -135,14 +88,6 @@ public class Predmet extends AbstractDomainObject {
 
     public void setNaziv(String naziv) {
         this.naziv = naziv;
-    }
-
-    public String getUstanova() {
-        return ustanova;
-    }
-
-    public void setUstanova(String ustanova) {
-        this.ustanova = ustanova;
     }
 
     public String getSemestar() {
@@ -168,14 +113,16 @@ public class Predmet extends AbstractDomainObject {
 
     @Override
     public String getJoin() {
-        return "";
+        return " JOIN univerzitet u ON u.UniverzitetID = p.univerzitetID JOIN radnik rad ON p.radnikID = rad.radnikID ";
     }
 
     @Override
     public ArrayList<AbstractDomainObject> getListuSvih(ResultSet rs) throws SQLException {
         ArrayList<AbstractDomainObject> lista = new ArrayList<>();
         while (rs.next()) {
-            Predmet predmet = new Predmet(rs.getInt("PredmetID"), rs.getString("Naziv"), rs.getString("Ustanova"), rs.getString("Semestar"), rs.getInt("Espb"));
+            Radnik radnik = new Radnik(rs.getInt("rad.RadnikID"), rs.getString("rad.Username"), rs.getString("rad.Password"), rs.getString("rad.Ime"), rs.getString("rad.Prezime"));
+            Univerzitet univerzitet = new Univerzitet(rs.getInt("UniverzitetID"), rs.getString("u.Naziv"), rs.getString("Grad"));
+            Predmet predmet = new Predmet(rs.getInt("PredmetID"), rs.getString("p.Naziv"), univerzitet, rs.getString("Semestar"), rs.getInt("Espb"), radnik);
             lista.add(predmet);
         }
         rs.close();
@@ -184,7 +131,7 @@ public class Predmet extends AbstractDomainObject {
 
     @Override
     public String getKoloneZaInsert() {
-        return "(naziv, Ustanova, Semestar, Espb)";
+        return "(naziv, univerzitetID, Semestar, Espb, radnikID)";
     }
 
     @Override
@@ -194,12 +141,12 @@ public class Predmet extends AbstractDomainObject {
 
     @Override
     public String getVrednostiZaInsert() {
-        return "'" + naziv + "', '" + ustanova + "', '" + semestar + "', '" + espb + "'";
+        return "'" + naziv + "', " + univerzitet.getUniverzitetID() + ", '" + semestar + "', " + espb + ", " + radnik.getRadnikID();
     }
 
     @Override
     public String getVrednostiZaUpdate() {
-        return " naziv='" + naziv + "', ustanova='" + ustanova + "', semestar='" + semestar + "', espb=" + espb + " ";
+        return " naziv='" + naziv + "', univerzitetID=" + univerzitet.getUniverzitetID() + ", semestar='" + semestar + "', espb=" + espb + ", radnikID =" + radnik.getRadnikID();
     }
 
     @Override
@@ -207,4 +154,61 @@ public class Predmet extends AbstractDomainObject {
         return " ORDER BY p.naziv ASC";
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+        Predmet other = (Predmet) obj;
+
+        // Poređenje predmetID
+        if (predmetID != other.predmetID) {
+            return false;
+        }
+
+        // Poređenje univerzitetID
+        if (univerzitet == null || other.univerzitet == null) {
+            return false;
+        }
+        if (univerzitet.getUniverzitetID() != other.univerzitet.getUniverzitetID()) {
+            return false;
+        }
+
+        // Poređenje naziv bez obzira na mala i velika slova
+        if (naziv == null) {
+            if (other.naziv != null) {
+                return false;
+            }
+        } else if (!naziv.equalsIgnoreCase(other.naziv)) {
+            return false;
+        }
+
+        return true;
+    }
+
+    public Univerzitet getUniverzitet() {
+        return univerzitet;
+    }
+
+    public void setUniverzitet(Univerzitet univerzitet) {
+        this.univerzitet = univerzitet;
+    }
+
+    //@Override
+    public String getUpdateUpit() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    //@Override
+    public String getUpdateParametre() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    //@Override
+    public String getDeleteUpit() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }
