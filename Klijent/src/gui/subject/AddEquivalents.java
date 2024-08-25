@@ -43,13 +43,13 @@ public class AddEquivalents extends javax.swing.JFrame {
         cmbDrugiFaks = new javax.swing.JComboBox();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        btnDodaj = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         txtGodinaDodavanja = new javax.swing.JTextField();
+        btnDodaj = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Dodavanje ekvivalenata"));
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Unos podataka o ekvivalentima"));
 
         cmbFon.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
@@ -58,14 +58,6 @@ public class AddEquivalents extends javax.swing.JFrame {
         jLabel1.setText("Naziv predmeta na FON-u:");
 
         jLabel2.setText("Naziv predmeta na drugoj visokoškolskoj instituciji:");
-
-        btnDodaj.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btnDodaj.setText("Dodaj ekvivalente");
-        btnDodaj.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnDodajActionPerformed(evt);
-            }
-        });
 
         jLabel3.setText("Godina dodavanja");
 
@@ -80,14 +72,12 @@ public class AddEquivalents extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 292, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cmbDrugiFaks, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(cmbDrugiFaks, 0, 659, Short.MAX_VALUE)
                     .addComponent(cmbFon, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(txtGodinaDodavanja, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 302, Short.MAX_VALUE)
-                        .addComponent(btnDodaj, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(txtGodinaDodavanja, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(55, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -104,10 +94,17 @@ public class AddEquivalents extends javax.swing.JFrame {
                 .addGap(36, 36, 36)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(txtGodinaDodavanja, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnDodaj))
-                .addContainerGap(85, Short.MAX_VALUE))
+                    .addComponent(txtGodinaDodavanja, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(21, Short.MAX_VALUE))
         );
+
+        btnDodaj.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnDodaj.setText("Dodaj ekvivalente");
+        btnDodaj.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDodajActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -117,13 +114,19 @@ public class AddEquivalents extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnDodaj, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(70, 70, 70))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
+                .addComponent(btnDodaj)
+                .addGap(22, 22, 22))
         );
 
         pack();
@@ -137,7 +140,7 @@ public class AddEquivalents extends javax.swing.JFrame {
 
         if (EkvivalentiKontroler.getInstance().dodajEkvivalente(e)) {
             JOptionPane.showMessageDialog(this, "Sistem je dodao ekvivalente", "Uspeh", JOptionPane.INFORMATION_MESSAGE);
-            //this.dispose();
+            this.dispose();
         } else {
             JOptionPane.showMessageDialog(this, "Sistem ne moze da doda ekvivalente", "Greska", JOptionPane.ERROR_MESSAGE);
         }

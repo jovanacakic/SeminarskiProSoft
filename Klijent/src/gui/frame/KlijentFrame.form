@@ -68,19 +68,26 @@
             </MenuItem>
           </SubComponents>
         </Menu>
-        <Menu class="javax.swing.JMenu" name="jMenu10">
+        <Menu class="javax.swing.JMenu" name="jMenu8">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Predmeti"/>
+            <Property name="text" type="java.lang.String" value="Univerziteti"/>
           </Properties>
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="jmiDodajUniverzitet">
               <Properties>
-                <Property name="text" type="java.lang.String" value=" Dodaj univerzitet"/>
+                <Property name="text" type="java.lang.String" value="Dodaj univerzitet"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jmiDodajUniverzitetActionPerformed"/>
               </Events>
             </MenuItem>
+          </SubComponents>
+        </Menu>
+        <Menu class="javax.swing.JMenu" name="jMenu10">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Predmeti"/>
+          </Properties>
+          <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="jmiDodajPredmet">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Dodaj predmet"/>

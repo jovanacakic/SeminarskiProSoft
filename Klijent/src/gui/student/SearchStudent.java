@@ -4,6 +4,7 @@
  */
 package gui.student;
 
+import domen.Radnik;
 import domen.Student;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -19,14 +20,16 @@ import model.StudentTableModel;
  */
 public class SearchStudent extends javax.swing.JFrame {
 
+    Radnik prijavljeni;
     /**
      * Creates new form SearchStudent
      */
-    public SearchStudent() {
+    public SearchStudent(Radnik prijavljeni) {
         initComponents();
         setLocationRelativeTo(null);
         setTitle("Pretraga studenata");
 
+        this.prijavljeni = prijavljeni;
         List<Student> studenti = StudentKontroler.getInstance().pretraziStudente(txtPretraga.getText());
         popuniTabelu(studenti);
         dodajOsluskivacNaPretragu();
@@ -139,7 +142,7 @@ public class SearchStudent extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnDodajActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDodajActionPerformed
-        new AddStudent().setVisible(true);
+        new AddStudent(prijavljeni).setVisible(true);
     }//GEN-LAST:event_btnDodajActionPerformed
 
     private void btnDetaljiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDetaljiActionPerformed
@@ -229,6 +232,7 @@ public class SearchStudent extends javax.swing.JFrame {
             student.setIme(ime);
             student.setPrezime(prezime);
             student.setIndex(indeks);
+            student.setRadnik(prijavljeni);
 
             student = StudentKontroler.getInstance().ucitajStudenta(student);
             JOptionPane.showMessageDialog(this, "Sistem je ucitao studenta", "Uspeh", JOptionPane.INFORMATION_MESSAGE);

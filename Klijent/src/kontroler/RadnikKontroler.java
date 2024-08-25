@@ -28,25 +28,25 @@ public class RadnikKontroler {
         return instance;
     }
 
-    public boolean prijaviRadnika(Radnik radnik) {
+    public Radnik prijaviRadnika(Radnik radnik) {
         ServerKontroler.getInstance().posaljiZahtev(new KlijentskiZahtev(radnik, Operacije.PRIJAVI_RADNIKA));
-        ServerskiOdgovor odgovor = ServerKontroler.getInstance().primiOdgovor();
-
-        return odgovor.getUspeh() == Operacije.USPEH;
-    }
-
-    public Radnik ucitajRadnika(Radnik radnik) {
-        ServerKontroler.getInstance().posaljiZahtev(new KlijentskiZahtev(radnik, Operacije.UCITAJ_RADNIKA));
         ServerskiOdgovor odgovor = ServerKontroler.getInstance().primiOdgovor();
 
         return (Radnik) odgovor.getOdgovor();
     }
 
-    public List<Radnik> ucitajListuKoordinatora(List<Radnik> radnici) {
-        ServerKontroler.getInstance().posaljiZahtev(new KlijentskiZahtev(radnici, Operacije.UCITAJ_LISTU_RADNIKA));
-        ServerskiOdgovor odgovor = ServerKontroler.getInstance().primiOdgovor();
-
-        return (List<Radnik>) odgovor.getOdgovor();
-    }
+//    public Radnik ucitajRadnika(Radnik radnik) {
+//        ServerKontroler.getInstance().posaljiZahtev(new KlijentskiZahtev(radnik, Operacije.UCITAJ_RADNIKA));
+//        ServerskiOdgovor odgovor = ServerKontroler.getInstance().primiOdgovor();
+//
+//        return (Radnik) odgovor.getOdgovor();
+//    }
+//
+//    public List<Radnik> ucitajListuRadnika(List<Radnik> radnici) {
+//        ServerKontroler.getInstance().posaljiZahtev(new KlijentskiZahtev(radnici, Operacije.UCITAJ_LISTU_RADNIKA));
+//        ServerskiOdgovor odgovor = ServerKontroler.getInstance().primiOdgovor();
+//
+//        return (List<Radnik>) odgovor.getOdgovor();
+//    }
 
 }

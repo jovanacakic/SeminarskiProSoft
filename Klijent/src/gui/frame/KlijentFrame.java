@@ -4,6 +4,7 @@
  */
 package gui.frame;
 
+import domen.Radnik;
 import gui.exchange.AddExchange;
 import gui.exchange.SearchExchange;
 import gui.student.AddStudent;
@@ -29,12 +30,14 @@ public class KlijentFrame extends javax.swing.JFrame {
      * Creates new form KlijentFrame
      */
     private KlijentskaNit kn;
+    private Radnik prijavljeni;
 
-    public KlijentFrame(KlijentskaNit kn) {
+    public KlijentFrame(KlijentskaNit kn, Radnik prijavljeni) {
         initComponents();
         setLocationRelativeTo(null);
         setTitle("Razmena studenata");
 
+        this.prijavljeni = prijavljeni;
         this.kn = kn;
         addWindowListener(new WindowAdapter() {
             @Override
@@ -64,8 +67,9 @@ public class KlijentFrame extends javax.swing.JFrame {
         jMenu1 = new javax.swing.JMenu();
         jmiDodajStudenta = new javax.swing.JMenuItem();
         jmiPretraga = new javax.swing.JMenuItem();
-        jMenu10 = new javax.swing.JMenu();
+        jMenu8 = new javax.swing.JMenu();
         jmiDodajUniverzitet = new javax.swing.JMenuItem();
+        jMenu10 = new javax.swing.JMenu();
         jmiDodajPredmet = new javax.swing.JMenuItem();
         jMenuItem3 = new javax.swing.JMenuItem();
         jmiDodajEkvivalente = new javax.swing.JMenuItem();
@@ -110,15 +114,19 @@ public class KlijentFrame extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu1);
 
-        jMenu10.setText("Predmeti");
+        jMenu8.setText("Univerziteti");
 
-        jmiDodajUniverzitet.setText(" Dodaj univerzitet");
+        jmiDodajUniverzitet.setText("Dodaj univerzitet");
         jmiDodajUniverzitet.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jmiDodajUniverzitetActionPerformed(evt);
             }
         });
-        jMenu10.add(jmiDodajUniverzitet);
+        jMenu8.add(jmiDodajUniverzitet);
+
+        jMenuBar1.add(jMenu8);
+
+        jMenu10.setText("Predmeti");
 
         jmiDodajPredmet.setText("Dodaj predmet");
         jmiDodajPredmet.addActionListener(new java.awt.event.ActionListener() {
@@ -186,15 +194,15 @@ public class KlijentFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jmiDodajStudentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiDodajStudentaActionPerformed
-        new AddStudent().setVisible(true);
+        new AddStudent(prijavljeni).setVisible(true);
     }//GEN-LAST:event_jmiDodajStudentaActionPerformed
 
     private void jmiPretragaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiPretragaActionPerformed
-        new SearchStudent().setVisible(true);
+        new SearchStudent(prijavljeni).setVisible(true);
     }//GEN-LAST:event_jmiPretragaActionPerformed
 
     private void jmiDodajPredmetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiDodajPredmetActionPerformed
-        new AddSubject().setVisible(true);
+        new AddSubject(prijavljeni).setVisible(true);
     }//GEN-LAST:event_jmiDodajPredmetActionPerformed
 
     private void jmiDodajEkvivalenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiDodajEkvivalenteActionPerformed
@@ -210,7 +218,7 @@ public class KlijentFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jmiPretraziRazmeneActionPerformed
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
-        new SearchSubject().setVisible(true);
+        new SearchSubject(prijavljeni).setVisible(true);
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     private void jmiDodajUniverzitetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiDodajUniverzitetActionPerformed
@@ -261,6 +269,7 @@ public class KlijentFrame extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu5;
     private javax.swing.JMenu jMenu6;
     private javax.swing.JMenu jMenu7;
+    private javax.swing.JMenu jMenu8;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuBar jMenuBar2;
     private javax.swing.JMenuBar jMenuBar3;

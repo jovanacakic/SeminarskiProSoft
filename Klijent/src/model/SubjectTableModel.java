@@ -16,7 +16,7 @@ import javax.swing.table.AbstractTableModel;
 public class SubjectTableModel extends AbstractTableModel {
 
     List<Predmet> predmeti;
-    String[] kolone = {"Naziv", "Ustanova", "Semestar", "ESPB"};
+    String[] kolone = {"Naziv", "Univerzitet", "Semestar", "ESPB"};
 
     public SubjectTableModel() {
         predmeti = new ArrayList<>();
@@ -48,7 +48,7 @@ public class SubjectTableModel extends AbstractTableModel {
             case 0:
                 return p.getNaziv();
             case 1:
-                return p.getUstanova();
+                return p.getUniverzitet().toString();
             case 2:
                 return p.getSemestar();
             case 3:

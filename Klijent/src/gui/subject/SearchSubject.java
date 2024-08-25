@@ -5,8 +5,10 @@
 package gui.subject;
 
 import domen.Predmet;
+import domen.Radnik;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 import kontroler.PredmetKontroler;
@@ -18,16 +20,18 @@ import model.SubjectTableModel;
  */
 public class SearchSubject extends javax.swing.JFrame {
 
+    Radnik prijavljeni;
+
     /**
      * Creates new form UpdateSubject
      */
-    public SearchSubject() {
+    public SearchSubject(Radnik prijavljeni) {
         initComponents();
         setLocationRelativeTo(null);
         setTitle("Pretrazivanje predmeta");
 
-        List<Predmet> predmeti = PredmetKontroler.getInstance().pretraziPredmete(txtPretraga.getText());
-        popuniTabelu(predmeti);
+        this.prijavljeni = prijavljeni;
+        popuniTabelu();
         dodajOsluskivacNaPretragu();
     }
 
@@ -138,27 +142,27 @@ public class SearchSubject extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnObrisiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnObrisiActionPerformed
-        int row = tblPredmeti.getSelectedRow();
-        if (row != -1) {
-            // Prikazuje dijalog za potvrdu
-            int confirm = JOptionPane.showConfirmDialog(this,
-                    "Da li ste sigurni da želite obrisati ovu razmenu?",
-                    "Potvrda brisanja",
-                    JOptionPane.YES_NO_OPTION,
-                    JOptionPane.QUESTION_MESSAGE);
-
-            if (confirm == JOptionPane.YES_OPTION) {
-                SubjectTableModel stm = (SubjectTableModel) tblPredmeti.getModel();
-                Predmet p = stm.getPredmet(row);
-                if (PredmetKontroler.getInstance().obrisiPredmet(p)) {
-                    JOptionPane.showMessageDialog(this, "Uspesno obrisan predmet", "Uspeh", JOptionPane.INFORMATION_MESSAGE);
-                } else {
-                    JOptionPane.showMessageDialog(this, "Neuspesno brisanje predmeta", "Greska", JOptionPane.ERROR_MESSAGE);
-                }
-            }
-        } else {
-            JOptionPane.showMessageDialog(this, "Morate izabrati razmenu za brisanje.", "Upozorenje", JOptionPane.WARNING_MESSAGE);
-        }
+//        int row = tblPredmeti.getSelectedRow();
+//        if (row != -1) {
+//            // Prikazuje dijalog za potvrdu
+//            int confirm = JOptionPane.showConfirmDialog(this,
+//                    "Da li ste sigurni da želite obrisati ovaj predmet?",
+//                    "Potvrda brisanja",
+//                    JOptionPane.YES_NO_OPTION,
+//                    JOptionPane.QUESTION_MESSAGE);
+//
+//            if (confirm == JOptionPane.YES_OPTION) {
+//                SubjectTableModel stm = (SubjectTableModel) tblPredmeti.getModel();
+//                Predmet p = stm.getPredmet(row);
+//                if (PredmetKontroler.getInstance().obrisiPredmet(p)) {
+//                    JOptionPane.showMessageDialog(this, "Uspesno obrisan predmet", "Uspeh", JOptionPane.INFORMATION_MESSAGE);
+//                } else {
+//                    JOptionPane.showMessageDialog(this, "Neuspesno brisanje predmeta", "Greska", JOptionPane.ERROR_MESSAGE);
+//                }
+//            }
+//        } else {
+//            JOptionPane.showMessageDialog(this, "Morate izabrati predmet za brisanje.", "Upozorenje", JOptionPane.WARNING_MESSAGE);
+//        }
     }//GEN-LAST:event_btnObrisiActionPerformed
 
     private void btnAzurirajActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAzurirajActionPerformed
@@ -166,7 +170,7 @@ public class SearchSubject extends javax.swing.JFrame {
         if (row != -1) {
             SubjectTableModel etm = (SubjectTableModel) tblPredmeti.getModel();
             Predmet p = etm.getPredmet(row);
-            new UpdateSubject(this, true, p).setVisible(true);
+            new UpdateSubject(this, true, p, prijavljeni).setVisible(true);
         }
     }//GEN-LAST:event_btnAzurirajActionPerformed
 
@@ -240,4 +244,17 @@ public class SearchSubject extends javax.swing.JFrame {
     private javax.swing.JTable tblPredmeti;
     private javax.swing.JTextField txtPretraga;
     // End of variables declaration//GEN-END:variables
+
+    private void popuniTabelu() {
+        List<Predmet> predmeti = PredmetKontroler.getInstance().pretraziPredmete(txtPretraga.getText());
+        if (predmeti == null || predmeti.isEmpty()) {
+            popuniTabelu(new ArrayList<>());
+        } else {
+            popuniTabelu(predmeti);
+        }
+    }
+
+    void azurirajTabelu() {
+        popuniTabelu();
+    }
 }

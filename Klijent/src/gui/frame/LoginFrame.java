@@ -137,10 +137,11 @@ public class LoginFrame extends javax.swing.JFrame {
         radnik.setUsername(username);
         radnik.setPassword(password);
 
-        if (RadnikKontroler.getInstance().prijaviRadnika(radnik)) {
+        Radnik prijavljeni = RadnikKontroler.getInstance().prijaviRadnika(radnik);
+        if (prijavljeni != null) {
             JOptionPane.showMessageDialog(this, "Uspesno prijavljivanje", "Uspeh", JOptionPane.INFORMATION_MESSAGE);
             this.dispose();
-            new KlijentFrame(kn).setVisible(true);
+            new KlijentFrame(kn, prijavljeni).setVisible(true);
         } else {
             JOptionPane.showMessageDialog(this, "Neuspesno prijavljivanje", "Greska", JOptionPane.ERROR_MESSAGE);
         }

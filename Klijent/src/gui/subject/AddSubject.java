@@ -5,8 +5,12 @@
 package gui.subject;
 
 import domen.Predmet;
+import domen.Radnik;
+import domen.Univerzitet;
+import java.util.List;
 import javax.swing.JOptionPane;
 import kontroler.PredmetKontroler;
+import kontroler.UniverzitetKontroler;
 
 /**
  *
@@ -14,13 +18,18 @@ import kontroler.PredmetKontroler;
  */
 public class AddSubject extends javax.swing.JFrame {
 
+    Radnik prijavljeni;
     /**
      * Creates new form AddSubject
+     * @param prijavljeni
      */
-    public AddSubject() {
+    public AddSubject(Radnik prijavljeni) {
         initComponents();
         setLocationRelativeTo(null);
         setTitle("Dodavanje predmeta");
+        
+        this.prijavljeni = prijavljeni;
+        popuniUniverzitete();
     }
 
     /**
@@ -37,10 +46,10 @@ public class AddSubject extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        txtUni = new javax.swing.JTextField();
         txtPred = new javax.swing.JTextField();
         txtEspb = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
+        cmbUni = new javax.swing.JComboBox();
         btnDodaj = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -55,9 +64,9 @@ public class AddSubject extends javax.swing.JFrame {
 
         jLabel4.setText("Naziv predmeta:");
 
-        txtUni.setText("Fakultet Organizacionih Nauka");
-
         jLabel6.setText("Broj ESPB:");
+
+        cmbUni.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -67,13 +76,8 @@ public class AddSubject extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
+                        .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 184, Short.MAX_VALUE)
                         .addGap(369, 369, 369))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(txtUni)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addContainerGap())
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -87,6 +91,11 @@ public class AddSubject extends javax.swing.JFrame {
                         .addGap(128, 128, 128))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(txtPred)
+                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(cmbUni, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addContainerGap())))
         );
         jPanel1Layout.setVerticalGroup(
@@ -94,9 +103,9 @@ public class AddSubject extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(16, 16, 16)
                 .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(txtUni, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(cmbUni, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(24, 24, 24)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -110,7 +119,7 @@ public class AddSubject extends javax.swing.JFrame {
                         .addComponent(jLabel6)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(txtEspb, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(38, Short.MAX_VALUE))
+                .addContainerGap(32, Short.MAX_VALUE))
         );
 
         btnDodaj.setText("Dodaj predmet");
@@ -124,45 +133,51 @@ public class AddSubject extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(btnDodaj, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(42, 42, 42))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btnDodaj, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnDodaj)
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnDodajActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDodajActionPerformed
+        Univerzitet univerzitet = (Univerzitet) cmbUni.getSelectedItem();
+        
         String predmet = txtPred.getText();
-        String uni = txtUni.getText();
+        if (predmet.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Unesite naziv predmeta.", "Greška", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
         String semestar1 = (String) cmbSem.getSelectedItem();
+        
         int espb1;
         try {
-           espb1 = Integer.parseInt(txtEspb.getText().trim());
+            espb1 = Integer.parseInt(txtEspb.getText().trim());
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(this, "Unesite validnu vrednost za ESPB.", "Greška", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
-        Predmet p1 = new Predmet(0, predmet, uni, semestar1, espb1);
+        Predmet p1 = new Predmet(0, predmet, univerzitet, semestar1, espb1, prijavljeni);
 
         if (PredmetKontroler.getInstance().dodajPredmet(p1)) {
             JOptionPane.showMessageDialog(this, "Sistem je dodao predmet", "Uspeh", JOptionPane.INFORMATION_MESSAGE);
-            //this.dispose();
+            this.dispose();
         } else {
             JOptionPane.showMessageDialog(this, "Sistem ne moze da doda predmet", "Greska", JOptionPane.ERROR_MESSAGE);
         }
@@ -207,6 +222,7 @@ public class AddSubject extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnDodaj;
     private javax.swing.JComboBox cmbSem;
+    private javax.swing.JComboBox cmbUni;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -214,6 +230,13 @@ public class AddSubject extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField txtEspb;
     private javax.swing.JTextField txtPred;
-    private javax.swing.JTextField txtUni;
     // End of variables declaration//GEN-END:variables
+
+    private void popuniUniverzitete() {
+        List<Univerzitet> listaUniverziteta = UniverzitetKontroler.getInstance().ucitajListuUniverziteta();
+        cmbUni.removeAllItems();
+        for (Univerzitet u : listaUniverziteta) {
+            cmbUni.addItem(u);
+        }
+    }
 }

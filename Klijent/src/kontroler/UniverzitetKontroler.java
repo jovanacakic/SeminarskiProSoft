@@ -5,6 +5,7 @@
 package kontroler;
 
 import domen.Univerzitet;
+import java.util.List;
 import konstante.Operacije;
 import transfer.KlijentskiZahtev;
 import transfer.ServerskiOdgovor;
@@ -15,10 +16,11 @@ import transfer.ServerskiOdgovor;
  */
 //klijent
 public class UniverzitetKontroler {
+
     public static UniverzitetKontroler instance;
 
     public static UniverzitetKontroler getInstance() {
-        if(instance == null){
+        if (instance == null) {
             instance = new UniverzitetKontroler();
         }
         return instance;
@@ -27,8 +29,15 @@ public class UniverzitetKontroler {
     public boolean dodajUniverzitet(Univerzitet univerzitet) {
         ServerKontroler.getInstance().posaljiZahtev(new KlijentskiZahtev(univerzitet, Operacije.DODAJ_UNIVERZITET));
         ServerskiOdgovor so = ServerKontroler.getInstance().primiOdgovor();
-        
+
         return so.getUspeh() == Operacije.USPEH;
     }
-    
+
+    public List<Univerzitet> ucitajListuUniverziteta() {
+        ServerKontroler.getInstance().posaljiZahtev(new KlijentskiZahtev(null, Operacije.UCITAJ_LISTU_UNIVERZITETA));
+        ServerskiOdgovor so = ServerKontroler.getInstance().primiOdgovor();
+
+        return (List<Univerzitet>) so.getOdgovor();
+    }
+
 }

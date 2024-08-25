@@ -4,6 +4,7 @@
  */
 package gui.student;
 
+import domen.Radnik;
 import java.time.Year;
 import domen.Student;
 import javax.swing.JOptionPane;
@@ -15,13 +16,18 @@ import kontroler.StudentKontroler;
  */
 public class AddStudent extends javax.swing.JFrame {
 
+    Radnik prijavljeni;
+
     /**
      * Creates new form AddStudent
+     * @param prijavljeni
      */
-    public AddStudent() {
+    public AddStudent(Radnik prijavljeni) {
         initComponents();
         setLocationRelativeTo(null);
         setTitle("Dodavanje studenta");
+
+        this.prijavljeni = prijavljeni;
     }
 
     /**
@@ -178,17 +184,17 @@ public class AddStudent extends javax.swing.JFrame {
             return;
         }
 
-        if(!isValidIndex(index)){
+        if (!isValidIndex(index)) {
             JOptionPane.showMessageDialog(this, "Indeks studenta nije u dobrom formatu", "Greska", JOptionPane.ERROR_MESSAGE);
-            return;            
+            return;
         }
-        Student student = new Student(0, ime, prezime, index);
+        Student student = new Student(0, ime, prezime, index, prijavljeni);
         if (StudentKontroler.getInstance().dodajStudenta(student)) {
             JOptionPane.showMessageDialog(this, "Sistem je dodao studenta", "Uspeh", JOptionPane.INFORMATION_MESSAGE);
             //dialog.popuniTabelu(null);
-            //this.dispose();
+            this.dispose();
         } else {
-            JOptionPane.showMessageDialog(this, "Sistem ne moze da doda studenta", "Greska", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Sistem ne moze da doda studenta. Proverite da li je indeks jedinstven.", "Greska", JOptionPane.ERROR_MESSAGE);
         }
     }
 
