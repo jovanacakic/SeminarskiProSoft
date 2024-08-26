@@ -26,22 +26,48 @@ public class SOAzurirajRazmenu extends OpstaSO {
         this.razmena = razmena;
     }
 
+    public boolean isUspeh() {
+        return uspeh;
+    }
+
     @Override
     protected void izvrsiSpecificnuOperaciju() throws Exception {
-        ArrayList<AbstractDomainObject> listaubazi = new ArrayList<>();
-        listaubazi = DBBroker.getInstance().select(new EkvivalentiRazmena(0, razmena, null, 0));
-        for (int i = 0; i < listaubazi.size(); i++) {
-
-            EkvivalentiRazmena er = new EkvivalentiRazmena();
-            er.setRazmena(razmena);
-            er.setRb(i + 1);
-            uspeh = DBBroker.getInstance().delete(er);
-        }
         for (EkvivalentiRazmena er : razmena.getListaEkvivalenata()) {
-            DBBroker.getInstance().insert(er);
+            switch (er.getStatus()) {
+                case NEW:
+                    DBBroker.getInstance().insert(er);
+                    break;
+                case UPDATED:
+                    DBBroker.getInstance().update(er);
+                    break;
+                case DELETED:
+                    DBBroker.getInstance().delete(er);
+                    break;
+                case UNCHANGED:
+                    // nista ne radimo
+                    break;
+            }
+
         }
 
     }
+//
+//    @Override
+//    protected void izvrsiSpecificnuOperaciju() throws Exception {
+//        ArrayList<AbstractDomainObject> listaubazi = new ArrayList<>();
+//        listaubazi = DBBroker.getInstance().select(new EkvivalentiRazmena(0, razmena, null, 0));
+//        for (int i = 0; i < listaubazi.size(); i++) {
+//
+//            EkvivalentiRazmena er = new EkvivalentiRazmena();
+//            er.setRazmena(razmena);
+//            er.setRb(i + 1);
+//            uspeh = DBBroker.getInstance().delete(er);
+//        }
+//        for (EkvivalentiRazmena er : razmena.getListaEkvivalenata()) {
+//            DBBroker.getInstance().insert(er);
+//        }
+//
+//    }
 //    @Override
 //    protected void izvrsiSpecificnuOperaciju() throws Exception {
 //        try {
@@ -91,9 +117,5 @@ public class SOAzurirajRazmenu extends OpstaSO {
 //            throw e;
 //        }
 //    }
-
-    public boolean isUspeh() {
-        return uspeh;
-    }
 
 }
