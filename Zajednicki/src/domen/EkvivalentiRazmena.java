@@ -7,6 +7,7 @@ package domen;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import konstante.EkvivalentiRazmenaStatus;
 
 /**
  *
@@ -18,6 +19,7 @@ public class EkvivalentiRazmena extends AbstractDomainObject {
     private Razmena razmena;
     private Ekvivalenti ekvivalenti;
     private int ocena;
+    private EkvivalentiRazmenaStatus status;
 
     public EkvivalentiRazmena() {
     }
@@ -27,6 +29,14 @@ public class EkvivalentiRazmena extends AbstractDomainObject {
         this.razmena = razmena;
         this.ekvivalenti = ekvivalenti;
         this.ocena = ocena;
+    }
+
+    public EkvivalentiRazmena(int rb, Razmena razmena, Ekvivalenti ekvivalenti, int ocena, EkvivalentiRazmenaStatus status) {
+        this.rb = rb;
+        this.razmena = razmena;
+        this.ekvivalenti = ekvivalenti;
+        this.ocena = ocena;
+        this.status = status;
     }
 
     @Override
@@ -44,8 +54,8 @@ public class EkvivalentiRazmena extends AbstractDomainObject {
         // Join sa tabelom razmene, ekvivalenti, studenti i predmeti
         return "JOIN razmena raz ON er.RazmenaID = raz.RazmenaID "
                 + "JOIN ekvivalenti e ON er.EkvivalentiID = e.EkvivalentiID "
-                + "JOIN predmet p1 ON e.PredmetFon = p1.PredmetID "
-                + "JOIN predmet p2 ON e.PredmetDrugiFakultet = p2.PredmetID "
+                + "JOIN predmet p1 ON e.PredmetFonID = p1.PredmetID "
+                + "JOIN predmet p2 ON e.PredmetDrugiUniverzitetID = p2.PredmetID "
                 + "JOIN student s ON raz.StudentID = s.StudentID "
                 + " JOIN univerzitet u1 ON u1.UniverzitetID = p1.UniverzitetID "
                 + " JOIN univerzitet u2 ON u2.UniverzitetID = p2.UniverzitetID ";
@@ -63,7 +73,7 @@ public class EkvivalentiRazmena extends AbstractDomainObject {
                     rs.getInt("s.StudentID"),
                     rs.getString("s.Ime"),
                     rs.getString("s.Prezime"),
-                    rs.getString("s.Index"), radnik); 
+                    rs.getString("s.Index"), radnik);
             Predmet predmetFon = new Predmet(
                     rs.getInt("p1.PredmetID"), rs.getString("p1.Naziv"), fon,
                     rs.getString("p1.Semestar"), rs.getInt("p1.Espb"), radnik);
@@ -91,7 +101,8 @@ public class EkvivalentiRazmena extends AbstractDomainObject {
                     rs.getInt("er.RB"),
                     razmena,
                     ekvivalent,
-                    ocena
+                    ocena,
+                    EkvivalentiRazmenaStatus.UNCHANGED
             );
             lista.add(er);
         }
@@ -164,6 +175,42 @@ public class EkvivalentiRazmena extends AbstractDomainObject {
 
     public void setOcena(int ocena) {
         this.ocena = ocena;
+    }
+
+    public EkvivalentiRazmenaStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(EkvivalentiRazmenaStatus status) {
+        this.status = status;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+
+        EkvivalentiRazmena other = (EkvivalentiRazmena) obj;
+
+        if (razmena == null || other.razmena == null) {
+            return false;
+        }
+        if (razmena.getRazmenaID() != other.razmena.getRazmenaID()) {
+            return false;
+        }
+
+        if (ekvivalenti == null || other.ekvivalenti == null) {
+            return false;
+        }
+        if (ekvivalenti.getEkvivalentiID() != other.ekvivalenti.getEkvivalentiID()) {
+            return false;
+        }
+
+        return true;
     }
 
 }

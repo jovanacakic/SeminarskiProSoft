@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import konstante.EkvivalentiRazmenaStatus;
 
 /**
  *
@@ -162,7 +163,8 @@ public class Razmena extends AbstractDomainObject {
                         rs.getInt("er.RB"),
                         razmena,
                         ekvivalent,
-                        rs.getInt("er.Ocena")
+                        rs.getInt("er.Ocena"),
+                        EkvivalentiRazmenaStatus.UNCHANGED
                 ));
             }
         }
@@ -196,7 +198,7 @@ public class Razmena extends AbstractDomainObject {
 
     @Override
     public String getUslov() {
-        return " ORDER BY r.SkolskaGodina DESC, r.Semestar ASC";
+        return " ORDER BY raz.SkolskaGodina DESC, raz.Semestar ASC";
     }
 
     @Override
