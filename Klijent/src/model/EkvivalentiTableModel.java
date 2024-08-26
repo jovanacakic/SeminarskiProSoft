@@ -17,7 +17,7 @@ import javax.swing.table.AbstractTableModel;
 public class EkvivalentiTableModel extends AbstractTableModel {
 
     private List<EkvivalentiRazmena> ekvivalentiRazmena;
-    private final String[] kolone = {"RB", "Predmet na FON-u", "Predmet na drugom fakultetu"};
+    private final String[] kolone = {"RB", "Predmet na FON-u", "Predmet na drugom fakultetu", "Ocena"};
 
     public EkvivalentiTableModel() {
         ekvivalentiRazmena = new ArrayList<>();
@@ -53,6 +53,8 @@ public class EkvivalentiTableModel extends AbstractTableModel {
                 return e.getEkvivalenti().getPredmetFon().toString();
             case 2:
                 return e.getEkvivalenti().getPredmetDrugiFakultet().toString();
+            case 3:
+                return e.getOcena();
             default:
                 throw new AssertionError();
         }
@@ -82,5 +84,17 @@ public class EkvivalentiTableModel extends AbstractTableModel {
             ekvivalentiRazmena.get(i).setRb(i + 1);
         }
         fireTableDataChanged();
+    }
+
+    public EkvivalentiRazmena getEkvivalentiRazmena(int row) {
+        return ekvivalentiRazmena.get(row);
+    }
+
+    public void azurirajOcenu(int ocena, EkvivalentiRazmena izabrani) {
+        for (EkvivalentiRazmena er : ekvivalentiRazmena) {
+            if (er.equals(izabrani)) {
+                er.setOcena(ocena);
+            }
+        }
     }
 }

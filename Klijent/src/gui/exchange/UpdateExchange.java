@@ -8,11 +8,14 @@ import domen.Ekvivalenti;
 import domen.EkvivalentiRazmena;
 import domen.Razmena;
 import domen.Student;
+import domen.Univerzitet;
 import java.time.Year;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.TableColumn;
+import konstante.EkvivalentiRazmenaStatus;
 import kontroler.RazmenaKontroler;
+import kontroler.UniverzitetKontroler;
 import model.EkvivalentiTableModel;
 
 /**
@@ -26,6 +29,9 @@ public class UpdateExchange extends javax.swing.JFrame {
     SearchExchange parent;
     int razmenaID;
     Razmena izabranaRazmena;
+    Univerzitet izabraniUniverzitet;
+    Univerzitet fon;
+    List<EkvivalentiRazmena> prvobitnaLista;
 
     /**
      * Creates new form UpdateExchange
@@ -35,15 +41,15 @@ public class UpdateExchange extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         setTitle("Ažuriranje razmene");
 
+        podesiPrvuKolonu();
+
         this.parent = parent;
         txtStudent.setEditable(false);
         tblEkvivalenti.setModel(new EkvivalentiTableModel(razmena.getListaEkvivalenata()));
-        TableColumn firstColumn = tblEkvivalenti.getColumnModel().getColumn(0);
-        firstColumn.setMinWidth(50);
-        firstColumn.setMaxWidth(50);
-        firstColumn.setPreferredWidth(50);
+
         razmenaID = razmena.getRazmenaID();
         rb = razmena.getListaEkvivalenata().size();
+        prvobitnaLista = razmena.getListaEkvivalenata();
         this.izabranaRazmena = razmena;
 
         popuniPolja(razmena);
@@ -58,6 +64,7 @@ public class UpdateExchange extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         btnPromeni = new javax.swing.JButton();
@@ -67,10 +74,13 @@ public class UpdateExchange extends javax.swing.JFrame {
         txtStudent = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblEkvivalenti = new javax.swing.JTable();
-        btnDodajPredmete = new javax.swing.JButton();
+        btnDodajPredmet = new javax.swing.JButton();
         btnObrisiPredmete = new javax.swing.JButton();
         rbLetnji = new javax.swing.JRadioButton();
         rbZimski = new javax.swing.JRadioButton();
+        cmbUniverziteti = new javax.swing.JComboBox();
+        jLabel4 = new javax.swing.JLabel();
+        btnAzurirajOcenu = new javax.swing.JButton();
         btnAzuriraj = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -107,61 +117,76 @@ public class UpdateExchange extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(tblEkvivalenti);
 
-        btnDodajPredmete.setText("Dodaj predmete");
-        btnDodajPredmete.addActionListener(new java.awt.event.ActionListener() {
+        btnDodajPredmet.setText("Dodajte predmet");
+        btnDodajPredmet.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnDodajPredmeteActionPerformed(evt);
+                btnDodajPredmetActionPerformed(evt);
             }
         });
 
-        btnObrisiPredmete.setText("Obrisi predmete");
+        btnObrisiPredmete.setText("Obrisite predmet");
         btnObrisiPredmete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnObrisiPredmeteActionPerformed(evt);
             }
         });
 
+        buttonGroup1.add(rbLetnji);
         rbLetnji.setText("letnji");
 
+        buttonGroup1.add(rbZimski);
         rbZimski.setText("zimski");
+
+        cmbUniverziteti.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        jLabel4.setText("Biranje univerziteta:");
+
+        btnAzurirajOcenu.setText("Azurirajte ocenu");
+        btnAzurirajOcenu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAzurirajOcenuActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(127, 127, 127)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(127, 127, 127)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addComponent(txtStudent)
-                                .addGap(32, 32, 32)
-                                .addComponent(btnPromeni))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGap(32, 32, 32)
-                                        .addComponent(jLabel2)
-                                        .addGap(24, 24, 24)
-                                        .addComponent(rbZimski, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(rbLetnji, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(txtSkolskaGodina, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(65, 65, 65))))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(300, 300, 300)
-                        .addComponent(btnDodajPredmete, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(107, 107, 107)
-                        .addComponent(btnObrisiPredmete, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(33, 33, 33)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 990, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(69, Short.MAX_VALUE))
+                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                            .addComponent(txtStudent)
+                            .addGap(32, 32, 32)
+                            .addComponent(btnPromeni))
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addGap(32, 32, 32)
+                                    .addComponent(jLabel2)
+                                    .addGap(24, 24, 24)
+                                    .addComponent(rbZimski, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(rbLetnji, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(txtSkolskaGodina, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGap(65, 65, 65))
+                        .addComponent(cmbUniverziteti, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addContainerGap(444, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(33, 33, 33)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 855, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnDodajPredmet, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnObrisiPredmete, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnAzurirajOcenu, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(31, 31, 31))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -179,13 +204,23 @@ public class UpdateExchange extends javax.swing.JFrame {
                     .addComponent(jLabel2)
                     .addComponent(jLabel3)
                     .addComponent(txtSkolskaGodina, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnDodajPredmete)
-                    .addComponent(btnObrisiPredmete))
-                .addContainerGap(52, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel4)
+                .addGap(27, 27, 27)
+                .addComponent(cmbUniverziteti, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(39, 39, 39)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(35, 35, 35))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnAzurirajOcenu)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnDodajPredmet)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnObrisiPredmete)
+                        .addGap(115, 115, 115))))
         );
 
         btnAzuriraj.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -205,7 +240,7 @@ public class UpdateExchange extends javax.swing.JFrame {
                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
-                .addGap(399, 399, 399)
+                .addGap(429, 429, 429)
                 .addComponent(btnAzuriraj, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -214,9 +249,9 @@ public class UpdateExchange extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
                 .addComponent(btnAzuriraj)
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addGap(20, 20, 20))
         );
 
         pack();
@@ -226,13 +261,19 @@ public class UpdateExchange extends javax.swing.JFrame {
         new ChooseStudent(this, true).setVisible(true);
     }//GEN-LAST:event_btnPromeniActionPerformed
 
-    private void btnDodajPredmeteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDodajPredmeteActionPerformed
+    private void btnDodajPredmetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDodajPredmetActionPerformed
         if (!proveriSemestar()) {
             JOptionPane.showMessageDialog(null, "Ne možete promeniti semestar ako su neki predmeti već dodati.", "Greska", JOptionPane.ERROR_MESSAGE);
             return;
         }
-        new ChooseSubjects(this, true, rbZimski.isSelected()).setVisible(true);
-    }//GEN-LAST:event_btnDodajPredmeteActionPerformed
+        if (!proveriUniverzitet()) {
+            JOptionPane.showMessageDialog(null, "Ne možete promeniti univerzitet ako su neki predmeti već dodati.", "Greska", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        Univerzitet u = (Univerzitet) cmbUniverziteti.getSelectedItem();
+
+        new ChooseSubjects(this, true, rbZimski.isSelected(), u).setVisible(true);
+    }//GEN-LAST:event_btnDodajPredmetActionPerformed
 
     private void btnObrisiPredmeteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnObrisiPredmeteActionPerformed
         int row = tblEkvivalenti.getSelectedRow();
@@ -240,6 +281,9 @@ public class UpdateExchange extends javax.swing.JFrame {
             EkvivalentiTableModel etb = (EkvivalentiTableModel) tblEkvivalenti.getModel();
             etb.obrisiEkvivalente(row);
             etb.resetujRB();
+
+            EkvivalentiRazmena obrisan = etb.getEkvivalentiRazmena(row);
+            statusDeleted(obrisan);
         }
     }//GEN-LAST:event_btnObrisiPredmeteActionPerformed
 
@@ -264,7 +308,9 @@ public class UpdateExchange extends javax.swing.JFrame {
             System.out.println(ekvivalentiRazmena.getEkvivalenti().getPredmetFon() + " " + ekvivalentiRazmena.getEkvivalenti().getPredmetDrugiFakultet());
         }
 
-        Razmena razmena = new Razmena(razmenaID, izabrani, semestar, skolskaGodina, listaEkvNaRazmeni);
+        this.izabraniUniverzitet = (Univerzitet) cmbUniverziteti.getSelectedItem();
+
+        Razmena razmena = new Razmena(razmenaID, izabrani, semestar, skolskaGodina, fon, izabraniUniverzitet, listaEkvNaRazmeni);
 
         if (RazmenaKontroler.getInstance().azurirajRazmenu(razmena)) {
             JOptionPane.showMessageDialog(this, "Sistem je azurirao razmenu", "Uspeh", JOptionPane.INFORMATION_MESSAGE);
@@ -274,6 +320,15 @@ public class UpdateExchange extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Sistem ne moze da azurira razmenu", "Greska", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnAzurirajActionPerformed
+
+    private void btnAzurirajOcenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAzurirajOcenuActionPerformed
+        int row = tblEkvivalenti.getSelectedRow();
+        if (row != -1) {
+            EkvivalentiTableModel etb = (EkvivalentiTableModel) tblEkvivalenti.getModel();
+            EkvivalentiRazmena er = etb.getEkvivalentiRazmena(row);
+            new UpdateGrade(this, true, er).setVisible(true);
+        }
+    }//GEN-LAST:event_btnAzurirajOcenuActionPerformed
 
 //    /**
 //     * @param args the command line arguments
@@ -312,12 +367,16 @@ public class UpdateExchange extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAzuriraj;
-    private javax.swing.JButton btnDodajPredmete;
+    private javax.swing.JButton btnAzurirajOcenu;
+    private javax.swing.JButton btnDodajPredmet;
     private javax.swing.JButton btnObrisiPredmete;
     private javax.swing.JButton btnPromeni;
+    private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.JComboBox cmbUniverziteti;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JRadioButton rbLetnji;
@@ -341,6 +400,8 @@ public class UpdateExchange extends javax.swing.JFrame {
         txtSkolskaGodina.setText(razmena.getSkolskaGodina());
         txtStudent.setText(razmena.getStudent().toString());
         izabrani = razmena.getStudent();
+        popuniUniverzitete();
+        cmbUniverziteti.setSelectedItem(razmena.getUniverzitetDrugi());
         rbZimski.setSelected(razmena.getSemestar().equals("Zimski"));
         //popuniTabelu(razmena.getListaEkvivalenata());
 
@@ -352,10 +413,63 @@ public class UpdateExchange extends javax.swing.JFrame {
 //    }
     void dodajEkvivalente(Ekvivalenti e) {
         EkvivalentiTableModel etb = (EkvivalentiTableModel) tblEkvivalenti.getModel();
-        EkvivalentiRazmena e2 = new EkvivalentiRazmena(++rb, izabranaRazmena, e, 0);
+        EkvivalentiRazmena e2 = new EkvivalentiRazmena(++rb, izabranaRazmena, e, 0, EkvivalentiRazmenaStatus.NEW);
         etb.dodajRed(e2);
         etb.resetujRB();
+        //statusNew(e2);
+    }
 
+    private boolean proveriUniverzitet() {
+        EkvivalentiTableModel etb = (EkvivalentiTableModel) tblEkvivalenti.getModel();
+        if (etb.getLista().isEmpty()) {
+            return true;
+        }
+        Univerzitet u = (Univerzitet) cmbUniverziteti.getSelectedItem();
+
+        return etb.getLista().getLast().getEkvivalenti().getPredmetDrugiFakultet().getUniverzitet().equals(u);
+    }
+
+    private void popuniUniverzitete() {
+        List<Univerzitet> listaUniverziteta = UniverzitetKontroler.getInstance().ucitajListuUniverziteta();
+        cmbUniverziteti.removeAllItems();
+        for (Univerzitet u : listaUniverziteta) {
+            if (u.getNaziv().equals("Fakultet Organizacionih Nauka")) {
+                this.fon = u;
+            } else {
+                cmbUniverziteti.addItem(u);
+            }
+        }
+    }
+
+    private void statusDeleted(EkvivalentiRazmena obrisan) {
+        for (EkvivalentiRazmena er : prvobitnaLista) {
+            if (er.getEkvivalenti().getEkvivalentiID() == obrisan.getEkvivalenti().getEkvivalentiID()) {
+                er.setStatus(EkvivalentiRazmenaStatus.DELETED);
+            }
+        }
+    }
+
+    private void statusChanged(EkvivalentiRazmena izmenjen) {
+        for (EkvivalentiRazmena er : prvobitnaLista) {
+            if (er.getEkvivalenti().getEkvivalentiID() == izmenjen.getEkvivalenti().getEkvivalentiID()) {
+                er.setStatus(EkvivalentiRazmenaStatus.UPDATED);
+            }
+        }
+    }
+
+//    private void statusNew(EkvivalentiRazmena promenjen) {
+//        for (EkvivalentiRazmena er : prvobitnaLista) {
+//            if (er.getEkvivalenti().getEkvivalentiID() == promenjen.getEkvivalenti().getEkvivalentiID()) {
+//                er.setStatus(EkvivalentiRazmenaStatus.NEW);
+//            }
+//        }
+//    }
+    void azurirajOcenu(EkvivalentiRazmena izabrani, int ocena) {
+        EkvivalentiTableModel etb = (EkvivalentiTableModel) tblEkvivalenti.getModel();
+
+        etb.azurirajOcenu(ocena, izabrani);
+        statusChanged(izabrani);
+        etb.resetujRB();
     }
 
     public boolean isValidSkolskaGodina(String skolskaGodina) {
@@ -380,4 +494,13 @@ public class UpdateExchange extends javax.swing.JFrame {
 
         return false;
     }
+
+    private void podesiPrvuKolonu() {
+        TableColumn firstColumn = tblEkvivalenti.getColumnModel().getColumn(0);
+        firstColumn.setMinWidth(50);
+        firstColumn.setMaxWidth(50);
+        firstColumn.setPreferredWidth(50);
+    }
+
+
 }

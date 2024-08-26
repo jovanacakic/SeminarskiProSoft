@@ -16,7 +16,7 @@ import javax.swing.table.AbstractTableModel;
 public class ExchangeTableModel extends AbstractTableModel {
 
     List<Razmena> razmene;
-    String[] kolone = {"Ime", "Prezime", "Indeks", "Semestar", "Skolska godina"};
+    String[] kolone = {"Ime", "Prezime", "Indeks","Univerzitet", "Semestar", "Skolska godina"};
 
     public ExchangeTableModel() {
         razmene = new ArrayList<>();
@@ -52,8 +52,10 @@ public class ExchangeTableModel extends AbstractTableModel {
             case 2:
                 return r.getStudent().getIndex();
             case 3:
-                return r.getSemestar();
+                return r.getUniverzitetDrugi().getNaziv();
             case 4:
+                return r.getSemestar();
+            case 5:
                 return r.getSkolskaGodina();
             default:
                 throw new AssertionError();
