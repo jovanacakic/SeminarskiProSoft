@@ -53,6 +53,7 @@ public class ServerFrame extends javax.swing.JFrame {
         tblRadnici = new javax.swing.JTable();
         btnPokreniServer = new javax.swing.JButton();
         btnZaustaviServer = new javax.swing.JButton();
+        btnPodesavanja = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -106,6 +107,13 @@ public class ServerFrame extends javax.swing.JFrame {
             }
         });
 
+        btnPodesavanja.setText("...");
+        btnPodesavanja.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPodesavanjaActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -118,20 +126,24 @@ public class ServerFrame extends javax.swing.JFrame {
                         .addGap(6, 6, 6)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lblStatus))
-                            .addGroup(layout.createSequentialGroup()
                                 .addComponent(btnPokreniServer)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnZaustaviServer)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                                .addComponent(btnZaustaviServer))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(8, 8, 8)
+                                .addComponent(jLabel1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lblStatus)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnPodesavanja)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(25, 25, 25)
+                .addContainerGap()
+                .addComponent(btnPodesavanja)
+                .addGap(1, 1, 1)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(lblStatus))
@@ -154,6 +166,10 @@ public class ServerFrame extends javax.swing.JFrame {
     private void btnZaustaviServerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnZaustaviServerActionPerformed
         zaustaviServerskuNit();
     }//GEN-LAST:event_btnZaustaviServerActionPerformed
+
+    private void btnPodesavanjaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPodesavanjaActionPerformed
+        new Settings(this, true).setVisible(true);
+    }//GEN-LAST:event_btnPodesavanjaActionPerformed
 
 //    /**
 //     * @param args the command line arguments
@@ -191,6 +207,7 @@ public class ServerFrame extends javax.swing.JFrame {
 //    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnPodesavanja;
     private javax.swing.JButton btnPokreniServer;
     private javax.swing.JButton btnZaustaviServer;
     private javax.swing.JLabel jLabel1;
