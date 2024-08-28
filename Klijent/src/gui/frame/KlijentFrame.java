@@ -15,6 +15,7 @@ import gui.subject.SearchSubject;
 import gui.university.AddUniversity;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import javax.swing.JFrame;
 import konstante.Operacije;
 import kontroler.ServerKontroler;
 import niti.KlijentskaNit;
@@ -34,6 +35,7 @@ public class KlijentFrame extends javax.swing.JFrame {
 
     public KlijentFrame(KlijentskaNit kn, Radnik prijavljeni) {
         initComponents();
+        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         setLocationRelativeTo(null);
         setTitle("Razmena studenata");
 
