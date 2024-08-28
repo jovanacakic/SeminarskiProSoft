@@ -76,7 +76,6 @@ public class KlijentFrame extends javax.swing.JFrame {
         jMenu2 = new javax.swing.JMenu();
         jmiDodajRazmenu = new javax.swing.JMenuItem();
         jmiPretraziRazmene = new javax.swing.JMenuItem();
-        jMenu3 = new javax.swing.JMenu();
 
         jMenuItem1.setText("jMenuItem1");
 
@@ -174,9 +173,6 @@ public class KlijentFrame extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu2);
 
-        jMenu3.setText("Izveštaj");
-        jMenuBar1.add(jMenu3);
-
         setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -264,7 +260,6 @@ public class KlijentFrame extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu10;
     private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenu jMenu5;
     private javax.swing.JMenu jMenu6;

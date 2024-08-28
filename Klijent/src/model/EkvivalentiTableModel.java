@@ -62,6 +62,7 @@ public class EkvivalentiTableModel extends AbstractTableModel {
 
     public void dodajRed(EkvivalentiRazmena e) {
         ekvivalentiRazmena.add(e);
+        System.out.println("dodaj red u modelu ekvivalenti");
         fireTableDataChanged();
     }
 
@@ -92,9 +93,11 @@ public class EkvivalentiTableModel extends AbstractTableModel {
 
     public void azurirajOcenu(int ocena, EkvivalentiRazmena izabrani) {
         for (EkvivalentiRazmena er : ekvivalentiRazmena) {
-            if (er.equals(izabrani)) {
+            if (er.getEkvivalenti().getEkvivalentiID() == izabrani.getEkvivalenti().getEkvivalentiID()) {
                 er.setOcena(ocena);
             }
         }
+        fireTableDataChanged();
     }
 }
+

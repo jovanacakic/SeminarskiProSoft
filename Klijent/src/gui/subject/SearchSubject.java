@@ -215,7 +215,7 @@ public class SearchSubject extends javax.swing.JFrame {
                 List<Predmet> predmeti = PredmetKontroler.getInstance().pretraziPredmete(txtPretraga.getText());
 
                 if (predmeti.isEmpty()) {
-                    JOptionPane.showMessageDialog(null, "Sistem ne moze da nadje predmet po zadatom kriterijumu", "Greska", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Sistem ne moze da nadje predmetе po zadatom kriterijumu.", "Greska", JOptionPane.ERROR_MESSAGE);
                     txtPretraga.setText("");
                     popuniTabelu(null);
                 }

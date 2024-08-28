@@ -8,9 +8,11 @@ import model.ExchangeTableModel;
 import domen.Razmena;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 import kontroler.RazmenaKontroler;
+import model.EkvivalentiTableModel;
 
 /**
  *
@@ -26,6 +28,7 @@ public class SearchExchange extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         setTitle("Pretraga razmene");
 
+        tblRazmene.setModel(new ExchangeTableModel());
         dodajOsluskivacNaPretragu();
     }
 
@@ -140,6 +143,13 @@ public class SearchExchange extends javax.swing.JFrame {
         if (row != -1) {
             ExchangeTableModel etm = (ExchangeTableModel) tblRazmene.getModel();
             Razmena r = etm.getRazmena(row);
+            List<Razmena> razmene = new ArrayList<>();
+            razmene = RazmenaKontroler.getInstance().ucitajListuRazmena(razmene);
+            for (Razmena raz : razmene) {
+                if(r.getRazmenaID() == raz.getRazmenaID()){
+                    r = raz;
+                }
+            }
             new UpdateExchange(this, r).setVisible(true);
         }
     }//GEN-LAST:event_btnAzurirajActionPerformed
@@ -147,7 +157,6 @@ public class SearchExchange extends javax.swing.JFrame {
     private void btnObrisiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnObrisiActionPerformed
         int row = tblRazmene.getSelectedRow();
         if (row != -1) {
-            // Prikazuje dijalog za potvrdu
             int confirm = JOptionPane.showConfirmDialog(this,
                     "Da li ste sigurni da želite obrisati ovu razmenu?",
                     "Potvrda brisanja",
@@ -158,9 +167,9 @@ public class SearchExchange extends javax.swing.JFrame {
                 ExchangeTableModel etm = (ExchangeTableModel) tblRazmene.getModel();
                 Razmena r = etm.getRazmena(row);
                 if (RazmenaKontroler.getInstance().obrisiRazmenu(r)) {
-                    JOptionPane.showMessageDialog(this, "Uspesno obrisana razmena", "Uspeh", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "Sistem je izbrisao razmenu", "Uspeh", JOptionPane.INFORMATION_MESSAGE);
                 } else {
-                    JOptionPane.showMessageDialog(this, "Neuspesno brisanje", "Greska", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "Sistem ne moze da izbrise razmenu", "Greska", JOptionPane.ERROR_MESSAGE);
                 }
             }
         } else {

@@ -252,7 +252,7 @@ public class AddExchange extends javax.swing.JFrame {
             return;
         }
         Univerzitet u = (Univerzitet) cmbUniverziteti.getSelectedItem();
-        new ChooseSubjects(this, true, rbZimski.isSelected(), u ).setVisible(true);
+        new ChooseSubjects(this, true, rbZimski.isSelected(), u).setVisible(true);
     }//GEN-LAST:event_btnDodajPredmeteActionPerformed
 
     private void btnDodajRazmenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDodajRazmenuActionPerformed
@@ -263,8 +263,8 @@ public class AddExchange extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Morate izabrati studenta.", "Greska", JOptionPane.ERROR_MESSAGE);
             return;
         }
-        this.izabraniUniverzitet= (Univerzitet) cmbUniverziteti.getSelectedItem();
-        if(!proveriUniverzitet()){
+        this.izabraniUniverzitet = (Univerzitet) cmbUniverziteti.getSelectedItem();
+        if (!proveriUniverzitet()) {
             JOptionPane.showMessageDialog(this, "Ne smete promeniti univerzitet.", "Greska", JOptionPane.ERROR_MESSAGE);
             return;
         }
@@ -397,9 +397,14 @@ public class AddExchange extends javax.swing.JFrame {
         }
     }
 
-    void dodajEkvivalente(Ekvivalenti e) {
+    void dodajEkvivalente(Ekvivalenti e, int ocena) {
         EkvivalentiTableModel etb = (EkvivalentiTableModel) tblEkvivalenti.getModel();
-        EkvivalentiRazmena e2 = new EkvivalentiRazmena(++rb, null, e, 0);
+        List<EkvivalentiRazmena> listaTabela = etb.getLista();
+        if (sadrzi(listaTabela, e)) {
+            JOptionPane.showMessageDialog(null, "Predmet je vec dodat.", "Greska", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        EkvivalentiRazmena e2 = new EkvivalentiRazmena(++rb, null, e, ocena);
         etb.dodajRed(e2);
         etb.resetujRB();
     }
@@ -412,6 +417,15 @@ public class AddExchange extends javax.swing.JFrame {
         Univerzitet u = (Univerzitet) cmbUniverziteti.getSelectedItem();
 
         return etb.getLista().getLast().getEkvivalenti().getPredmetDrugiFakultet().getUniverzitet().equals(u);
+    }
+
+    private boolean sadrzi(List<EkvivalentiRazmena> listaEkv, Ekvivalenti e) {
+        for (EkvivalentiRazmena er : listaEkv) {
+            if (er.getEkvivalenti().getEkvivalentiID() == e.getEkvivalentiID()) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public boolean isValidSkolskaGodina(String skolskaGodina) {

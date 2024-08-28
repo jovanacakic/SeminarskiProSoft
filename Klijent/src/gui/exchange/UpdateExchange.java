@@ -10,6 +10,7 @@ import domen.Razmena;
 import domen.Student;
 import domen.Univerzitet;
 import java.time.Year;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.TableColumn;
@@ -24,8 +25,8 @@ import model.EkvivalentiTableModel;
  */
 public class UpdateExchange extends javax.swing.JFrame {
 
-    Student izabrani;
-    int rb;
+    Student izabraniStudent;
+    //int rb;
     SearchExchange parent;
     int razmenaID;
     Razmena izabranaRazmena;
@@ -44,13 +45,18 @@ public class UpdateExchange extends javax.swing.JFrame {
         podesiPrvuKolonu();
 
         this.parent = parent;
+        //this.izabranaRazmena = vratiKopijuRazmene(razmena);
         txtStudent.setEditable(false);
-        tblEkvivalenti.setModel(new EkvivalentiTableModel(razmena.getListaEkvivalenata()));
 
+        List<EkvivalentiRazmena> kopijaListe1 = vratiKopijuListeEkv(razmena.getListaEkvivalenata());
+        List<EkvivalentiRazmena> kopijaListe2 = vratiKopijuListeEkv(razmena.getListaEkvivalenata());
+        tblEkvivalenti.setModel(new EkvivalentiTableModel(kopijaListe1));
+        prvobitnaLista = kopijaListe2;
+
+        // rb = razmena.getListaEkvivalenata().size();
+        izabranaRazmena = new Razmena();
         razmenaID = razmena.getRazmenaID();
-        rb = razmena.getListaEkvivalenata().size();
-        prvobitnaLista = razmena.getListaEkvivalenata();
-        this.izabranaRazmena = razmena;
+        izabranaRazmena.setRazmenaID(razmenaID);
 
         popuniPolja(razmena);
     }
@@ -81,7 +87,7 @@ public class UpdateExchange extends javax.swing.JFrame {
         cmbUniverziteti = new javax.swing.JComboBox();
         jLabel4 = new javax.swing.JLabel();
         btnAzurirajOcenu = new javax.swing.JButton();
-        btnAzuriraj = new javax.swing.JButton();
+        btnAzurirajRazmenu = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -223,11 +229,11 @@ public class UpdateExchange extends javax.swing.JFrame {
                         .addGap(115, 115, 115))))
         );
 
-        btnAzuriraj.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        btnAzuriraj.setText("Ažuriraj razmenu");
-        btnAzuriraj.addActionListener(new java.awt.event.ActionListener() {
+        btnAzurirajRazmenu.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnAzurirajRazmenu.setText("Ažuriraj razmenu");
+        btnAzurirajRazmenu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAzurirajActionPerformed(evt);
+                btnAzurirajRazmenuActionPerformed(evt);
             }
         });
 
@@ -241,7 +247,7 @@ public class UpdateExchange extends javax.swing.JFrame {
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
                 .addGap(429, 429, 429)
-                .addComponent(btnAzuriraj, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnAzurirajRazmenu, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -250,7 +256,7 @@ public class UpdateExchange extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
-                .addComponent(btnAzuriraj)
+                .addComponent(btnAzurirajRazmenu)
                 .addGap(20, 20, 20))
         );
 
@@ -274,21 +280,56 @@ public class UpdateExchange extends javax.swing.JFrame {
 
         new ChooseSubjects(this, true, rbZimski.isSelected(), u).setVisible(true);
     }//GEN-LAST:event_btnDodajPredmetActionPerformed
+    void dodajEkvivalente(Ekvivalenti e, int ocena) {
+        EkvivalentiTableModel etb = (EkvivalentiTableModel) tblEkvivalenti.getModel();
+        List<EkvivalentiRazmena> listaTabela = etb.getLista();
+        if (sadrzi(listaTabela, e)) {
+            JOptionPane.showMessageDialog(null, "Predmet je vec dodat.", "Greska", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        int l = vratiMaxRb(prvobitnaLista);
+
+        System.out.println(prvobitnaLista.size() + " " + etb.getLista().size());
+        EkvivalentiRazmena er = new EkvivalentiRazmena(l + 1, izabranaRazmena, e, ocena, EkvivalentiRazmenaStatus.NEW);
+        etb.dodajRed(er);
+        newListaB(er);
+        //etb.resetujRB();
+    }
+
+    private void newListaB(EkvivalentiRazmena novi) {
+        novi.setStatus(EkvivalentiRazmenaStatus.NEW);
+        for (EkvivalentiRazmena er : prvobitnaLista) {
+            if (er.getEkvivalenti().getEkvivalentiID() == novi.getEkvivalenti().getEkvivalentiID()) {
+                er.setStatus(EkvivalentiRazmenaStatus.UPDATED);
+                return;
+            }
+        }
+        prvobitnaLista.add(novi);
+    }
 
     private void btnObrisiPredmeteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnObrisiPredmeteActionPerformed
         int row = tblEkvivalenti.getSelectedRow();
         if (row != -1) {
+
             EkvivalentiTableModel etb = (EkvivalentiTableModel) tblEkvivalenti.getModel();
-            etb.obrisiEkvivalente(row);
-            etb.resetujRB();
 
             EkvivalentiRazmena obrisan = etb.getEkvivalentiRazmena(row);
-            statusDeleted(obrisan);
+            deletedListaB(obrisan);
+            etb.obrisiEkvivalente(row);
+            //etb.resetujRB();
         }
     }//GEN-LAST:event_btnObrisiPredmeteActionPerformed
 
-    private void btnAzurirajActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAzurirajActionPerformed
-        //int studentId = izabrani.getId();
+    private void deletedListaB(EkvivalentiRazmena obrisan) {
+        // ako brisemo samo stavimo DELETED
+        for (EkvivalentiRazmena er : prvobitnaLista) {
+            if (er.getEkvivalenti().getEkvivalentiID() == obrisan.getEkvivalenti().getEkvivalentiID()) {
+                er.setStatus(EkvivalentiRazmenaStatus.DELETED);
+            }
+        }
+    }
+    private void btnAzurirajRazmenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAzurirajRazmenuActionPerformed
+        //int studentId = izabraniStudent.getId();
         //List<Ekvivalenti> listaEkvivalenata = etb.getLista();
         String skolskaGodina = txtSkolskaGodina.getText();
         if (!isValidSkolskaGodina(skolskaGodina)) {
@@ -296,6 +337,10 @@ public class UpdateExchange extends javax.swing.JFrame {
             return;
         }
 
+        if (!proveriSemestar()) {
+            JOptionPane.showMessageDialog(null, "Ne možete promeniti semestar ako su neki predmeti već dodati.", "Greska", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
         String semestar = rbZimski.isSelected() ? "Zimski" : "Letnji";
 
         EkvivalentiTableModel etb = (EkvivalentiTableModel) tblEkvivalenti.getModel();
@@ -304,13 +349,17 @@ public class UpdateExchange extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Razmena mora da ima bar 3 predmeta.", "Greska", JOptionPane.ERROR_MESSAGE);
             return;
         }
-        for (EkvivalentiRazmena ekvivalentiRazmena : listaEkvNaRazmeni) {
-            System.out.println(ekvivalentiRazmena.getEkvivalenti().getPredmetFon() + " " + ekvivalentiRazmena.getEkvivalenti().getPredmetDrugiFakultet());
+
+        for (EkvivalentiRazmena ekvivalentiRazmena : prvobitnaLista) {
+            System.out.println(ekvivalentiRazmena.getEkvivalenti().getPredmetFon() + " " + ekvivalentiRazmena.getEkvivalenti().getPredmetDrugiFakultet() + " " + ekvivalentiRazmena.getStatus() + " " + ekvivalentiRazmena.getRb());
         }
 
         this.izabraniUniverzitet = (Univerzitet) cmbUniverziteti.getSelectedItem();
-
-        Razmena razmena = new Razmena(razmenaID, izabrani, semestar, skolskaGodina, fon, izabraniUniverzitet, listaEkvNaRazmeni);
+        if (!proveriUniverzitet()) {
+            JOptionPane.showMessageDialog(null, "Ne možete promeniti univerzitet ako su neki predmeti već dodati.", "Greska", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        Razmena razmena = new Razmena(razmenaID, izabraniStudent, semestar, skolskaGodina, fon, izabraniUniverzitet, prvobitnaLista);
 
         if (RazmenaKontroler.getInstance().azurirajRazmenu(razmena)) {
             JOptionPane.showMessageDialog(this, "Sistem je azurirao razmenu", "Uspeh", JOptionPane.INFORMATION_MESSAGE);
@@ -319,7 +368,7 @@ public class UpdateExchange extends javax.swing.JFrame {
         } else {
             JOptionPane.showMessageDialog(this, "Sistem ne moze da azurira razmenu", "Greska", JOptionPane.ERROR_MESSAGE);
         }
-    }//GEN-LAST:event_btnAzurirajActionPerformed
+    }//GEN-LAST:event_btnAzurirajRazmenuActionPerformed
 
     private void btnAzurirajOcenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAzurirajOcenuActionPerformed
         int row = tblEkvivalenti.getSelectedRow();
@@ -329,6 +378,95 @@ public class UpdateExchange extends javax.swing.JFrame {
             new UpdateGrade(this, true, er).setVisible(true);
         }
     }//GEN-LAST:event_btnAzurirajOcenuActionPerformed
+
+    void azurirajOcenu(EkvivalentiRazmena izabrani, int ocena) {
+
+        //izabrani kojeg dobijamo kao ulaz je iz tabele
+        updateListaT(izabrani, ocena);
+        updateListaB(izabrani, ocena);
+//        EkvivalentiTableModel etb = (EkvivalentiTableModel) tblEkvivalenti.getModel();
+//
+//        etb.azurirajOcenu(ocena, izabrani);
+//        statusChanged(izabrani);
+    }
+
+    void updateListaT(EkvivalentiRazmena ekvRaz, int ocena) {
+        EkvivalentiTableModel etb = (EkvivalentiTableModel) tblEkvivalenti.getModel();
+        etb.azurirajOcenu(ocena, ekvRaz);
+        //etb.resetujRB();
+    }
+
+    void updateListaB(EkvivalentiRazmena ekvRaz, int ocena) {
+        //radimo update, postoji vec taj ekvivalent na razmeni. Nalazimo ga i menjamo
+        //postoje dva slucaja
+
+        //STATUS - NEW (samo insert sa novim vrednostima)
+        if (ekvRaz.getStatus() == EkvivalentiRazmenaStatus.NEW) {
+            for (EkvivalentiRazmena er : prvobitnaLista) {
+                if (er.getEkvivalenti().getEkvivalentiID() == ekvRaz.getEkvivalenti().getEkvivalentiID()) {
+                    er.setOcena(ocena);
+                    break;
+                }
+            }
+        }
+
+        //STATUS - UNCHANGED, UPDATED
+        if (ekvRaz.getStatus() == EkvivalentiRazmenaStatus.UNCHANGED || ekvRaz.getStatus() == EkvivalentiRazmenaStatus.UPDATED) {
+            for (EkvivalentiRazmena er : prvobitnaLista) {
+                if (er.getEkvivalenti().getEkvivalentiID() == ekvRaz.getEkvivalenti().getEkvivalentiID()) {
+                    er.setStatus(EkvivalentiRazmenaStatus.UPDATED);
+                    er.setOcena(ocena);
+                    break;
+                }
+            }
+        }
+
+        //STATUS -DELETED (NE BI TREBALO DA SE DESI)
+        if (ekvRaz.getStatus() == EkvivalentiRazmenaStatus.DELETED) {
+            System.err.println("Greska UpdateExchange::UpdateListaB");
+        }
+
+    }
+//    private void statusChanged(EkvivalentiRazmena izmenjen) {
+//        
+//        for (EkvivalentiRazmena er : prvobitnaLista) {
+//            if (er.getEkvivalenti().getEkvivalentiID() == izmenjen.getEkvivalenti().getEkvivalentiID()) {
+//                if (er.getStatus() == EkvivalentiRazmenaStatus.NEW) {
+//                    EkvivalentiRazmena izmenjenKopija = vratiKopijuEkvRaz(izmenjen);
+//                    prvobitnaLista.add(izmenjenKopija);
+//                } else {
+//                    er.setStatus(EkvivalentiRazmenaStatus.UPDATED);
+//                    er.setOcena(izmenjen.getOcena());
+//                }
+//            }
+//        }
+//    }
+
+    private void statusChanged(EkvivalentiRazmena izmenjen) {
+//        List<EkvivalentiRazmena> elementsToAdd = new ArrayList<>();
+////
+////        for (EkvivalentiRazmena er : prvobitnaLista) {
+////            if (er.getEkvivalenti().getEkvivalentiID() == izmenjen.getEkvivalenti().getEkvivalentiID()) {
+////                if (er.getStatus() == EkvivalentiRazmenaStatus.NEW) {
+////                    EkvivalentiRazmena izmenjenKopija = vratiKopijuEkvRaz(izmenjen);
+////                    izmenjenKopija.setStatus(EkvivalentiRazmenaStatus.UPDATED);
+////                    elementsToAdd.add(izmenjenKopija); //  zbog throw new ConcurrentModificationException();
+////                } else {
+////                    er.setStatus(EkvivalentiRazmenaStatus.UPDATED);
+////                    er.setOcena(izmenjen.getOcena());
+////                }
+////            }
+////        }
+//
+//        for (EkvivalentiRazmena er : prvobitnaLista) {
+//            if(er.getRb() == izmenjen.getRb()){
+//                
+//            }
+//        }
+//        //prvobitnaLista.addAll(0, elementsToAdd);
+//        prvobitnaLista.addAll(elementsToAdd);
+
+    }
 
 //    /**
 //     * @param args the command line arguments
@@ -366,8 +504,8 @@ public class UpdateExchange extends javax.swing.JFrame {
 //    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAzuriraj;
     private javax.swing.JButton btnAzurirajOcenu;
+    private javax.swing.JButton btnAzurirajRazmenu;
     private javax.swing.JButton btnDodajPredmet;
     private javax.swing.JButton btnObrisiPredmete;
     private javax.swing.JButton btnPromeni;
@@ -396,29 +534,6 @@ public class UpdateExchange extends javax.swing.JFrame {
         return etb.getLista().getLast().getEkvivalenti().getPredmetDrugiFakultet().getSemestar().equals(semestar);
     }
 
-    private void popuniPolja(Razmena razmena) {
-        txtSkolskaGodina.setText(razmena.getSkolskaGodina());
-        txtStudent.setText(razmena.getStudent().toString());
-        izabrani = razmena.getStudent();
-        popuniUniverzitete();
-        cmbUniverziteti.setSelectedItem(razmena.getUniverzitetDrugi());
-        rbZimski.setSelected(razmena.getSemestar().equals("Zimski"));
-        //popuniTabelu(razmena.getListaEkvivalenata());
-
-    }
-
-//    private void popuniTabelu(List<EkvivalentiRazmena> listaEkvivalenata) {
-//        EkvivalentiTableModel etm = (EkvivalentiTableModel) tblEkvivalenti.getModel();
-//        etm.setLista(listaEkvivalenata);
-//    }
-    void dodajEkvivalente(Ekvivalenti e) {
-        EkvivalentiTableModel etb = (EkvivalentiTableModel) tblEkvivalenti.getModel();
-        EkvivalentiRazmena e2 = new EkvivalentiRazmena(++rb, izabranaRazmena, e, 0, EkvivalentiRazmenaStatus.NEW);
-        etb.dodajRed(e2);
-        etb.resetujRB();
-        //statusNew(e2);
-    }
-
     private boolean proveriUniverzitet() {
         EkvivalentiTableModel etb = (EkvivalentiTableModel) tblEkvivalenti.getModel();
         if (etb.getLista().isEmpty()) {
@@ -429,47 +544,31 @@ public class UpdateExchange extends javax.swing.JFrame {
         return etb.getLista().getLast().getEkvivalenti().getPredmetDrugiFakultet().getUniverzitet().equals(u);
     }
 
-    private void popuniUniverzitete() {
-        List<Univerzitet> listaUniverziteta = UniverzitetKontroler.getInstance().ucitajListuUniverziteta();
-        cmbUniverziteti.removeAllItems();
-        for (Univerzitet u : listaUniverziteta) {
-            if (u.getNaziv().equals("Fakultet Organizacionih Nauka")) {
-                this.fon = u;
-            } else {
-                cmbUniverziteti.addItem(u);
-            }
+    private List<EkvivalentiRazmena> vratiKopijuListeEkv(List<EkvivalentiRazmena> listaEkvivalenata) {
+        List<EkvivalentiRazmena> kopija = new ArrayList<>();
+        for (EkvivalentiRazmena er : listaEkvivalenata) {
+            EkvivalentiRazmena kopijaEr = new EkvivalentiRazmena(er);
+            kopija.add(kopijaEr);
         }
+        return kopija;
     }
 
-    private void statusDeleted(EkvivalentiRazmena obrisan) {
+    private int vratiMaxRb(List<EkvivalentiRazmena> prvobitnaLista) {
+        int max = 1;
         for (EkvivalentiRazmena er : prvobitnaLista) {
-            if (er.getEkvivalenti().getEkvivalentiID() == obrisan.getEkvivalenti().getEkvivalentiID()) {
-                er.setStatus(EkvivalentiRazmenaStatus.DELETED);
+            if (er.getRb() > max) {
+                max = er.getRb();
             }
         }
+        return max;
     }
 
-    private void statusChanged(EkvivalentiRazmena izmenjen) {
-        for (EkvivalentiRazmena er : prvobitnaLista) {
-            if (er.getEkvivalenti().getEkvivalentiID() == izmenjen.getEkvivalenti().getEkvivalentiID()) {
-                er.setStatus(EkvivalentiRazmenaStatus.UPDATED);
-            }
-        }
+    private Razmena vratiKopijuRazmene(Razmena razmena) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
-//    private void statusNew(EkvivalentiRazmena promenjen) {
-//        for (EkvivalentiRazmena er : prvobitnaLista) {
-//            if (er.getEkvivalenti().getEkvivalentiID() == promenjen.getEkvivalenti().getEkvivalentiID()) {
-//                er.setStatus(EkvivalentiRazmenaStatus.NEW);
-//            }
-//        }
-//    }
-    void azurirajOcenu(EkvivalentiRazmena izabrani, int ocena) {
-        EkvivalentiTableModel etb = (EkvivalentiTableModel) tblEkvivalenti.getModel();
-
-        etb.azurirajOcenu(ocena, izabrani);
-        statusChanged(izabrani);
-        etb.resetujRB();
+    private EkvivalentiRazmena vratiKopijuEkvRaz(EkvivalentiRazmena izmenjen) {
+        return new EkvivalentiRazmena(izmenjen);
     }
 
     public boolean isValidSkolskaGodina(String skolskaGodina) {
@@ -495,6 +594,28 @@ public class UpdateExchange extends javax.swing.JFrame {
         return false;
     }
 
+    private void popuniUniverzitete() {
+        List<Univerzitet> listaUniverziteta = UniverzitetKontroler.getInstance().ucitajListuUniverziteta();
+        cmbUniverziteti.removeAllItems();
+        for (Univerzitet u : listaUniverziteta) {
+            if (u.getNaziv().equals("Fakultet Organizacionih Nauka")) {
+                this.fon = u;
+            } else {
+                cmbUniverziteti.addItem(u);
+            }
+        }
+    }
+
+    private void popuniPolja(Razmena razmena) {
+        txtSkolskaGodina.setText(razmena.getSkolskaGodina());
+        txtStudent.setText(razmena.getStudent().toString());
+        izabraniStudent = razmena.getStudent();
+        popuniUniverzitete();
+        cmbUniverziteti.setSelectedItem(razmena.getUniverzitetDrugi());
+        rbZimski.setSelected(razmena.getSemestar().equals("Zimski"));
+        //popuniTabelu(razmena.getListaEkvivalenata());
+    }
+
     private void podesiPrvuKolonu() {
         TableColumn firstColumn = tblEkvivalenti.getColumnModel().getColumn(0);
         firstColumn.setMinWidth(50);
@@ -502,5 +623,17 @@ public class UpdateExchange extends javax.swing.JFrame {
         firstColumn.setPreferredWidth(50);
     }
 
+    private boolean sadrzi(List<EkvivalentiRazmena> listaEkv, Ekvivalenti e) {
+        for (EkvivalentiRazmena er : listaEkv) {
+            if (er.getEkvivalenti().getEkvivalentiID() == e.getEkvivalentiID()) {
+                return true;
+            }
+        }
+        return false;
+    }
 
+    public void postaviIzabranogStudenta(Student student) {
+        izabraniStudent = student;
+        txtStudent.setText(izabraniStudent.toString());
+    }
 }

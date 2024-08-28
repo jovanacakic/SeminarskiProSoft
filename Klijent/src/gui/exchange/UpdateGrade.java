@@ -131,7 +131,7 @@ public class UpdateGrade extends javax.swing.JDialog {
     }//GEN-LAST:event_btnAzurirajActionPerformed
 
     private void popuniPolja() {
-        lblIzabrani2.setText("Predmet na FON-u: " + izabrani.getEkvivalenti().getPredmetFon().getNaziv());
+        lblIzabrani1.setText("Predmet na FON-u: " + izabrani.getEkvivalenti().getPredmetFon().getNaziv());
         lblIzabrani2.setText("Predmet na drugom univerzitetu: " + izabrani.getEkvivalenti().getPredmetDrugiFakultet().getNaziv());
 
     }

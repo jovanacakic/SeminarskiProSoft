@@ -28,6 +28,8 @@ public class ChooseStudent extends javax.swing.JDialog {
         setLocationRelativeTo(null);
         setTitle("Izaberi studenta");
 
+        List<Student> studenti = StudentKontroler.getInstance().pretraziStudente(txtPretraga.getText());
+        popuniTabelu(studenti);
         dodajOsluskivacNaPretragu();
     }
 
@@ -139,11 +141,20 @@ public class ChooseStudent extends javax.swing.JDialog {
 //            student.setIme(ime);
 //            student.setPrezime(prezime);
 //            student.setIndex(indeks);
-
+            java.awt.Frame parentFrame = (java.awt.Frame) getParent();
             StudentTableModel stm = (StudentTableModel) tblStudenti.getModel();
             Student student = stm.getStudent(red);
-            AddExchange forma = (AddExchange) getParent();
-            forma.postaviIzabranogStudenta(student);
+            
+            if (parentFrame instanceof AddExchange) {
+                AddExchange addForm = (AddExchange) parentFrame;
+
+                addForm.postaviIzabranogStudenta(student);
+            } else if (parentFrame instanceof UpdateExchange) {
+                UpdateExchange updateForm = (UpdateExchange) parentFrame;
+
+                updateForm.postaviIzabranogStudenta(student);
+            }
+
             this.dispose();
         } else {
             JOptionPane.showMessageDialog(this, "Sistem ne moze da ucita studenta", "Greska", JOptionPane.ERROR_MESSAGE);

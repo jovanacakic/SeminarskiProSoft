@@ -125,10 +125,10 @@ public class AddUniversity extends javax.swing.JFrame {
         boolean uspeh = UniverzitetKontroler.getInstance().dodajUniverzitet(univerzitet);
 
         if (uspeh) {
-            JOptionPane.showMessageDialog(this, "Sistem je dodao univerzitet");
+            JOptionPane.showMessageDialog(this, "Sistem je dodao univerzitet.");
             this.dispose();
         } else {
-            JOptionPane.showMessageDialog(this, "Sistem ne moze da doda univerzitet", "Greska", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Sistem ne moze da doda univerzitet.", "Greska", JOptionPane.ERROR_MESSAGE);
         }
 
     }//GEN-LAST:event_btnDodajActionPerformed

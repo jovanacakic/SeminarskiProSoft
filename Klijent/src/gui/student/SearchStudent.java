@@ -21,6 +21,7 @@ import model.StudentTableModel;
 public class SearchStudent extends javax.swing.JFrame {
 
     Radnik prijavljeni;
+
     /**
      * Creates new form SearchStudent
      */
@@ -50,7 +51,6 @@ public class SearchStudent extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         txtPretraga = new javax.swing.JTextField();
         btnDodaj = new javax.swing.JButton();
-        btnDetalji = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -104,13 +104,6 @@ public class SearchStudent extends javax.swing.JFrame {
             }
         });
 
-        btnDetalji.setText("Detalji");
-        btnDetalji.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnDetaljiActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -119,23 +112,19 @@ public class SearchStudent extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnDodaj, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnDetalji, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(btnDodaj)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(14, 14, 14)
-                .addComponent(btnDetalji)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnDodaj)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(56, 56, 56)
+                .addComponent(btnDodaj)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -144,10 +133,6 @@ public class SearchStudent extends javax.swing.JFrame {
     private void btnDodajActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDodajActionPerformed
         new AddStudent(prijavljeni).setVisible(true);
     }//GEN-LAST:event_btnDodajActionPerformed
-
-    private void btnDetaljiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDetaljiActionPerformed
-        ucitajStudenta();
-    }//GEN-LAST:event_btnDetaljiActionPerformed
 
 //    /**
 //     * @param args the command line arguments
@@ -185,7 +170,6 @@ public class SearchStudent extends javax.swing.JFrame {
 //    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnDetalji;
     private javax.swing.JButton btnDodaj;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
@@ -201,11 +185,15 @@ public class SearchStudent extends javax.swing.JFrame {
                 List<Student> studenti = StudentKontroler.getInstance().pretraziStudente(txtPretraga.getText());
 
                 if (studenti.isEmpty()) {
-                    JOptionPane.showMessageDialog(null, "Sistem ne moze da nadje studente po zadatom kriterijumu", "Greska", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Sistem ne moze da nadje studente po zadatom kriterijumu.", "Greska", JOptionPane.ERROR_MESSAGE);
                     txtPretraga.setText("");
                     popuniTabelu(null);
+                } else {
+                    //JOptionPane.showMessageDialog(null, "Sistem je nasao studente po zadatom kriterijumu.", "Greska", JOptionPane.ERROR_MESSAGE);
+                    popuniTabelu(studenti);
+
                 }
-                popuniTabelu(studenti);
+
             }
 
         });
@@ -221,24 +209,24 @@ public class SearchStudent extends javax.swing.JFrame {
         tblStudenti.setModel(stm);
     }
 
-    private void ucitajStudenta() {
-        int red = tblStudenti.getSelectedRow();
-        if (red != -1) {
-            String ime = (String) tblStudenti.getValueAt(red, 0);
-            String prezime = (String) tblStudenti.getValueAt(red, 1);
-            String indeks = (String) tblStudenti.getValueAt(red, 2);
-
-            Student student = new Student();
-            student.setIme(ime);
-            student.setPrezime(prezime);
-            student.setIndex(indeks);
-            student.setRadnik(prijavljeni);
-
-            student = StudentKontroler.getInstance().ucitajStudenta(student);
-            JOptionPane.showMessageDialog(this, "Sistem je ucitao studenta", "Uspeh", JOptionPane.INFORMATION_MESSAGE);
-            new DetailsStudent(this, true, student).setVisible(true);
-        } else {
-            JOptionPane.showMessageDialog(this, "Sistem ne moze da ucita studenta", "Greska", JOptionPane.ERROR_MESSAGE);
-        }
-    }
+//    private void ucitajStudenta() {
+//        int red = tblStudenti.getSelectedRow();
+//        if (red != -1) {
+//            String ime = (String) tblStudenti.getValueAt(red, 0);
+//            String prezime = (String) tblStudenti.getValueAt(red, 1);
+//            String indeks = (String) tblStudenti.getValueAt(red, 2);
+//
+//            Student student = new Student();
+//            student.setIme(ime);
+//            student.setPrezime(prezime);
+//            student.setIndex(indeks);
+//            student.setRadnik(prijavljeni);
+//
+//            student = StudentKontroler.getInstance().ucitajStudenta(student);
+//            JOptionPane.showMessageDialog(this, "Sistem je ucitao studenta", "Uspeh", JOptionPane.INFORMATION_MESSAGE);
+//            new DetailsStudent(this, true, student).setVisible(true);
+//        } else {
+//            JOptionPane.showMessageDialog(this, "Sistem ne moze da ucita studenta", "Greska", JOptionPane.ERROR_MESSAGE);
+//        }
+//    }
 }

@@ -176,10 +176,10 @@ public class AddSubject extends javax.swing.JFrame {
         Predmet p1 = new Predmet(0, predmet, univerzitet, semestar1, espb1, prijavljeni);
 
         if (PredmetKontroler.getInstance().dodajPredmet(p1)) {
-            JOptionPane.showMessageDialog(this, "Sistem je dodao predmet", "Uspeh", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Sistem je dodao predmet.", "Uspeh", JOptionPane.INFORMATION_MESSAGE);
             this.dispose();
         } else {
-            JOptionPane.showMessageDialog(this, "Sistem ne moze da doda predmet", "Greska", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Sistem ne moze da doda predmet.", "Greska", JOptionPane.ERROR_MESSAGE);
         }
 
     }//GEN-LAST:event_btnDodajActionPerformed
