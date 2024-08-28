@@ -43,15 +43,16 @@ public class SODodajRazmenu extends OpstaSO {
             ekvivalenti.setRazmena(razmena);
             try {
                 DBBroker.getInstance().insert(ekvivalenti);
-                
+
+                uspeh = true;
             } catch (SQLException ex) {
                 ex.printStackTrace();
                 System.err.println("Greska u SODodajRazmenu");
+                uspeh = false;
             }
 
         });
 
-        uspeh = true;
     }
 
 }

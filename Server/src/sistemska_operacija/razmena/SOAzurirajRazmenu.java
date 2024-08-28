@@ -12,6 +12,11 @@ import sistemska_operacija.OpstaSO;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import konstante.EkvivalentiRazmenaStatus;
+import static konstante.EkvivalentiRazmenaStatus.DELETED;
+import static konstante.EkvivalentiRazmenaStatus.NEW;
+import static konstante.EkvivalentiRazmenaStatus.UNCHANGED;
+import static konstante.EkvivalentiRazmenaStatus.UPDATED;
 
 /**
  *
@@ -32,24 +37,35 @@ public class SOAzurirajRazmenu extends OpstaSO {
 
     @Override
     protected void izvrsiSpecificnuOperaciju() throws Exception {
-        for (EkvivalentiRazmena er : razmena.getListaEkvivalenata()) {
-            switch (er.getStatus()) {
-                case NEW:
-                    DBBroker.getInstance().insert(er);
-                    break;
-                case UPDATED:
-                    DBBroker.getInstance().update(er);
-                    break;
-                case DELETED:
-                    DBBroker.getInstance().delete(er);
-                    break;
-                case UNCHANGED:
-                    // nista ne radimo
-                    break;
+
+        try {
+            uspeh = DBBroker.getInstance().update(razmena);
+            if (!uspeh) {
+                throw new SQLException();
             }
+            for (EkvivalentiRazmena er : razmena.getListaEkvivalenata()) {
 
+                switch (er.getStatus()) {
+                    case DELETED:
+                        uspeh = DBBroker.getInstance().delete(er);
+                        break;
+                    case NEW:
+                        DBBroker.getInstance().insert(er);
+                        break;
+                    case UPDATED:
+                        uspeh = DBBroker.getInstance().update(er);
+                        break;
+                    case UNCHANGED:
+                        // nista ne radimo
+                        break;
+                }
+            }
+            uspeh = true;
+        } catch (SQLException ex) {
+            uspeh = false;
+            ex.printStackTrace();
+            System.err.println("Greska u SOAzurirajRazmenu");
         }
-
     }
 //
 //    @Override
