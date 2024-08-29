@@ -6,6 +6,8 @@ package sistemska_operacija.ekvivalenti;
 
 import database.DBBroker;
 import domen.AbstractDomainObject;
+import domen.Ekvivalenti;
+import java.util.List;
 import sistemska_operacija.OpstaSO;
 
 /**
@@ -27,8 +29,25 @@ public class SODodajEkvivalente extends OpstaSO {
 
     @Override
     protected void izvrsiSpecificnuOperaciju() throws Exception {
-        DBBroker.getInstance().insert(ekvivalenti);
-        uspeh = true;
-    }
+        List<AbstractDomainObject> sviEkvivalenti = DBBroker.getInstance().select(ekvivalenti);
+        Ekvivalenti ekvivalenti2 = (Ekvivalenti) ekvivalenti;
+        boolean postoji = false;
+        for (AbstractDomainObject obj : sviEkvivalenti) {
+            Ekvivalenti e = (Ekvivalenti) obj;
 
+            if (e.getPredmetFon().getPredmetID() == ekvivalenti2.getPredmetFon().getPredmetID()
+                    && e.getPredmetDrugiFakultet().getPredmetID() == ekvivalenti2.getPredmetDrugiFakultet().getPredmetID()) {
+                postoji = true;
+                break;
+            }
+        }
+
+        if (!postoji) {
+            DBBroker.getInstance().insert(ekvivalenti);
+            uspeh = true;
+        } else {
+            uspeh = false;
+            System.out.println("Ekvivalent sa istim nazivom predmeta, univerzitetom i semestrom već postoji.");
+        }
+    }
 }

@@ -35,8 +35,10 @@ public class SODodajPredmet extends OpstaSO {
         for (AbstractDomainObject ado : listaStudenata) {
             Predmet trenutni = (Predmet) ado;
 
-            if (trenutni.equals(noviPredmet)) {
-                
+            if (trenutni.getNaziv().equalsIgnoreCase(noviPredmet.getNaziv())
+                    && trenutni.getUniverzitet().getNaziv().equalsIgnoreCase(noviPredmet.getUniverzitet().getNaziv())
+                    && trenutni.getSemestar().equalsIgnoreCase(noviPredmet.getSemestar())) {
+
                 uspeh = false;
                 return;
             }

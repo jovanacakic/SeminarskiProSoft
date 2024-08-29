@@ -6,6 +6,8 @@ package sistemska_operacija.univerzitet;
 
 import database.DBBroker;
 import domen.AbstractDomainObject;
+import domen.Univerzitet;
+import java.util.ArrayList;
 import sistemska_operacija.OpstaSO;
 
 /**
@@ -21,11 +23,30 @@ public class SODodajUniverzitet extends OpstaSO{
         this.univerzitet = univerzitet;
     }
     
-    @Override
-    protected void izvrsiSpecificnuOperaciju() throws Exception {
+@Override
+protected void izvrsiSpecificnuOperaciju() throws Exception {
+    Univerzitet uni = (Univerzitet) univerzitet;
+    ArrayList<AbstractDomainObject> sviUniverziteti = DBBroker.getInstance().select(univerzitet);
+
+    boolean postoji = false;
+    for (AbstractDomainObject obj : sviUniverziteti) {
+        Univerzitet u = (Univerzitet) obj;
+
+        if (u.getNaziv().equalsIgnoreCase(uni.getNaziv()) && u.getGrad().equalsIgnoreCase(uni.getGrad())) {
+            postoji = true;
+            break;
+        }
+    }
+
+    if (!postoji) {
         DBBroker.getInstance().insert(univerzitet);
         uspeh = true;
+    } else {
+        uspeh = false;
+        System.err.println("Univerzitet sa istim nazivom i gradom već postoji.");
     }
+}
+
 
     public boolean isUspeh() {
         return uspeh;
