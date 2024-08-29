@@ -37,7 +37,7 @@ public class StudentKontroler {
 
     }
 
-    public List<Student> pretraziStudente(String kriterijum) {
+    public List<Student> nadjiStudente(String kriterijum) {
         ServerKontroler.getInstance().posaljiZahtev(new KlijentskiZahtev(kriterijum, Operacije.PRETRAZI_STUDENTE));
         ServerskiOdgovor so = ServerKontroler.getInstance().primiOdgovor();
 
@@ -51,14 +51,14 @@ public class StudentKontroler {
         return (List<Student>) so.getOdgovor();
     }
 
-    public Student ucitajStudenta(Student student) {
-        ServerKontroler.getInstance().posaljiZahtev(new KlijentskiZahtev(student, Operacije.UCITAJ_STUDENTA));
-        ServerskiOdgovor o = ServerKontroler.getInstance().primiOdgovor();
+//    public Student ucitajStudenta(Student student) {
+//        ServerKontroler.getInstance().posaljiZahtev(new KlijentskiZahtev(student, Operacije.UCITAJ_STUDENTA));
+//        ServerskiOdgovor o = ServerKontroler.getInstance().primiOdgovor();
+//
+//        return (Student) o.getOdgovor();
+//    }
 
-        return (Student) o.getOdgovor();
-    }
-
-    public boolean azurirajStudenta(Student student) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
+//    public boolean azurirajStudenta(Student student) {
+//        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+//    }
 }

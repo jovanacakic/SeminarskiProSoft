@@ -285,6 +285,10 @@ public class ChooseSubjects extends javax.swing.JDialog {
                 this.ekvivalentiZaOdabraniUni.add(e);
             }
         }
+        if(ekvivalentiZaOdabraniUni.isEmpty()){
+            JOptionPane.showMessageDialog(this, "Ne postoje uneti predmeti za odabrani univerzitet", "Greska", JOptionPane.WARNING_MESSAGE);
+            this.dispose();
+        }
     }
 
 }

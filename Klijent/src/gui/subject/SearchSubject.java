@@ -44,7 +44,6 @@ public class SearchSubject extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        btnObrisi = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblPredmeti = new javax.swing.JTable();
@@ -53,13 +52,6 @@ public class SearchSubject extends javax.swing.JFrame {
         btnAzuriraj = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-
-        btnObrisi.setText("Obriši");
-        btnObrisi.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnObrisiActionPerformed(evt);
-            }
-        });
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Pretraživanje predmeta"));
 
@@ -119,9 +111,7 @@ public class SearchSubject extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnAzuriraj, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnObrisi, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(btnAzuriraj, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(65, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -133,44 +123,23 @@ public class SearchSubject extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(58, 58, 58)
                 .addComponent(btnAzuriraj)
-                .addGap(18, 18, 18)
-                .addComponent(btnObrisi)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnObrisiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnObrisiActionPerformed
-//        int row = tblPredmeti.getSelectedRow();
-//        if (row != -1) {
-//            // Prikazuje dijalog za potvrdu
-//            int confirm = JOptionPane.showConfirmDialog(this,
-//                    "Da li ste sigurni da želite obrisati ovaj predmet?",
-//                    "Potvrda brisanja",
-//                    JOptionPane.YES_NO_OPTION,
-//                    JOptionPane.QUESTION_MESSAGE);
-//
-//            if (confirm == JOptionPane.YES_OPTION) {
-//                SubjectTableModel stm = (SubjectTableModel) tblPredmeti.getModel();
-//                Predmet p = stm.getPredmet(row);
-//                if (PredmetKontroler.getInstance().obrisiPredmet(p)) {
-//                    JOptionPane.showMessageDialog(this, "Uspesno obrisan predmet", "Uspeh", JOptionPane.INFORMATION_MESSAGE);
-//                } else {
-//                    JOptionPane.showMessageDialog(this, "Neuspesno brisanje predmeta", "Greska", JOptionPane.ERROR_MESSAGE);
-//                }
-//            }
-//        } else {
-//            JOptionPane.showMessageDialog(this, "Morate izabrati predmet za brisanje.", "Upozorenje", JOptionPane.WARNING_MESSAGE);
-//        }
-    }//GEN-LAST:event_btnObrisiActionPerformed
-
     private void btnAzurirajActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAzurirajActionPerformed
         int row = tblPredmeti.getSelectedRow();
         if (row != -1) {
             SubjectTableModel etm = (SubjectTableModel) tblPredmeti.getModel();
             Predmet p = etm.getPredmet(row);
-            new UpdateSubject(this, true, p, prijavljeni).setVisible(true);
+            if (p != null) {
+                JOptionPane.showMessageDialog(null, "Sistem je ucitao predmet.", "Uspeh", JOptionPane.INFORMATION_MESSAGE);
+                new UpdateSubject(this, true, p, prijavljeni).setVisible(true);
+            } else {
+                JOptionPane.showMessageDialog(null, "Sistem ne moze da ucita predmet.", "Uspeh", JOptionPane.ERROR_MESSAGE);
+            }
         }
     }//GEN-LAST:event_btnAzurirajActionPerformed
 
@@ -237,7 +206,6 @@ public class SearchSubject extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAzuriraj;
-    private javax.swing.JButton btnObrisi;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;

@@ -143,10 +143,16 @@ public class SearchExchange extends javax.swing.JFrame {
         if (row != -1) {
             ExchangeTableModel etm = (ExchangeTableModel) tblRazmene.getModel();
             Razmena r = etm.getRazmena(row);
+            if (r != null) {
+                JOptionPane.showMessageDialog(this, "Sistem je ucitao razmenu", "Uspeh", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(this, "Sistem ne moze da ucita razmenu", "Greska", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
             List<Razmena> razmene = new ArrayList<>();
             razmene = RazmenaKontroler.getInstance().ucitajListuRazmena(razmene);
             for (Razmena raz : razmene) {
-                if(r.getRazmenaID() == raz.getRazmenaID()){
+                if (r.getRazmenaID() == raz.getRazmenaID()) {
                     r = raz;
                 }
             }
@@ -157,6 +163,14 @@ public class SearchExchange extends javax.swing.JFrame {
     private void btnObrisiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnObrisiActionPerformed
         int row = tblRazmene.getSelectedRow();
         if (row != -1) {
+            ExchangeTableModel etm = (ExchangeTableModel) tblRazmene.getModel();
+            Razmena r = etm.getRazmena(row);
+            if (r != null) {
+                JOptionPane.showMessageDialog(this, "Sistem je ucitao razmenu", "Uspeh", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(this, "Sistem ne moze da ucita razmenu", "Greska", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
             int confirm = JOptionPane.showConfirmDialog(this,
                     "Da li ste sigurni da želite obrisati ovu razmenu?",
                     "Potvrda brisanja",
@@ -164,8 +178,6 @@ public class SearchExchange extends javax.swing.JFrame {
                     JOptionPane.QUESTION_MESSAGE);
 
             if (confirm == JOptionPane.YES_OPTION) {
-                ExchangeTableModel etm = (ExchangeTableModel) tblRazmene.getModel();
-                Razmena r = etm.getRazmena(row);
                 if (RazmenaKontroler.getInstance().obrisiRazmenu(r)) {
                     JOptionPane.showMessageDialog(this, "Sistem je izbrisao razmenu", "Uspeh", JOptionPane.INFORMATION_MESSAGE);
                 } else {

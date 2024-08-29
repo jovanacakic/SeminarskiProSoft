@@ -6,6 +6,7 @@ package gui.subject;
 
 import domen.Ekvivalenti;
 import domen.Predmet;
+import java.time.Year;
 import java.util.List;
 import javax.swing.JOptionPane;
 import kontroler.EkvivalentiKontroler;
@@ -135,7 +136,15 @@ public class AddEquivalents extends javax.swing.JFrame {
     private void btnDodajActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDodajActionPerformed
         Predmet pFon = (Predmet) cmbFon.getSelectedItem();
         Predmet pDrugi = (Predmet) cmbDrugiFaks.getSelectedItem();
-        int godinaDodavanja = Integer.parseInt(txtGodinaDodavanja.getText());
+        int godinaDodavanja;
+        String yearText = txtGodinaDodavanja.getText();
+
+        if (isValidYear(yearText)) {
+            godinaDodavanja = Integer.parseInt(yearText);
+        } else {
+            JOptionPane.showMessageDialog(null, "Unesite validnu godinu između 2000. i trenutne godine.", "Greška", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
         Ekvivalenti e = new Ekvivalenti(0, pFon, pDrugi, godinaDodavanja);
 
         if (EkvivalentiKontroler.getInstance().dodajEkvivalente(e)) {
@@ -191,6 +200,27 @@ public class AddEquivalents extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField txtGodinaDodavanja;
     // End of variables declaration//GEN-END:variables
+
+    public boolean isValidYear(String yearText) {
+        try {
+            // Pokušaj parsiranja unosa kao integer
+            int godina = Integer.parseInt(yearText);
+
+            // Dobijanje trenutne godine
+            int currentYear = Year.now().getValue();
+
+            // Proveravanje da li je godina u opsegu od 2000. do trenutne godine
+            if (godina >= 2000 && godina <= currentYear) {
+                return true;
+            } else {
+                return false;
+            }
+
+        } catch (NumberFormatException e) {
+            // Ako parsiranje nije uspelo, unos nije validan int
+            return false;
+        }
+    }
 
     private void popuniCmbFon() {
         List<Predmet> predmeti = PredmetKontroler.getInstance().vratiPredmeteFon();

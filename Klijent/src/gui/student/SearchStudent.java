@@ -31,7 +31,7 @@ public class SearchStudent extends javax.swing.JFrame {
         setTitle("Pretraga studenata");
 
         this.prijavljeni = prijavljeni;
-        List<Student> studenti = StudentKontroler.getInstance().pretraziStudente(txtPretraga.getText());
+        List<Student> studenti = StudentKontroler.getInstance().nadjiStudente(txtPretraga.getText());
         popuniTabelu(studenti);
         dodajOsluskivacNaPretragu();
     }
@@ -182,7 +182,7 @@ public class SearchStudent extends javax.swing.JFrame {
         txtPretraga.addKeyListener(new KeyAdapter() {
             @Override
             public void keyReleased(KeyEvent e) {
-                List<Student> studenti = StudentKontroler.getInstance().pretraziStudente(txtPretraga.getText());
+                List<Student> studenti = StudentKontroler.getInstance().nadjiStudente(txtPretraga.getText());
 
                 if (studenti.isEmpty()) {
                     JOptionPane.showMessageDialog(null, "Sistem ne moze da nadje studente po zadatom kriterijumu.", "Greska", JOptionPane.ERROR_MESSAGE);

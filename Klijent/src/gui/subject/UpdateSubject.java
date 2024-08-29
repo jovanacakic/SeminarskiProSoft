@@ -184,12 +184,12 @@ public class UpdateSubject extends javax.swing.JDialog {
         Predmet p = new Predmet(this.predmet.getPredmetID(), nazivPredmeta, univerzitet, semestar1, espb1, prijavljeni);
 
         if (PredmetKontroler.getInstance().azurirajPredmet(p)) {
-            JOptionPane.showMessageDialog(this, "Sistem je azurirao predmet", "Uspeh", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Sistem je azurirao predmet.", "Uspeh", JOptionPane.INFORMATION_MESSAGE);
             this.dispose();
             SearchSubject parent = (SearchSubject) this.getParent();
             parent.azurirajTabelu();
         } else {
-            JOptionPane.showMessageDialog(this, "Sistem ne moze da azurira predmet", "Greska", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Sistem ne moze da azurira predmet.", "Greska", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnAzurirajActionPerformed
 
@@ -255,7 +255,7 @@ public class UpdateSubject extends javax.swing.JDialog {
         popuniUniverzitete();
         txtEspb.setText(String.valueOf(predmet.getEspb()));
         rbZimski.setSelected(predmet.getSemestar().equals("Zimski"));
-
+        rbLetnji.setSelected(predmet.getSemestar().equals("Letnji"));
     }
 
     private void popuniUniverzitete() {

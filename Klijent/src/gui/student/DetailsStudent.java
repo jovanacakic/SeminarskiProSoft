@@ -131,13 +131,13 @@ public class DetailsStudent extends javax.swing.JDialog {
         student.setPrezime(prezime);
         student.setIndex(indeks);
 
-        if (StudentKontroler.getInstance().azurirajStudenta(student)) {
-            JOptionPane.showMessageDialog(this, "Sistem je azurirao studenta", "Uspeh", JOptionPane.INFORMATION_MESSAGE);
-            //dialog.popuniTabelu(null);
-            this.dispose();
-        } else {
-            JOptionPane.showMessageDialog(this, "Sistem ne moze da azurira studenta", "Greska", JOptionPane.ERROR_MESSAGE);
-        }
+//        if (StudentKontroler.getInstance().azurirajStudenta(student)) {
+//            JOptionPane.showMessageDialog(this, "Sistem je azurirao studenta", "Uspeh", JOptionPane.INFORMATION_MESSAGE);
+//            //dialog.popuniTabelu(null);
+//            this.dispose();
+//        } else {
+//            JOptionPane.showMessageDialog(this, "Sistem ne moze da azurira studenta", "Greska", JOptionPane.ERROR_MESSAGE);
+//        }
     }//GEN-LAST:event_btnSacuvajActionPerformed
 
 //    /**
