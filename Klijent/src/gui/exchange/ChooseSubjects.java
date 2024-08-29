@@ -40,6 +40,8 @@ public class ChooseSubjects extends javax.swing.JDialog {
         setTitle("Izbor predmeta");
         zimski = rbZimski;
         this.izabraniUniverzitet = u;
+        semestar = rbZimski ? "Zimski" : "Letnji";
+
 
         ucitajListuEkvivalenata();
 
