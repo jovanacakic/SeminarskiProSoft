@@ -8,7 +8,7 @@ import domen.AbstractDomainObject;
 import domen.Ekvivalenti;
 import java.util.List;
 import sistemska_operacija.ekvivalenti.SODodajEkvivalente;
-import sistemska_operacija.ekvivalenti.SOVratiEkvivalente;
+import sistemska_operacija.ekvivalenti.SOUcitajListuEkvivalenata;
 
 /**
  *
@@ -36,7 +36,7 @@ public class EkvivalentiKontroler {
     }
 
     public List<AbstractDomainObject> vratiEkvivalente() {
-        SOVratiEkvivalente so = new SOVratiEkvivalente();
+        SOUcitajListuEkvivalenata so = new SOUcitajListuEkvivalenata();
         so.izvrsiSistemskuOperaciju();
         return so.getEkvivalenti();
     }

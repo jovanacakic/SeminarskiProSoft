@@ -16,27 +16,27 @@ import java.sql.*;
  *
  * @author jovana
  */
-public class SONadjiPredmet extends OpstaSO {
+public class SONadjiPredmete extends OpstaSO {
 
-    private List<AbstractDomainObject> rezultat;
+    private List<AbstractDomainObject> lista;
     private final String kriterijum;
 
-     public SONadjiPredmet(String kriterijum) {
+     public SONadjiPredmete(String kriterijum) {
         this.kriterijum = kriterijum;
     }
 
-    public List<AbstractDomainObject> getRezultat() {
-        return rezultat;
+    public List<AbstractDomainObject> getLista() {
+        return lista;
     }
 
     @Override
     protected void izvrsiSpecificnuOperaciju() throws SQLException {
         List<AbstractDomainObject> sviPredmeti = DBBroker.getInstance().select(new Predmet());
-        rezultat = new ArrayList<>();
+        lista = new ArrayList<>();
         for (AbstractDomainObject odo : sviPredmeti) {
             Predmet p = (Predmet) odo;
             if (sadrziKriterijum(p)) {
-                rezultat.add(p);
+                lista.add(p);
             }
         }
     }

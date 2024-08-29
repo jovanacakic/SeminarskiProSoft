@@ -81,23 +81,23 @@ public class KlijentskaNit extends Thread {
                         so.setUspeh(Operacije.NEUSPEH);
                     }
                     break;
-                case Operacije.UCITAJ_RADNIKA:
-                    radnik = RadnikKontroler.getInstancе().ucitajRadnika((Radnik) kz.getParametar());
-                    so.setOdgovor(radnik);
-                    break;
+//                case Operacije.UCITAJ_RADNIKA:
+//                    radnik = RadnikKontroler.getInstancе().ucitajRadnika((Radnik) kz.getParametar());
+//                    so.setOdgovor(radnik);
+//                    break;
                 case Operacije.DODAJ_STUDENTA:
                     uspeh = StudentKontroler.getInstance().dodajStudenta((Student) kz.getParametar());
                     if (uspeh) {
-                        so.setPoruka("Sistem je kreirao studenta");
+                        so.setPoruka("Sistem je dodao studenta");
                         so.setUspeh(Operacije.USPEH);
                     } else {
-                        so.setPoruka("Sistem ne moze da kreira studenta");
+                        so.setPoruka("Sistem ne moze da doda studenta");
                         so.setUspeh(Operacije.NEUSPEH);
                     }
                     break;
 
                 case Operacije.PRETRAZI_STUDENTE:
-                    lista = StudentKontroler.getInstance().pretraziStudente((String) kz.getParametar());
+                    lista = StudentKontroler.getInstance().nadjiStudente((String) kz.getParametar());
                     so.setOdgovor(lista);
 
                     if (lista.isEmpty()) {
@@ -145,7 +145,7 @@ public class KlijentskaNit extends Thread {
                     so.setOdgovor(lista);
                     break;
                 case Operacije.PRETRAZI_PREDMETE:
-                    lista = PredmetKontroler.getInstance().pretraziPredmete((String) kz.getParametar());
+                    lista = PredmetKontroler.getInstance().nadjiPredmete((String) kz.getParametar());
                     so.setOdgovor(lista);
                     break;
                 case Operacije.UCITAJ_LISTU_PREDMETA:

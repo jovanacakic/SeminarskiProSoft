@@ -9,7 +9,7 @@ import domen.Predmet;
 import java.util.List;
 import sistemska_operacija.predmet.SOAzurirajPredmet;
 import sistemska_operacija.predmet.SODodajPredmet;
-import sistemska_operacija.predmet.SONadjiPredmet;
+import sistemska_operacija.predmet.SONadjiPredmete;
 import sistemska_operacija.predmet.SOUcitajListuPredmeta;
 import sistemska_operacija.predmet.SOVratiPredmeteDrugi;
 import sistemska_operacija.predmet.SOVratiPredmeteFon;
@@ -51,10 +51,10 @@ public class PredmetKontroler {
         return so.getPredmeti();
     }
 
-    public List<AbstractDomainObject> pretraziPredmete(String kriterijum) {
-        SONadjiPredmet so = new SONadjiPredmet(kriterijum);
+    public List<AbstractDomainObject> nadjiPredmete(String kriterijum) {
+        SONadjiPredmete so = new SONadjiPredmete(kriterijum);
         so.izvrsiSistemskuOperaciju();
-        return so.getRezultat();
+        return so.getLista();
     }
 
     public List<AbstractDomainObject> ucitajListuPredmeta() {

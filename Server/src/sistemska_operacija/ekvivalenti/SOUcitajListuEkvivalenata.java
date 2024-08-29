@@ -14,7 +14,7 @@ import sistemska_operacija.OpstaSO;
  *
  * @author jovana
  */
-public class SOVratiEkvivalente extends OpstaSO {
+public class SOUcitajListuEkvivalenata extends OpstaSO {
 
     List<AbstractDomainObject> ekvivalenti;
     

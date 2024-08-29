@@ -55,7 +55,7 @@ public class StudentKontroler {
 //        return so.isUspeh();
 //    }
 //
-    public List<AbstractDomainObject> pretraziStudente(String kriterijum) {
+    public List<AbstractDomainObject> nadjiStudente(String kriterijum) {
         SONadjiStudente so = new SONadjiStudente(kriterijum);
         so.izvrsiSistemskuOperaciju();
         return so.getRezultat();
