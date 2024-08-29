@@ -19,39 +19,6 @@ public abstract class AbstractDomainObject implements Serializable {
 
     public abstract String getTableName();
 
-//    public abstract String getColumnsForInsert();
-//
-//    public abstract String getParamsForInsert();
-//
-//    public abstract void setParamsForInsert(PreparedStatement statement, AbstractDomainObject domainObject) throws SQLException;
-//
-//    public abstract String getColumnsForUpdate();
-//
-//    public abstract String getParamsForUpdate();
-//
-//    public abstract void setParamsForUpdate(PreparedStatement statement, AbstractDomainObject domainObject) throws SQLException;
-//
-//    public abstract Long getPrimaryKeyValue();
-//
-//    public abstract String alias();
-//
-//    public abstract String join();
-//
-//    public abstract List<AbstractDomainObject> getList(ResultSet rs);
-//
-//    public abstract String getPrimaryKey();
-//
-//    public abstract void setAutoIncrementPrimaryKey(long generatedKey);
-//
-//    public abstract String conditon();
-//
-//    public abstract Long setCondition();
-    /////////////////////// 
-    //public abstract String getNazivTabele();
-
-
-    /////////////////
-
     public abstract String getAlias();
 
     public abstract String getJoin();
