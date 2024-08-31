@@ -54,6 +54,7 @@ public class ServerFrame extends javax.swing.JFrame {
         btnPokreniServer = new javax.swing.JButton();
         btnZaustaviServer = new javax.swing.JButton();
         btnPodesavanja = new javax.swing.JButton();
+        btnEliminacioni = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -114,6 +115,13 @@ public class ServerFrame extends javax.swing.JFrame {
             }
         });
 
+        btnEliminacioni.setText("Br razmena po studentu");
+        btnEliminacioni.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminacioniActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -128,13 +136,16 @@ public class ServerFrame extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(btnPokreniServer)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnZaustaviServer))
+                                .addComponent(btnZaustaviServer)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(8, 8, 8)
                                 .addComponent(jLabel1)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lblStatus)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(lblStatus)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnEliminacioni)
+                                .addGap(141, 141, 141)))
                         .addComponent(btnPodesavanja)))
                 .addContainerGap())
         );
@@ -146,7 +157,8 @@ public class ServerFrame extends javax.swing.JFrame {
                 .addGap(1, 1, 1)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(lblStatus))
+                    .addComponent(lblStatus)
+                    .addComponent(btnEliminacioni))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnPokreniServer)
@@ -170,6 +182,10 @@ public class ServerFrame extends javax.swing.JFrame {
     private void btnPodesavanjaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPodesavanjaActionPerformed
         new Settings(this, true).setVisible(true);
     }//GEN-LAST:event_btnPodesavanjaActionPerformed
+
+    private void btnEliminacioniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminacioniActionPerformed
+        new EliminacioniForma(this, true).setVisible(true);
+    }//GEN-LAST:event_btnEliminacioniActionPerformed
 
 //    /**
 //     * @param args the command line arguments
@@ -207,6 +223,7 @@ public class ServerFrame extends javax.swing.JFrame {
 //    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnEliminacioni;
     private javax.swing.JButton btnPodesavanja;
     private javax.swing.JButton btnPokreniServer;
     private javax.swing.JButton btnZaustaviServer;

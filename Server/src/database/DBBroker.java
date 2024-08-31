@@ -104,4 +104,21 @@ public class DBBroker {
         return true;
     }
 
+    public ArrayList<KlasaZaEliminacioni> vrati() {
+        try {
+            String upit = "SELECT s.studentID, s.Ime, s.Prezime, s.Index, COUNT(r.RazmenaID) AS broj_razmena\n"
+                    + "FROM student s\n"
+                    + "LEFT JOIN razmena r ON s.studentID = r.StudentID\n"
+                    + "GROUP BY  s.studentID,  s.Ime,  s.Prezime;";
+
+            System.out.println(upit);
+            Statement statement = connection.createStatement();
+            ResultSet rs = statement.executeQuery(upit);
+            return KlasaZaEliminacioni.getListuSvih(rs);
+        } catch (SQLException ex) {
+            System.err.println("Greska u DBBroker::vrati");
+            Logger.getLogger(DBBroker.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
 }
