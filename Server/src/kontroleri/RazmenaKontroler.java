@@ -20,7 +20,7 @@ import sistemska_operacija.razmena.SOUcitajListuRazmena;
  */
 //server
 public class RazmenaKontroler {
-    
+
     private static RazmenaKontroler instance;
 
     public RazmenaKontroler() {
@@ -42,7 +42,9 @@ public class RazmenaKontroler {
     public List<AbstractDomainObject> pretraziRazmene(String kriterijum) {
         SONadjiRazmene so = new SONadjiRazmene(kriterijum);
         so.izvrsiSistemskuOperaciju();
-        if(so.getRezultat() == null)System.out.println("HELLO");
+        if (so.getRezultat() == null) {
+            System.out.println("HELLO");
+        }
         return so.getRezultat();
     }
 
@@ -63,4 +65,10 @@ public class RazmenaKontroler {
         so.izvrsiSistemskuOperaciju();
         return so.isUspeh();
     }
+
+//    public boolean izvestaj(Razmena razmena) {
+//        SOIzvestaj so = new SOIzvestaj();
+//        so.izvrsiSistemskuOperaciju();
+//        return so.isUspeh();
+//    }
 }
