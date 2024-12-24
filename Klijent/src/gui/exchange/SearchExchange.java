@@ -4,15 +4,24 @@
  */
 package gui.exchange;
 
+import domen.EkvivalentiRazmena;
 import model.ExchangeTableModel;
 import domen.Razmena;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.swing.JOptionPane;
 import kontroler.RazmenaKontroler;
 import model.EkvivalentiTableModel;
+import net.sf.jasperreports.engine.JREmptyDataSource;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.engine.util.JRSaver;
+import net.sf.jasperreports.view.JasperViewer;
 
 /**
  *
@@ -47,6 +56,7 @@ public class SearchExchange extends javax.swing.JFrame {
         txtPretraga = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         btnAzuriraj = new javax.swing.JButton();
+        btnIzvestaj = new javax.swing.JButton();
         btnObrisi = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -101,7 +111,14 @@ public class SearchExchange extends javax.swing.JFrame {
             }
         });
 
-        btnObrisi.setText("Obriši");
+        btnIzvestaj.setText("Izvestaj");
+        btnIzvestaj.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnIzvestajActionPerformed(evt);
+            }
+        });
+
+        btnObrisi.setText("Obrisi");
         btnObrisi.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnObrisiActionPerformed(evt);
@@ -118,6 +135,7 @@ public class SearchExchange extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnAzuriraj, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnIzvestaj, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnObrisi, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(23, Short.MAX_VALUE))
         );
@@ -130,8 +148,10 @@ public class SearchExchange extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(58, 58, 58)
                 .addComponent(btnAzuriraj)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnObrisi)
+                .addGap(18, 18, 18)
+                .addComponent(btnIzvestaj)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -159,6 +179,42 @@ public class SearchExchange extends javax.swing.JFrame {
             new UpdateExchange(this, r).setVisible(true);
         }
     }//GEN-LAST:event_btnAzurirajActionPerformed
+
+    private void btnIzvestajActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIzvestajActionPerformed
+        int row = tblRazmene.getSelectedRow();
+        if (row != -1) {
+            ExchangeTableModel etm = (ExchangeTableModel) tblRazmene.getModel();
+            Razmena r = etm.getRazmena(row);
+            if (r != null) {
+                JOptionPane.showMessageDialog(this, "Sistem je ucitao razmenu", "Uspeh", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(this, "Sistem ne moze da ucita razmenu", "Greska", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            try {
+
+                Razmena razmena = r;
+                List<EkvivalentiRazmena> listaEkvivalenata = razmena.getListaEkvivalenata();
+
+                Map<String, Object> parameters = new HashMap<>();
+                parameters.put("REPORT_PARAMETERS_MAP", listaEkvivalenata);
+                JRBeanCollectionDataSource ekvivalentiDataSource = new JRBeanCollectionDataSource(listaEkvivalenata);
+
+                parameters.put("listaEkvivalenata", ekvivalentiDataSource);
+                ArrayList<Razmena> razmenicaLista = new ArrayList<>();
+                razmenicaLista.add(razmena);
+
+                JasperPrint jprint1 = JasperFillManager.fillReport("Razmena.jasper", parameters, new JRBeanCollectionDataSource(razmenicaLista));
+                JasperViewer viewer = new JasperViewer(jprint1, false);
+                viewer.setVisible(true);
+            } catch (Exception ex) {
+                ex.printStackTrace();
+                JOptionPane.showMessageDialog(this, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Morate izabrati razmenu za izvestaj.", "Upozorenje", JOptionPane.WARNING_MESSAGE);
+        }
+    }//GEN-LAST:event_btnIzvestajActionPerformed
 
     private void btnObrisiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnObrisiActionPerformed
         int row = tblRazmene.getSelectedRow();
@@ -251,6 +307,7 @@ public class SearchExchange extends javax.swing.JFrame {
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAzuriraj;
+    private javax.swing.JButton btnIzvestaj;
     private javax.swing.JButton btnObrisi;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;

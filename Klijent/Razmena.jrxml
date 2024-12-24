@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.3.0.final using JasperReports Library version 6.3.0  -->
+<!-- 2024-09-19T18:50:55 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Razmena" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="c487a2ce-7643-4588-be0a-62580ac9f7a4">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+	<parameter name="listaEkvivalenata" class="net.sf.jasperreports.engine.data.JRBeanCollectionDataSource" isForPrompting="false"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="student.ime" class="java.lang.String"/>
+	<field name="semestar" class="java.lang.String"/>
+	<field name="skolskaGodina" class="java.lang.String"/>
+	<field name="univerzitetFon.naziv" class="java.lang.String"/>
+	<field name="univerzitetDrugi.naziv" class="java.lang.String"/>
+	<field name="student.prezime" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="200" y="24" width="176" height="30" uuid="497e7cee-0ad3-49cd-8e3b-74bfaa861d38"/>
+				<textElement textAlignment="Center">
+					<font size="18" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Razmena studenata]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<detail>
+		<band height="247" splitType="Stretch">
+			<textField>
+				<reportElement x="190" y="35" width="90" height="30" uuid="6a8aa525-dbfe-4378-84a6-6832ce9e7677"/>
+				<textFieldExpression><![CDATA[$F{student.ime}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="-8" y="35" width="197" height="30" uuid="6e8edd2b-e629-4876-937e-dc402f1ed92a"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Ime i prezime studenta:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="190" y="65" width="100" height="30" uuid="d1d18636-b70f-497e-b82b-0c65b17b25c2"/>
+				<textFieldExpression><![CDATA[$F{semestar}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="-8" y="65" width="100" height="30" uuid="417e1bea-758d-4426-9a2c-28fb954395f9"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Semestar]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="189" y="95" width="100" height="30" uuid="27da263d-34f9-46fa-be7f-dd8abc7c7ff0"/>
+				<textFieldExpression><![CDATA[$F{skolskaGodina}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="-8" y="95" width="100" height="30" uuid="918a4c26-50f5-4ed5-9e97-601396646f86"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Školska godina:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="190" y="125" width="100" height="30" uuid="394e1165-655f-45aa-859f-15c5ecd93adb"/>
+				<textFieldExpression><![CDATA[$F{univerzitetFon.naziv}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="-8" y="130" width="178" height="30" uuid="a6151d61-281b-4254-a6cd-72beb401c9ab"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Matični univerzitet:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="190" y="160" width="130" height="30" uuid="d304c464-0646-4eef-b09e-f3d2b1bae683"/>
+				<textFieldExpression><![CDATA[$F{univerzitetDrugi.naziv}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="-8" y="160" width="178" height="30" uuid="b8967554-0da0-46fc-8814-6aa92af2c245"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Strani univerzitet:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="280" y="35" width="100" height="30" uuid="4e9992fd-d648-49f1-8376-302104d2ab86"/>
+				<textFieldExpression><![CDATA[$F{student.prezime}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="210" width="218" height="30" uuid="5aa7d8fa-a216-42cc-881c-c35c0088fb42"/>
+				<textElement>
+					<font size="13"/>
+				</textElement>
+				<text><![CDATA[Predmeti na razmeni:]]></text>
+			</staticText>
+		</band>
+		<band height="284">
+			<subreport>
+				<reportElement x="5" y="10" width="544" height="260" uuid="a67df14f-17b9-46f3-85c1-8a8fa56a8b87"/>
+				<subreportParameter name="listaEkvivalenata">
+					<subreportParameterExpression><![CDATA[$P{listaEkvivalenata}]]></subreportParameterExpression>
+				</subreportParameter>
+				<dataSourceExpression><![CDATA[$P{listaEkvivalenata}]]></dataSourceExpression>
+				<subreportExpression><![CDATA["EkvivalentiRazmena.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

@@ -56,9 +56,9 @@ public class AddEquivalents extends javax.swing.JFrame {
 
         cmbDrugiFaks.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        jLabel1.setText("Naziv predmeta na FON-u:");
+        jLabel1.setText("Naziv predmeta na matičnom fakultetu:");
 
-        jLabel2.setText("Naziv predmeta na drugoj visokoškolskoj instituciji:");
+        jLabel2.setText("Naziv predmeta na drugom univerzitetu:");
 
         jLabel3.setText("Godina dodavanja");
 
@@ -71,14 +71,14 @@ public class AddEquivalents extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(21, 21, 21)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 292, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cmbDrugiFaks, 0, 659, Short.MAX_VALUE)
                     .addComponent(cmbFon, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(txtGodinaDodavanja, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(txtGodinaDodavanja, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 376, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(55, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -149,7 +149,7 @@ public class AddEquivalents extends javax.swing.JFrame {
 
         if (EkvivalentiKontroler.getInstance().dodajEkvivalente(e)) {
             JOptionPane.showMessageDialog(this, "Sistem je dodao ekvivalente", "Uspeh", JOptionPane.INFORMATION_MESSAGE);
-            this.dispose();
+            //this.dispose();
         } else {
             JOptionPane.showMessageDialog(this, "Sistem ne moze da doda ekvivalente", "Greska", JOptionPane.ERROR_MESSAGE);
         }
